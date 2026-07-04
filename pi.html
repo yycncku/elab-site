@@ -35,6 +35,8 @@ section{scroll-margin-top:70px}
 .zh{font-family:var(--font-zh)}
 body[data-lang="en"] .zh{display:none!important}
 body[data-lang="zh"] .en{display:none!important}
+/* 中文模式隱藏（英文獨有的小標，中文改用精簡大標）*/
+body[data-lang="zh"] .enonly{display:none!important}
 /* 中文模式下，襯線標題改用中文襯線以求一致 */
 body[data-lang="zh"] .h2 .zh,body[data-lang="zh"] .hn__t .zh,body[data-lang="zh"] .edcard__j .zh{font-family:var(--font-zh)}
 
@@ -287,7 +289,7 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
       <a class="plink" href="https://researchoutput.ncku.edu.tw/en/persons/yu-yu-chang" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         <span class="en">NCKU Research</span><span class="zh">成大研究成果</span> <span class="arr">&#8599;</span></a>
-      <a class="plink" href="http://www.linkedin.com/in/yu-yu-chang-張佑宇-04605175" target="_blank" rel="noopener">
+      <a class="plink" href="https://www.linkedin.com/in/alex-yu-yu-chang-%E5%BC%B5%E4%BD%91%E5%AE%87-04605175/" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="var(--ink)"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.4 8.65 22 11 22 14.1V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4z"/></svg>
         LinkedIn <span class="arr">&#8599;</span></a>
       <a class="plink" href="https://www.facebook.com/chang.yuyu.9634" target="_blank" rel="noopener">
@@ -303,8 +305,8 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
 <!-- ================= 數字帶 ================= -->
 <!-- ================= EDITORIAL ================= -->
 <section class="editorial" id="editorial">
-  <p class="section-kicker reveal"><span class="en">Editorial Service</span><span class="zh">期刊編輯服務</span></p>
-  <h2 class="h2 reveal"><span class="en">Serving the field's journals.</span><span class="zh">為領域頂尖期刊服務。</span></h2>
+  <p class="section-kicker reveal enonly"><span class="en">Editorial Service</span></p>
+  <h2 class="h2 reveal"><span class="en">Serving the field's journals.</span><span class="zh">期刊編輯</span></h2>
   <div class="ed__grid">
     <div class="edcard reveal"><div class="edcard__role"><span class="en">Editor</span><span class="zh">編輯委員</span></div><div class="edcard__j">Journal of Business Economics and Management</div><div class="edcard__meta"><span class="tag">SSCI</span> 2022 –</div></div>
     <div class="edcard reveal d1"><div class="edcard__role"><span class="en">Associate Editor</span><span class="zh">副主編</span></div><div class="edcard__j">Canadian Journal of Administrative Sciences</div><div class="edcard__meta"><span class="tag">SSCI</span> 2023 –</div></div>
@@ -316,8 +318,8 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
 <!-- ================= CAREER ================= -->
 <section class="career" id="career">
   <div class="career__inner">
-    <p class="section-kicker reveal"><span class="en">Career</span><span class="zh">學術歷程</span></p>
-    <h2 class="h2 reveal"><span class="en">The route so far.</span><span class="zh">一路走來的軌跡。</span></h2>
+    <p class="section-kicker reveal enonly"><span class="en">Career</span></p>
+    <h2 class="h2 reveal"><span class="en">The route so far.</span><span class="zh">學術歷程</span></h2>
     <div class="tl" id="timeline">
       <div class="tl__fill" id="tlFill"></div>
       <div class="tnode tnode--now"><div class="tnode__year">2025 —</div><div class="tnode__title"><span class="en">Professor, NCKU</span><span class="zh">教授，國立成功大學</span></div><div class="tnode__sub"><span class="en">Institute of International Management · Institute of Creative Industries Design · Cross College Elite Program</span><span class="zh">國際經營管理研究所・創意產業設計研究所・全校不分系學士學位學程</span></div></div>
@@ -375,8 +377,8 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
 <section class="review" id="review">
   <div class="review__head">
     <p class="section-kicker reveal"><span class="en">Academic Service</span><span class="zh">學術服務</span></p>
-    <h2 class="h2 reveal"><span class="en">Academic engagement &amp; peer review.</span><span class="zh">學術社群參與及審稿。</span></h2>
-    <p class="review__lead reveal"><span class="en">Editorial contributor, reviewer and grant panelist for 60+ international journals, conferences, and national research programs. A selection scrolls below.</span><span class="zh">擔任 60 餘份國際期刊、研討會與國家型研究計畫的編輯貢獻者、審稿人與計畫審查委員，以下為部分名單，緩緩滾動呈現。</span></p>
+    <h2 class="h2 reveal"><span class="en">Academic engagement &amp; peer review.</span><span class="zh">學術社群參與及審稿</span></h2>
+    <p class="review__lead reveal"><span class="en">Editorial contributor, reviewer and grant panelist for 60+ international journals, conferences, and national research programs.</span><span class="zh">擔任 60 餘份國際期刊、研討會與國家型研究計畫審查委員。</span></p>
   </div>
   <div class="mq-wrap"><div class="mq" id="mq1"></div></div>
   <div class="mq-wrap"><div class="mq" id="mq2"></div></div>
