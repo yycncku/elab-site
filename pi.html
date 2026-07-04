@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Yu-Yu Chang — Principal Investigator · E-LAB</title>
+<meta name="description" content="Alex Yu-Yu Chang (張佑宇), Professor & Director, Institute of International Management, NCKU. Principal Investigator of E-LAB.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23182A44'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23E4572E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://static.wixstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   E-LAB PI PAGE — 學者敘事（策展）· 中英可切換（EN ⇄ 中）
+   i18n：.en / .zh 雙節點，body[data-lang] 切換；期刊/論文名不譯
+   ============================================================ */
+:root{
+  --paper:#F6F1E7;--paper-2:#EFE7D6;--paper-3:#FDFBF7;
+  --ink:#182A44;--ink-soft:#41546F;
+  --coral:#E4572E;--coral-soft:#F0906F;--gold:#B08A2E;
+  --night:#0F1826;--line:rgba(24,42,68,.14);
+  --font-display:'Fraunces',Georgia,serif;
+  --font-tech:'Space Grotesk',system-ui,sans-serif;
+  --font-zh:'Noto Serif TC','Fraunces',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-size:16px;line-height:1.6;overflow-x:hidden}
+::selection{background:var(--coral);color:var(--paper)}
+:focus-visible{outline:2.5px solid var(--coral);outline-offset:3px;border-radius:4px}
+section{scroll-margin-top:70px}
+
+/* ---------- i18n 切換 ---------- */
+.zh{font-family:var(--font-zh)}
+body[data-lang="en"] .zh{display:none!important}
+body[data-lang="zh"] .en{display:none!important}
+/* 中文模式下，襯線標題改用中文襯線以求一致 */
+body[data-lang="zh"] .h2 .zh,body[data-lang="zh"] .hn__t .zh,body[data-lang="zh"] .edcard__j .zh{font-family:var(--font-zh)}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(20px,4vw,56px);background:rgba(246,241,231,.92);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+.nav__brand{font-weight:700;letter-spacing:.12em;font-size:15px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px}
+.nav__brand .dot{width:9px;height:9px;border-radius:50%;background:var(--coral)}
+.nav__ncku{width:30px;height:30px;display:block}
+.nav__right{display:flex;align-items:center;gap:clamp(12px,2vw,26px)}
+.nav__links{display:flex;gap:clamp(12px,2vw,26px);align-items:center;list-style:none}
+.nav__links a{text-decoration:none;color:var(--ink-soft);font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.nav__links a:hover{color:var(--coral)}
+.nav__links a[aria-current]{color:var(--coral)}
+.nav__toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:102}
+.nav__toggle span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:transform .3s,opacity .3s}
+.nav__toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__toggle.open span:nth-child(2){opacity:0}
+.nav__toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:101;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5vh;opacity:0;pointer-events:none;transition:opacity .35s}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu a{font-family:var(--font-display);font-size:clamp(26px,7vw,38px);font-weight:600;color:var(--ink);text-decoration:none}
+.mobile-menu a[aria-current]{color:var(--coral)}
+body[data-lang="zh"] .mobile-menu a{font-family:var(--font-zh)}
+.langtoggle{cursor:pointer;border:1.5px solid var(--ink);background:none;color:var(--ink);border-radius:999px;
+  font-family:var(--font-tech);font-size:12px;font-weight:700;letter-spacing:.08em;padding:7px 15px;
+  display:inline-flex;align-items:center;gap:7px;transition:background .25s,color .25s,transform .25s}
+.langtoggle:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px)}
+.langtoggle .globe{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6}
+
+/* ---------- hero ---------- */
+.hero{max-width:1280px;margin:0 auto;padding:130px clamp(20px,5vw,64px) 66px;
+  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(30px,5vw,70px);align-items:center}
+.section-kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.section-kicker::before{content:'';width:34px;height:1.5px;background:var(--coral);flex:none}
+body[data-lang="zh"] .section-kicker{letter-spacing:.14em}
+.hero h1{font-family:var(--font-display);font-weight:600;font-size:clamp(38px,5.4vw,68px);line-height:1.05;letter-spacing:-.015em}
+.hero__zhname{font-family:var(--font-zh);font-weight:600;font-size:clamp(22px,2.6vw,32px);color:var(--ink-soft);margin-top:8px;letter-spacing:.35em}
+.hero__chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
+.hchip{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;border-radius:999px;padding:7px 16px;
+  background:var(--ink);color:var(--paper)}
+.hchip--soft{background:none;border:1.5px solid var(--line);color:var(--ink-soft)}
+body[data-lang="zh"] .hchip{letter-spacing:.06em}
+.hero__bio{margin-top:24px;color:var(--ink-soft);font-size:15.5px;line-height:1.85;max-width:588px}
+.hero__bio.zh{line-height:2}
+.hero__tags{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;max-width:588px}
+.rtag{font-size:11.5px;letter-spacing:.05em;border:1px solid var(--line);color:var(--ink-soft);border-radius:999px;padding:5px 13px;background:var(--paper-3)}
+.rtag b{color:var(--coral);font-weight:700;margin-right:6px}
+.hero__actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{font-weight:500;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:999px;
+  padding:12px 24px;display:inline-flex;align-items:center;gap:9px;transition:transform .25s,background .25s,color .25s,box-shadow .25s,border-color .25s;cursor:pointer}
+body[data-lang="zh"] .btn{letter-spacing:.04em}
+.btn--solid{background:var(--ink);color:var(--paper);border:1.5px solid var(--ink)}
+.btn--solid:hover{background:var(--coral);border-color:var(--coral);transform:translateY(-2px);box-shadow:0 10px 26px rgba(228,87,46,.26)}
+.btn--ghost{border:1.5px solid var(--ink);color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+/* 社群/研究連結列 */
+.hero__links{margin-top:24px;display:flex;flex-wrap:wrap;gap:9px}
+.plink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:12.5px;font-weight:500;letter-spacing:.03em;
+  color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 14px;background:var(--paper-3);
+  transition:border-color .25s,transform .25s,box-shadow .25s}
+.plink:hover{border-color:var(--coral);transform:translateY(-2px);box-shadow:0 8px 20px rgba(24,42,68,.08)}
+.plink svg{width:15px;height:15px;flex:none}
+.plink .arr{color:var(--coral);font-weight:700}
+.hero__figure{position:relative;justify-self:end;width:min(100%,420px)}
+.hero__figure::before{content:'';position:absolute;inset:18px -18px -18px 18px;border:2px solid var(--coral);border-radius:26px;opacity:.55}
+.hero__figure::after{content:'';position:absolute;left:-46px;top:-40px;width:150px;height:150px;
+  background-image:radial-gradient(rgba(24,42,68,.3) 1.5px,transparent 1.5px);background-size:14px 14px;
+  -webkit-mask-image:radial-gradient(circle at 30% 30%,#000,transparent 70%);mask-image:radial-gradient(circle at 30% 30%,#000,transparent 70%);}
+.hero__figure img{position:relative;z-index:2;width:100%;display:block;border-radius:24px;border:1px solid var(--line);
+  aspect-ratio:14/15;object-fit:cover;object-position:top}
+
+/* ---------- section 通用 ---------- */
+.h2{font-family:var(--font-display);font-weight:600;font-size:clamp(28px,3.6vw,48px);line-height:1.1;letter-spacing:-.01em;margin-bottom:clamp(28px,4vh,44px)}
+body[data-lang="zh"] .h2{letter-spacing:.02em}
+
+/* ---------- Editorial ---------- */
+.editorial{max-width:1280px;margin:0 auto;padding:clamp(64px,9vh,104px) clamp(20px,5vw,64px)}
+.ed__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.5vw,20px)}
+.edcard{border:1px solid var(--line);border-radius:18px;background:var(--paper-3);padding:clamp(20px,2vw,28px);
+  transition:transform .3s,box-shadow .3s,border-color .3s;position:relative}
+.edcard:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(24,42,68,.1);border-color:rgba(176,138,46,.5)}
+.edcard__role{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:10px}
+body[data-lang="zh"] .edcard__role{letter-spacing:.08em}
+.edcard__j{font-family:var(--font-display);font-weight:600;font-size:clamp(16px,1.5vw,20px);line-height:1.3}
+.edcard__meta{margin-top:10px;font-size:12px;color:var(--ink-soft);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.edcard__meta .tag{font-size:10px;letter-spacing:.1em;font-weight:700;border:1px solid rgba(176,138,46,.45);color:var(--gold);border-radius:5px;padding:2px 7px}
+
+/* ---------- Career timeline ---------- */
+.career{background:var(--paper-2);padding:clamp(64px,9vh,104px) 0}
+.career__inner{max-width:900px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.tl{position:relative;margin-top:10px;padding-left:34px}
+.tl::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:rgba(24,42,68,.15);border-radius:2px}
+.tl__fill{position:absolute;left:8px;top:6px;width:2px;height:0;background:var(--coral);border-radius:2px;transition:height .5s cubic-bezier(.33,1,.68,1)}
+.tnode{position:relative;padding:0 0 32px 6px;opacity:.35;transform:translateX(8px);transition:opacity .55s,transform .55s}
+.tnode.in{opacity:1;transform:none}
+.tnode::before{content:'';position:absolute;left:-32px;top:7px;width:12px;height:12px;border-radius:50%;
+  background:var(--paper-2);border:2px solid rgba(24,42,68,.35);transition:background .4s,border-color .4s}
+.tnode.in::before{background:var(--coral);border-color:var(--coral)}
+.tnode--now.in::before{box-shadow:0 0 0 6px rgba(228,87,46,.18);animation:tpulse 1.8s ease-out infinite}
+@keyframes tpulse{50%{box-shadow:0 0 0 10px rgba(228,87,46,.08)}}
+.tnode__year{font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--coral)}
+.tnode__title{font-weight:700;font-size:16px;margin-top:2px}
+.tnode__sub{color:var(--ink-soft);font-size:14px;line-height:1.6;margin-top:2px}
+
+/* ---------- Honors ---------- */
+.honors{max-width:1280px;margin:0 auto;padding:clamp(64px,9vh,104px) clamp(20px,5vw,64px)}
+.hn__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.5vw,20px)}
+.hn{position:relative;border:1px solid var(--line);border-radius:18px;padding:clamp(22px,2vw,30px);background:var(--paper-3);
+  overflow:hidden;transition:transform .35s cubic-bezier(.33,1,.68,1),box-shadow .35s}
+.hn::after{ /* 金色掃光 */
+  content:'';position:absolute;top:0;left:-120%;width:70%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(176,138,46,.16),transparent);transform:skewX(-18deg);transition:left .7s ease}
+.hn:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(24,42,68,.12)}
+.hn:hover::after{left:130%}
+.hn__yr{font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--gold);letter-spacing:.05em}
+.hn__dia{position:absolute;top:22px;right:24px;color:var(--gold);font-size:15px;opacity:.6}
+.hn__t{font-family:var(--font-display);font-weight:600;font-size:clamp(16px,1.5vw,19px);line-height:1.35;margin-top:12px}
+.hn__m{margin-top:8px;font-size:12.5px;letter-spacing:.04em;color:var(--ink-soft);font-weight:500}
+.hn__m a{color:var(--gold);text-decoration:none}
+.hn__m a:hover{text-decoration:underline}
+/* 完整列表（可展開） */
+.honors__full{margin-top:34px;border-top:1px solid var(--line);padding-top:8px}
+.hrow{display:grid;grid-template-columns:88px 1fr;gap:16px;align-items:baseline;padding:15px 4px;border-bottom:1px solid rgba(24,42,68,.08)}
+.hrow__yr{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--coral)}
+.hrow__t{font-size:14.5px;line-height:1.55;color:var(--ink)}
+.hrow__t .org{color:var(--ink-soft);font-size:13px}
+.honors__togglewrap{margin-top:22px}
+.honors__toggle{cursor:pointer;background:none;border:1.5px solid var(--ink);color:var(--ink);border-radius:999px;
+  font-family:var(--font-tech);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:11px 24px;
+  display:inline-flex;align-items:center;gap:9px;transition:background .25s,color .25s,transform .25s}
+body[data-lang="zh"] .honors__toggle{letter-spacing:.02em}
+.honors__toggle:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+.honors__toggle .chev{transition:transform .3s}
+.honors__full[hidden]{display:none}
+body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
+
+/* ---------- Reviewer marquee ---------- */
+.review{background:var(--night);color:var(--paper);padding:clamp(52px,8vh,86px) 0;overflow:hidden}
+.review__head{max-width:1280px;margin:0 auto;padding:0 clamp(20px,5vw,64px);margin-bottom:30px}
+.review .section-kicker{color:var(--coral-soft)}
+.review__head .h2{color:var(--paper)}
+.review__lead{color:rgba(246,241,231,.7);font-size:15px;max-width:620px;margin-top:-24px;line-height:1.8}
+.mq{position:relative;display:flex;gap:0;width:max-content;will-change:transform}
+.mq__row{display:flex;gap:14px;padding-right:14px}
+.mq-wrap{position:relative;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mq-wrap+.mq-wrap{margin-top:14px}
+.jchip{flex:none;font-size:13.5px;letter-spacing:.01em;color:rgba(246,241,231,.9);white-space:nowrap;
+  border:1px solid rgba(246,241,231,.18);border-radius:999px;padding:9px 18px;background:rgba(246,241,231,.04)}
+.jchip b{color:var(--coral-soft);margin-right:8px;font-weight:700}
+.jchip--svc{border-color:rgba(176,138,46,.42);background:rgba(176,138,46,.07)}
+.jchip--svc b{color:var(--gold)}
+.review__foot{max-width:1280px;margin:30px auto 0;padding:0 clamp(20px,5vw,64px);color:rgba(246,241,231,.55);font-size:13px;letter-spacing:.03em}
+
+/* ---------- footer ---------- */
+.footer{background:var(--night);color:rgba(246,241,231,.55);padding:48px clamp(20px,5vw,64px);border-top:1px solid rgba(246,241,231,.08)}
+.footer__inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;font-size:13px;line-height:1.85}
+.footer a{color:rgba(246,241,231,.8);text-decoration:none}
+.footer a:hover{color:var(--coral-soft)}
+.footer__brand{font-weight:700;letter-spacing:.12em;color:#F6F1E7;margin-bottom:8px}
+.footer__ncku{display:block;align-self:center;opacity:.92}
+.footer__ncku img{height:88px;width:auto;display:block}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.33,1,.68,1),transform .8s cubic-bezier(.33,1,.68,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.06s}.reveal.d2{transition-delay:.12s}.reveal.d3{transition-delay:.18s}
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;padding-top:110px}
+  .hero__figure{justify-self:center;order:-1;width:min(78vw,340px)}
+  .ed__grid{grid-template-columns:repeat(2,1fr)}
+  .hn__grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .nav__links{display:none}
+  .nav__toggle{display:block}
+  .ed__grid,.hn__grid{grid-template-columns:1fr}
+  .hero__actions .btn{flex:1;justify-content:center}
+  .hrow{grid-template-columns:64px 1fr;gap:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  /* 政策：降速/簡化而非全停（沿用 landing 教訓）。跑馬燈由 rAF 驅動，不受此影響 */
+  .reveal,.tnode{opacity:1!important;transform:none!important;transition:none}
+  .tnode--now.in::before,.hn::after{animation:none}
+}
+</style>
+</head>
+<body data-lang="en">
+
+<nav class="nav" aria-label="Main">
+  <a class="nav__brand" href="index.html">
+    <img class="nav__ncku" src="https://static.wixstatic.com/media/56b4ef_942f8b305d2047a0af132bd53a81a09b~mv2.png/v1/fit/w_72,h_72,q_90/ncku.png" alt="NCKU">
+    <span class="dot"></span>E-LAB
+  </a>
+  <div class="nav__right">
+    <ul class="nav__links">
+      <li><a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a></li>
+      <li><a href="pi.html" aria-current="page"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a></li>
+      <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a></li>
+      <li><a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a></li>
+      <li><a href="https://www.entrepreneurship-lab.com/research" target="_top"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
+      <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a></li>
+    </ul>
+    <button class="langtoggle" id="langBtn" aria-label="Switch language">
+      <svg class="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>
+      <span class="en">中文</span><span class="zh">EN</span>
+    </button>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a>
+  <a href="pi.html" aria-current="page"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a>
+  <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a>
+  <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a>
+  <a href="https://www.entrepreneurship-lab.com/research" target="_top"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
+  <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div>
+    <p class="section-kicker"><span class="en">Principal Investigator</span><span class="zh">實驗室主持人</span></p>
+    <h1>Alex Yu-Yu Chang</h1>
+    <div class="hero__zhname">張佑宇</div>
+    <div class="hero__chips">
+      <span class="hchip"><span class="en">Professor</span><span class="zh">教授</span></span>
+      <span class="hchip"><span class="en">Director · IIM</span><span class="zh">國經所 所長</span></span>
+      <span class="hchip hchip--soft"><span class="en">NCKU</span><span class="zh">國立成功大學</span></span>
+    </div>
+    <p class="hero__bio en">Dr. Alex Yu-Yu Chang is a Professor at the Institute of International Management, the Cross College Elite Program, and the Institute of Creative Industries Design at National Cheng Kung University, Taiwan. He directs the Institute of International Management and serves as Executive Secretary of the Chinese Professional Management Association of Tainan. He received his doctorate from the Graduate Institute of Technology Management, National Chung Hsing University, and held visiting scholar positions at RMIT University's Blockchain Innovation Hub (2020) and School of Economics, Finance and Marketing (2018). His research focuses on entrepreneurship, entrepreneurship education, user innovation behavior, and the governance of innovation commons.</p>
+    <p class="hero__bio zh">張佑宇老師為國立成功大學國際經營管理研究所、全校不分系學士學位學程與創意產業設計研究所專任教授，並擔任國經所所長以及台南市企業經理協進會總幹事。2015 年自國立中興大學科技管理研究所取得博士學位，曾擔任澳洲墨爾本皇家理工大學（RMIT）區塊鏈創新中心（2020）與經濟金融行銷學院（2018）訪問學者。研究關注創業家精神、創業教育、使用者創新行為與創新公共財治理等議題。</p>
+    <div class="hero__tags">
+      <span class="rtag"><b>&#9679;</b><span class="en">Entrepreneurship</span><span class="zh">創業家精神</span></span>
+      <span class="rtag"><b>&#9679;</b><span class="en">Work Creativity</span><span class="zh">工作創造力</span></span>
+      <span class="rtag"><b>&#9679;</b><span class="en">Technology &amp; Innovation Management</span><span class="zh">科技與創新管理</span></span>
+      <span class="rtag"><b>&#9679;</b><span class="en">Cultural &amp; Creative Industry</span><span class="zh">文化創意產業</span></span>
+      <span class="rtag"><b>&#9679;</b><span class="en">User Innovation</span><span class="zh">使用者創新</span></span>
+    </div>
+    <div class="hero__actions">
+      <a class="btn btn--solid" href="mailto:yychang@gs.ncku.edu.tw"><span class="en">Get in touch</span><span class="zh">與我聯絡</span></a>
+    </div>
+    <div class="hero__links">
+      <a class="plink" href="https://scholar.google.com.tw/citations?user=KzJsBuMAAAAJ&hl=en" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="var(--coral)"><path d="M12 2L1 9l11 7 9-5.7V16h2V9L12 2z"/><path fill="var(--ink)" d="M5 13.2v3.3c0 1.9 3.1 3.5 7 3.5s7-1.6 7-3.5v-3.3l-7 4.4-7-4.4z"/></svg>
+        Google Scholar <span class="arr">&#8599;</span></a>
+      <a class="plink" href="https://researchoutput.ncku.edu.tw/en/persons/yu-yu-chang" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span class="en">NCKU Research</span><span class="zh">成大研究成果</span> <span class="arr">&#8599;</span></a>
+      <a class="plink" href="http://www.linkedin.com/in/yu-yu-chang-張佑宇-04605175" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="var(--ink)"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.4 8.65 22 11 22 14.1V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4z"/></svg>
+        LinkedIn <span class="arr">&#8599;</span></a>
+      <a class="plink" href="https://www.facebook.com/chang.yuyu.9634" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="var(--ink)"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.75-1.6 1.5V12h2.7l-.43 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
+        Facebook <span class="arr">&#8599;</span></a>
+    </div>
+  </div>
+  <figure class="hero__figure reveal in">
+    <img src="https://static.wixstatic.com/media/56b4ef_d72ce8bc390c479d956c46a08f4abb3d~mv2.jpg/v1/fit/w_1200,h_1400,q_88/alex.jpg" alt="Portrait of Professor Alex Yu-Yu Chang">
+  </figure>
+</header>
+
+<!-- ================= 數字帶 ================= -->
+<!-- ================= EDITORIAL ================= -->
+<section class="editorial" id="editorial">
+  <p class="section-kicker reveal"><span class="en">Editorial Service</span><span class="zh">期刊編輯服務</span></p>
+  <h2 class="h2 reveal"><span class="en">Serving the field's journals.</span><span class="zh">為領域頂尖期刊服務。</span></h2>
+  <div class="ed__grid">
+    <div class="edcard reveal"><div class="edcard__role"><span class="en">Editor</span><span class="zh">編輯委員</span></div><div class="edcard__j">Journal of Business Economics and Management</div><div class="edcard__meta"><span class="tag">SSCI</span> 2022 –</div></div>
+    <div class="edcard reveal d1"><div class="edcard__role"><span class="en">Associate Editor</span><span class="zh">副主編</span></div><div class="edcard__j">Canadian Journal of Administrative Sciences</div><div class="edcard__meta"><span class="tag">SSCI</span> 2023 –</div></div>
+    <div class="edcard reveal d2"><div class="edcard__role"><span class="en">Associate Editor</span><span class="zh">副主編</span></div><div class="edcard__j">Asia Pacific Management Review</div><div class="edcard__meta"><span class="tag">ESCI</span> 2024 –</div></div>
+    <div class="edcard reveal d3"><div class="edcard__role"><span class="en">Editorial Board Member</span><span class="zh">編輯委員</span></div><div class="edcard__j">British Journal of Management</div><div class="edcard__meta"><span class="tag">SSCI</span> 2024 –</div></div>
+  </div>
+</section>
+
+<!-- ================= CAREER ================= -->
+<section class="career" id="career">
+  <div class="career__inner">
+    <p class="section-kicker reveal"><span class="en">Career</span><span class="zh">學術歷程</span></p>
+    <h2 class="h2 reveal"><span class="en">The route so far.</span><span class="zh">一路走來的軌跡。</span></h2>
+    <div class="tl" id="timeline">
+      <div class="tl__fill" id="tlFill"></div>
+      <div class="tnode tnode--now"><div class="tnode__year">2025 —</div><div class="tnode__title"><span class="en">Professor, NCKU</span><span class="zh">教授，國立成功大學</span></div><div class="tnode__sub"><span class="en">Institute of International Management · Institute of Creative Industries Design · Cross College Elite Program</span><span class="zh">國際經營管理研究所・創意產業設計研究所・全校不分系學士學位學程</span></div></div>
+      <div class="tnode"><div class="tnode__year">2024.8 —</div><div class="tnode__title"><span class="en">Director, Institute of International Management</span><span class="zh">所長，國際經營管理研究所</span></div><div class="tnode__sub"><span class="en">National Cheng Kung University</span><span class="zh">國立成功大學</span></div></div>
+      <div class="tnode"><div class="tnode__year">2024</div><div class="tnode__title"><span class="en">Guest Associate Professor</span><span class="zh">客座副教授</span></div><div class="tnode__sub"><span class="en">Faculty of Economics and Administration, Masaryk University, Czech Republic</span><span class="zh">捷克馬薩里克大學 經濟與行政學院（Masaryk University）</span></div></div>
+      <div class="tnode"><div class="tnode__year">2022 – 2025</div><div class="tnode__title"><span class="en">Associate Professor, NCKU</span><span class="zh">副教授，國立成功大學</span></div><div class="tnode__sub"><span class="en">Institute of International Management · Institute of Creative Industries Design · Cross College Elite Program</span><span class="zh">國際經營管理研究所・創意產業設計研究所・全校不分系學士學位學程</span></div></div>
+      <div class="tnode"><div class="tnode__year">2022.8 – 2024.7</div><div class="tnode__title"><span class="en">Director, Innovative Teaching Center</span><span class="zh">主任，創新教學發展中心</span></div><div class="tnode__sub"><span class="en">College of Management, National Cheng Kung University</span><span class="zh">國立成功大學管理學院</span></div></div>
+      <div class="tnode"><div class="tnode__year">2022 —</div><div class="tnode__title"><span class="en">Executive Secretary</span><span class="zh">總幹事</span></div><div class="tnode__sub"><span class="en">Chinese Professional Management Association of Tainan</span><span class="zh">台南市企業經理協進會</span></div></div>
+      <div class="tnode"><div class="tnode__year">2020</div><div class="tnode__title"><span class="en">Visiting Scholar</span><span class="zh">訪問學者</span></div><div class="tnode__sub"><span class="en">RMIT Blockchain Innovation Hub, RMIT University, Melbourne, Australia</span><span class="zh">澳洲墨爾本皇家理工大學 區塊鏈創新研究中心</span></div></div>
+      <div class="tnode"><div class="tnode__year">2019 – 2024</div><div class="tnode__title"><span class="en">Einstein Young Scholar Fellowship</span><span class="zh">科技部愛因斯坦計畫培植學者</span></div><div class="tnode__sub"><span class="en">Ministry of Science and Technology, Taiwan</span><span class="zh">科技部（2019.2 – 2024.1）</span></div></div>
+      <div class="tnode"><div class="tnode__year">2019 – 2022</div><div class="tnode__title"><span class="en">Assistant Professor, NCKU</span><span class="zh">助理教授，國立成功大學</span></div><div class="tnode__sub"><span class="en">Institute of International Management · Cross College Elite Program</span><span class="zh">國際經營管理研究所・全校不分系學士學位學程</span></div></div>
+      <div class="tnode"><div class="tnode__year">2018</div><div class="tnode__title"><span class="en">Visiting Scholar</span><span class="zh">訪問學者</span></div><div class="tnode__sub"><span class="en">School of Economics, Finance and Marketing, RMIT University, Australia</span><span class="zh">澳洲墨爾本皇家理工大學 經濟、財務與行銷學院</span></div></div>
+      <div class="tnode"><div class="tnode__year">2016 – 2019</div><div class="tnode__title"><span class="en">Assistant Professor</span><span class="zh">助理教授</span></div><div class="tnode__sub"><span class="en">Department of International Business, Southern Taiwan University of Science and Technology</span><span class="zh">南臺科技大學國際企業系</span></div></div>
+      <div class="tnode"><div class="tnode__year">2015</div><div class="tnode__title"><span class="en">PhD in Technology Management</span><span class="zh">科技管理博士</span></div><div class="tnode__sub"><span class="en">National Chung Hsing University, Taiwan</span><span class="zh">國立中興大學科技管理研究所（2009.9 – 2015.1）</span></div></div>
+      <div class="tnode"><div class="tnode__year">2007 – 2008</div><div class="tnode__title"><span class="en">Patent Engineer</span><span class="zh">專利工程師</span></div><div class="tnode__sub"><span class="en">YUSO International Intellectual Property Right Office</span><span class="zh">宇州國際智慧財產權事務所</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HONORS ================= -->
+<section class="honors" id="honors">
+  <p class="section-kicker reveal"><span class="en">Honors</span><span class="zh">榮譽</span></p>
+  <h2 class="h2 reveal"><span class="en">Honors and Recognitions.</span><span class="zh">榮譽與獲獎。</span></h2>
+  <!-- 精選最新四項 -->
+  <div class="hn__grid">
+    <div class="hn reveal"><div class="hn__yr">2025</div><span class="hn__dia">&#9670;</span><div class="hn__t"><span class="en">Outstanding Research Award</span><span class="zh">研究傑出獎</span></div><div class="hn__m"><span class="en">College of Management, NCKU</span><span class="zh">113 年度成功大學管理學院</span></div></div>
+    <div class="hn reveal d1"><div class="hn__yr">2025</div><span class="hn__dia">&#9670;</span><div class="hn__t"><span class="en">Best Reviewer Award</span><span class="zh">最佳論文審查人獎</span></div><div class="hn__m"><span class="en">Academy of Management Annual Meeting</span><span class="zh">美國管理學會年會</span></div></div>
+    <div class="hn reveal d2"><div class="hn__yr">2024</div><span class="hn__dia">&#9670;</span><div class="hn__t"><span class="en">Best Paper Award · Entrepreneurship Track</span><span class="zh">領域最佳論文獎：創業管理</span></div><div class="hn__m"><span class="en">British Academy of Management</span><span class="zh">英國管理學會年會</span></div></div>
+    <div class="hn reveal d3"><div class="hn__yr">2019 – 24</div><span class="hn__dia">&#9670;</span><div class="hn__t"><span class="en">MOST Young Scholar Fellowship</span><span class="zh">科技部年輕學者養成計畫</span></div><div class="hn__m"><span class="en">Ministry of Science and Technology</span><span class="zh">科技部愛因斯坦計畫</span></div></div>
+  </div>
+  <!-- 完整列表（可展開） -->
+  <div class="honors__togglewrap reveal">
+    <button class="honors__toggle" id="hnToggle" aria-expanded="false">
+      <span class="en">View full list of honors</span><span class="zh">展開完整榮譽列表</span>
+      <span class="chev">&#9662;</span>
+    </button>
+  </div>
+  <div class="honors__full" id="honorsFull" hidden>
+    <div class="hrow"><div class="hrow__yr">2024</div><div class="hrow__t"><span class="en">Teaching Innovation Award: Excellence in EMI Teaching <span class="org">· NCKU</span></span><span class="zh">112 年度成功大學教學創新：EMI 教學優良獎</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2024</div><div class="hrow__t"><span class="en">Outstanding Advisor Award <span class="org">· NCKU</span></span><span class="zh">112 年度成功大學輔導優良獎</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2023</div><div class="hrow__t"><span class="en">Excellence Award, Young Scholars' Innovative R&amp;D Selection, Humanities &amp; Social Sciences <span class="org">· Taiwan Comprehensive University System</span></span><span class="zh">2023 年台灣綜合大學系統年輕學者創新研發成果選拔：人社領域優等獎</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2023</div><div class="hrow__t"><span class="en">Teaching Excellence Award <span class="org">· NCKU</span></span><span class="zh">111 年度成功大學教學優良獎</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2022</div><div class="hrow__t"><span class="en">Tainan Outstanding Youth for Social Impact</span><span class="zh">111 年台南市社會優秀青年</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2021</div><div class="hrow__t"><span class="en">Best Paper Award · Organisational Psychology Track <span class="org">· British Academy of Management</span></span><span class="zh">2021 英國管理學會年會領域最佳論文獎：組織心理學</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2021</div><div class="hrow__t"><span class="en">Best Paper Award · Strategy Track <span class="org">· British Academy of Management</span></span><span class="zh">2021 英國管理學會年會領域最佳論文獎：策略</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2019</div><div class="hrow__t"><span class="en">PICMET Brad Hosler Award for Outstanding Student Paper <span class="org">· as advisor</span></span><span class="zh">指導博士生榮獲美國 PICMET 2019 國際研討會年度最佳學生論文獎</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2019 – 25</div><div class="hrow__t"><span class="en">Multiple TSC Awards for Outstanding Master's &amp; PhD Dissertations <span class="org">· as advisor</span></span><span class="zh">指導碩博士生多次榮獲崇越論文大賞（特優／優等／佳作）</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2017</div><div class="hrow__t"><span class="en">Honorary Member, Phi Tau Phi Scholastic Honor Society</span><span class="zh">中華民國斐陶斐榮譽學會榮譽會員</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2014</div><div class="hrow__t"><span class="en">Best Paper Award <span class="org">· Chinese Society for Management of Technology Annual Conference</span></span><span class="zh">2014 中華民國科技管理學會年會暨論文研討會最佳論文獎</span></div></div>
+    <div class="hrow"><div class="hrow__yr">2014</div><div class="hrow__t"><span class="en">First Prize · IACMR Li Ning Dissertation Grant <span class="org">· USA</span></span><span class="zh">2014 美國 IACMR Li Ning 博士論文一等獎</span></div></div>
+  </div>
+</section>
+
+<!-- ================= REVIEWER MARQUEE ================= -->
+<section class="review" id="review">
+  <div class="review__head">
+    <p class="section-kicker reveal"><span class="en">Academic Service</span><span class="zh">學術服務</span></p>
+    <h2 class="h2 reveal"><span class="en">Academic engagement &amp; peer review.</span><span class="zh">學術社群參與及審稿。</span></h2>
+    <p class="review__lead reveal"><span class="en">Editorial contributor, reviewer and grant panelist for 60+ international journals, conferences, and national research programs. A selection scrolls below.</span><span class="zh">擔任 60 餘份國際期刊、研討會與國家型研究計畫的編輯貢獻者、審稿人與計畫審查委員，以下為部分名單，緩緩滾動呈現。</span></p>
+  </div>
+  <div class="mq-wrap"><div class="mq" id="mq1"></div></div>
+  <div class="mq-wrap"><div class="mq" id="mq2"></div></div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">E-LAB — Entrepreneurship: The Lab</div>
+      <span class="en">Institute of International Management,<br>National Cheng Kung University<br>No.1, University Road, Tainan City 701, Taiwan</span>
+      <span class="zh">國立成功大學 國際經營管理研究所<br>701 台南市東區大學路 1 號</span>
+    </div>
+    <a class="footer__ncku" href="https://www.ncku.edu.tw" target="_blank" rel="noopener" aria-label="National Cheng Kung University">
+      <img src="https://static.wixstatic.com/media/56b4ef_ffaf76b1a75c4c64900afb59c17bbb34~mv2.png/v1/fit/w_320,h_216,q_90/ncku.png" alt="National Cheng Kung University">
+    </a>
+    <div>
+      <a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a> ·
+      <a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a> ·
+      <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/research" target="_top"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
+      © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ 嵌入 Wix iframe 時：站內連結改導父頁對應 Wix 頁面 ============ */
+(function(){
+  if(window.top===window.self)return;
+  const MAP={'index.html':'https://www.entrepreneurship-lab.com/',
+             'publications.html':'https://www.entrepreneurship-lab.com/publications',
+             'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator'};
+  document.querySelectorAll('a[href]').forEach(a=>{
+    const base=(a.getAttribute('href')||'').split('#')[0].split('?')[0];
+    if(MAP[base]){a.setAttribute('href',MAP[base]);a.setAttribute('target','_top');}
+  });
+})();
+/* ---------- 手機漢堡選單 ---------- */
+(function(){
+  const t=document.getElementById('navToggle'),m=document.getElementById('mobileMenu');
+  if(!t||!m)return;
+  t.addEventListener('click',()=>{const o=m.classList.toggle('open');t.classList.toggle('open',o);t.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{m.classList.remove('open');t.classList.remove('open');t.setAttribute('aria-expanded','false');document.body.style.overflow='';}));
+})();
+
+/* ---------- 語言切換 ---------- */
+const langBtn=document.getElementById('langBtn');
+langBtn.addEventListener('click',()=>{
+  const cur=document.body.dataset.lang;
+  const next=cur==='en'?'zh':'en';
+  document.body.dataset.lang=next;
+  document.documentElement.lang=next==='zh'?'zh-Hant':'en';
+  setTimeout(()=>{check();mqMeasure();},30); // 語言切換後重算版位
+});
+
+/* ---------- 榮譽完整列表展開 ---------- */
+const hnToggle=document.getElementById('hnToggle'),honorsFull=document.getElementById('honorsFull');
+hnToggle.addEventListener('click',()=>{
+  const open=honorsFull.hasAttribute('hidden');
+  if(open){honorsFull.removeAttribute('hidden');document.body.classList.add('hfull-open');hnToggle.setAttribute('aria-expanded','true');
+    honorsFull.querySelectorAll('.hrow').forEach((r,i)=>{r.style.opacity=0;r.style.transform='translateY(10px)';r.style.transition='opacity .5s,transform .5s';r.style.transitionDelay=(i*0.03)+'s';requestAnimationFrame(()=>requestAnimationFrame(()=>{r.style.opacity=1;r.style.transform='none';}));});
+  }else{honorsFull.setAttribute('hidden','');document.body.classList.remove('hfull-open');hnToggle.setAttribute('aria-expanded','false');}
+  setTimeout(check,40);
+});
+
+/* ---------- Reviewer 跑馬燈（rAF 驅動，免疫 reduce-motion）---------- */
+const JOURNALS=["Technovation","IEEE Transactions on Engineering Management","Journal of Management Studies","British Journal of Management","Journal of Business Research","European Management Journal","Entrepreneurship Theory and Practice","Human Resource Management","Academy of Management Learning & Education","Technological Forecasting and Social Change","Organizational Behavior and Human Decision Processes","International Small Business Journal","International Entrepreneurship and Management Journal","Journal of Small Business Management","Asia Pacific Journal of Management","R&D Management","Personnel Review","Human Resource Management Journal","Journal of Occupational and Organizational Psychology","Human Resource Development Quarterly","Creativity and Innovation Management","Journal of Happiness Studies","Entrepreneurship & Regional Development","Venture Capital","Australian Journal of Management","Decision Support Systems","Sustainable Development","Current Psychology","Education + Training","Technology Analysis & Strategic Management","Journal of Engineering and Technology Management","Strategic Change","Entrepreneurship Research Journal","Total Quality Management & Business Excellence","Frontiers in Psychology","NTU Management Review","British Academy of Management Conference","Academy of Management Annual Meeting"];
+/* 服務項目（金色 chip，比照期刊格式）——PICMET／國科會計畫／教育部教學實踐計畫 */
+const SVC_ROW1=["PICMET Panel of Reviewers (2014 – 2024)","Research Grant Reviewer, National Science and Technology Council (2021 – 2026)"];
+const SVC_ROW2=["Reviewer, Ministry of Education Teaching Practice Research Program"];
+function chip(txt,svc){return `<span class="jchip${svc?' jchip--svc':''}"><b>&#9679;</b>${txt.replace(/&/g,'&amp;')}</span>`;}
+function buildMarquee(el,list,svc){
+  const cells=(svc||[]).map(s=>chip(s,true)).concat(list.map(j=>chip(j,false)));
+  const row=`<div class="mq__row">`+cells.join('')+`</div>`;
+  el.innerHTML=row+row; // 兩份無縫接續
+}
+// 分兩排：奇偶交錯、反向流動；服務項目置於各排開頭
+const odd=JOURNALS.filter((_,i)=>i%2===0), even=JOURNALS.filter((_,i)=>i%2===1);
+const mq1=document.getElementById('mq1'),mq2=document.getElementById('mq2');
+buildMarquee(mq1,odd,SVC_ROW1);buildMarquee(mq2,even,SVC_ROW2);
+let w1=0,w2=0,x1=0,x2=0;
+function mqMeasure(){w1=mq1.firstChild? mq1.scrollWidth/2:0; w2=mq2.scrollWidth/2;}
+function mqTick(){
+  x1-=0.4; if(w1&&x1<=-w1)x1+=w1; mq1.style.transform=`translateX(${x1}px)`;
+  x2+=0.34; if(w2&&x2>=0)x2-=w2; mq2.style.transform=`translateX(${x2}px)`;
+  requestAnimationFrame(mqTick);
+}
+
+/* ---------- reveal + timeline ---------- */
+const revealEls=[...document.querySelectorAll('.reveal')];
+const tnodes=[...document.querySelectorAll('.tnode')];
+const tl=document.getElementById('timeline'),tlFill=document.getElementById('tlFill');
+function check(){
+  const vh=innerHeight;
+  for(let i=revealEls.length-1;i>=0;i--){
+    if(revealEls[i].getBoundingClientRect().top<vh*.88){revealEls[i].classList.add('in');revealEls.splice(i,1);}
+  }
+  let lastLit=null;
+  tnodes.forEach(n=>{if(n.getBoundingClientRect().top<vh*.82){n.classList.add('in');lastLit=n;}});
+  if(lastLit&&tl){const tr=tl.getBoundingClientRect(),nr=lastLit.getBoundingClientRect();tlFill.style.height=Math.max(0,nr.top-tr.top+14)+'px';}
+}
+let last=0;
+addEventListener('scroll',()=>{const n=performance.now();if(n-last>70){last=n;check();}},{passive:true});
+addEventListener('resize',()=>{check();mqMeasure();});
+mqMeasure();check();requestAnimationFrame(mqTick);
+</script>
+</body>
+</html>

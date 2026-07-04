@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publications — E-LAB · NCKU</title>
+<meta name="description" content="Peer-reviewed publications of E-LAB (Entrepreneurship: The Lab), National Cheng Kung University.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23182A44'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23E4572E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   E-LAB PUBLICATIONS — 認知負擔優先的書目設計
+   原則：列表＝安靜的書目排版；品牌語彙只在框架（頁首/篩選/頁尾）
+   ============================================================ */
+:root{
+  --paper:#F6F1E7;--paper-2:#EFE7D6;--paper-3:#FDFBF7;
+  --ink:#182A44;--ink-soft:#41546F;
+  --coral:#E4572E;--coral-soft:#F0906F;--gold:#B08A2E;
+  --night:#0F1826;--line:rgba(24,42,68,.14);
+  --font-display:'Fraunces',Georgia,serif;
+  --font-tech:'Space Grotesk',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-size:16px;line-height:1.6;overflow-x:hidden}
+::selection{background:var(--coral);color:var(--paper)}
+:focus-visible{outline:2.5px solid var(--coral);outline-offset:3px;border-radius:4px}
+
+/* ---------- nav（與 landing 一致）---------- */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(20px,4vw,56px);
+  background:rgba(246,241,231,.92);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);
+}
+.nav__brand{font-weight:700;letter-spacing:.12em;font-size:15px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px}
+.nav__brand .dot{width:9px;height:9px;border-radius:50%;background:var(--coral)}
+.nav__ncku{width:30px;height:30px;display:block}
+.nav__links{display:flex;gap:clamp(14px,2.4vw,30px);align-items:center;list-style:none}
+.nav__links a{text-decoration:none;color:var(--ink-soft);font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.nav__links a:hover{color:var(--coral)}
+.nav__links a[aria-current]{color:var(--coral)}
+.nav__toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:102}
+.nav__toggle span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:transform .3s,opacity .3s}
+.nav__toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__toggle.open span:nth-child(2){opacity:0}
+.nav__toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:101;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;transition:opacity .35s}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu a{font-family:var(--font-display);font-size:clamp(26px,7vw,38px);font-weight:600;color:var(--ink);text-decoration:none}
+.mobile-menu a:active,.mobile-menu a[aria-current]{color:var(--coral)}
+
+/* ---------- header ---------- */
+.phead{padding:130px clamp(20px,5vw,64px) 34px;max-width:1080px;margin:0 auto}
+.section-kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.section-kicker::before{content:'';width:34px;height:1.5px;background:var(--coral)}
+.phead h1{font-family:var(--font-display);font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.04;letter-spacing:-.015em}
+.phead__meta{margin-top:18px;color:var(--ink-soft);font-size:15px}
+.phead__meta b{color:var(--ink)}
+
+/* ---------- toolbar（篩選＝框架，可帶語彙）---------- */
+.toolbar{
+  position:sticky;top:57px;z-index:50;background:rgba(246,241,231,.94);backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.toolbar__inner{max-width:1080px;margin:0 auto;padding:12px clamp(20px,5vw,64px);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{
+  font-family:var(--font-tech);font-size:12.5px;letter-spacing:.08em;font-weight:500;
+  border:1.5px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer;background:none;color:var(--ink-soft);
+  transition:background .2s,color .2s,border-color .2s;
+}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip small{opacity:.65;margin-left:4px}
+/* 領域 chips：active＝珊瑚 */
+.dchip.on{background:var(--coral);color:var(--paper);border-color:var(--coral)}
+/* 桌機自動換行全顯示；手機（見 media query）單行可捲 */
+.chips--scroll .chip{flex:none}
+.chips--scroll::-webkit-scrollbar{display:none}
+.search{
+  flex:1;min-width:180px;max-width:340px;margin-left:auto;
+  border:1.5px solid var(--line);border-radius:999px;padding:8px 18px;
+  font-family:var(--font-tech);font-size:13.5px;background:var(--paper-3);color:var(--ink);
+}
+.search::placeholder{color:var(--ink-soft);opacity:.7}
+.search:focus{outline:none;border-color:var(--coral)}
+.count{font-size:12.5px;letter-spacing:.08em;color:var(--ink-soft);white-space:nowrap}
+
+/* ---------- 書目列表（安靜區：無卡片、無動畫）---------- */
+.plist{max-width:1080px;margin:0 auto;padding:14px clamp(20px,5vw,64px) 110px}
+.ygroup{padding-top:34px}
+.ygroup__head{
+  display:flex;align-items:baseline;gap:16px;margin-bottom:6px;
+  border-bottom:1.5px solid var(--line);padding-bottom:8px;
+}
+.ygroup__year{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.01em}
+.ygroup__rule{flex:1}
+.ygroup__n{font-size:12px;letter-spacing:.14em;color:var(--ink-soft)}
+.pub{
+  padding:18px 0;border-bottom:1px solid rgba(24,42,68,.08);
+}
+.pub__cite{
+  font-size:15.5px;line-height:1.75;color:var(--ink);
+  /* 書目的懸掛縮排感：第二行起內縮，利於掃讀作者開頭 */
+  padding-left:1.6em;text-indent:-1.6em;
+}
+.pub__meta{
+  margin-top:7px;padding-left:1.6em;display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+}
+.tag{
+  font-size:10.5px;letter-spacing:.12em;font-weight:700;text-transform:uppercase;
+  border-radius:6px;padding:2.5px 8px;border:1px solid;
+}
+.tag--ssci{color:var(--gold);border-color:rgba(176,138,46,.45);background:rgba(176,138,46,.07)}
+.tag--tssci{color:#7A5CA8;border-color:rgba(122,92,168,.4);background:rgba(122,92,168,.06)}
+.tag--esci{color:var(--coral);border-color:rgba(228,87,46,.4);background:rgba(228,87,46,.06)}
+.tag--other{color:var(--ink-soft);border-color:var(--line);background:rgba(24,42,68,.04)}
+.pub__link{
+  font-size:12.5px;letter-spacing:.06em;color:var(--coral);text-decoration:none;font-weight:500;
+}
+.pub__link:hover{text-decoration:underline}
+.pub__copy{
+  font-size:12.5px;letter-spacing:.06em;color:var(--ink-soft);background:none;border:none;
+  cursor:pointer;font-family:var(--font-tech);font-weight:500;padding:0;
+}
+.pub__copy:hover{color:var(--ink)}
+.pub__copy.done{color:#2E7D46}
+.empty{padding:70px 0;text-align:center;color:var(--ink-soft)}
+
+/* ---------- footer（與 landing 一致）---------- */
+.footer{background:var(--night);color:rgba(246,241,231,.55);padding:48px clamp(20px,5vw,64px)}
+.footer__inner{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;font-size:13px;line-height:1.85}
+.footer a{color:rgba(246,241,231,.8);text-decoration:none}
+.footer a:hover{color:var(--coral-soft)}
+.footer__brand{font-weight:700;letter-spacing:.12em;color:#F6F1E7;margin-bottom:8px}
+.footer__ncku{display:block;align-self:center;opacity:.92}
+.footer__ncku img{height:88px;width:auto;display:block}
+
+@media (max-width:640px){
+  .nav__links{display:none}
+  .nav__toggle{display:block}
+  .toolbar{top:57px}
+  .search{max-width:none;margin-left:0;order:3;width:100%}
+  .chips--scroll{flex-wrap:nowrap;overflow-x:auto} /* 手機單行可捲，桌機維持換行全顯示 */
+  .pub__cite{padding-left:0;text-indent:0}
+  .pub__meta{padding-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <a class="nav__brand" href="index.html">
+    <img class="nav__ncku" src="https://static.wixstatic.com/media/56b4ef_942f8b305d2047a0af132bd53a81a09b~mv2.png/v1/fit/w_72,h_72,q_90/ncku.png" alt="NCKU">
+    <span class="dot"></span>E-LAB
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="pi.html">Principal Investigator</a></li>
+    <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a></li>
+    <li><a href="publications.html" aria-current="page">Publications</a></li>
+    <li><a href="https://www.entrepreneurship-lab.com/research" target="_top">Projects/Grants</a></li>
+    <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a></li>
+  </ul>
+  <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="pi.html">Principal Investigator</a>
+  <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a>
+  <a href="publications.html" aria-current="page">Publications</a>
+  <a href="https://www.entrepreneurship-lab.com/research" target="_top">Projects/Grants</a>
+  <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a>
+</div>
+
+<header class="phead">
+  <p class="section-kicker">Entrepreneurship: The Lab</p>
+  <h1>Publications.</h1>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar__inner">
+    <div class="chips chips--scroll" id="domainChips" role="group" aria-label="Filter by research area">
+      <button class="chip dchip on" data-d="all">All <small id="dAll"></small></button>
+      <button class="chip dchip" data-d="ent">Entrepreneurship <small id="dent"></small></button>
+      <button class="chip dchip" data-d="cur">Curiosity &amp; Creativity <small id="dcur"></small></button>
+      <button class="chip dchip" data-d="org">People &amp; Organizations <small id="dorg"></small></button>
+      <button class="chip dchip" data-d="inn">Innovation &amp; Technology <small id="dinn"></small></button>
+      <button class="chip dchip" data-d="cci">Creative Industries <small id="dcci"></small></button>
+    </div>
+    <input class="search" id="search" type="search" placeholder="Search author, title, journal…" aria-label="Search publications">
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<main class="plist" id="plist"></main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">E-LAB — Entrepreneurship: The Lab</div>
+      Institute of International Management,<br>
+      National Cheng Kung University<br>
+      No.1, University Road, Tainan City 701, Taiwan
+    </div>
+    <a class="footer__ncku" href="https://www.ncku.edu.tw" target="_blank" rel="noopener" aria-label="National Cheng Kung University">
+      <img src="https://static.wixstatic.com/media/56b4ef_ffaf76b1a75c4c64900afb59c17bbb34~mv2.png/v1/fit/w_320,h_216,q_90/ncku.png" alt="National Cheng Kung University">
+    </a>
+    <div>
+      <a href="index.html">Home</a> ·
+      <a href="pi.html">Principal Investigator</a> ·
+      <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a> ·
+      <a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a> ·
+      <a href="publications.html">Publications</a> ·
+      <a href="https://www.entrepreneurship-lab.com/research" target="_top">Projects/Grants</a> ·
+      <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a><br>
+      © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ 嵌入 Wix iframe 時：站內連結改導父頁對應 Wix 頁面 ============ */
+(function(){
+  if(window.top===window.self)return;
+  const MAP={'index.html':'https://www.entrepreneurship-lab.com/',
+             'publications.html':'https://www.entrepreneurship-lab.com/publications',
+             'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator'};
+  document.querySelectorAll('a[href]').forEach(a=>{
+    const base=(a.getAttribute('href')||'').split('#')[0].split('?')[0];
+    if(MAP[base]){a.setAttribute('href',MAP[base]);a.setAttribute('target','_top');}
+  });
+})();
+/* 手機漢堡選單 */
+(function(){
+  const t=document.getElementById('navToggle'),m=document.getElementById('mobileMenu');
+  if(!t||!m)return;
+  t.addEventListener('click',()=>{const o=m.classList.toggle('open');t.classList.toggle('open',o);t.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{m.classList.remove('open');t.classList.remove('open');t.setAttribute('aria-expanded','false');document.body.style.overflow='';}));
+})();
+
+/* 逐字轉錄自現有 Publications 頁（2026-07-03）；未來改由 CMS Publications 集合供給 */
+const PUBS=[
+{y:2026,c:`Chang, Y.-Y., & Raj, S. Y. (2026). Feasibility triggers intention? A longitudinal study of self-efficacy and expertise-embedded mechanisms in practice-based entrepreneurship education. The International Journal of Management Education, 24(2), 101377.`,doi:'https://doi.org/10.1016/j.ijme.2026.101377',d:['ent'],tags:['SSCI']},
+{y:2026,c:`Chen, H. Y., Chang, Y. Y.*, & Kao, C. P. (2026). Is Imagination Your Superpower? The Interactive Role of Curiosity and Imagination in Fostering Psychological Capital. Thinking Skills and Creativity. (*Corresponding author)`,doi:'https://doi.org/10.1016/j.tsc.2025.102021',d:['cur','org'],tags:['SSCI']},
+{y:2026,c:`Raj, S. Y., & Chang, Y.-Y.* (2026). Curious minds at work: How organizational support and motivation relate to employee creativity. The Learning Organization, 1-21. (*Corresponding author)`,doi:'https://doi.org/10.1108/TLO-05-2025-0123',d:['cur','org'],tags:['ESCI']},
+{y:2025,c:`Chang, Y.-Y., Raj, S. Y., & Somransukawat, N. (2025). Beyond migrant entrepreneurship: how mixed embeddedness and STEM backgrounds shape entrepreneurial intentions. Journal of Organizational Change Management, 1-23.`,doi:'https://doi.org/10.1108/JOCM-06-2024-0343',d:['ent'],tags:['SSCI']},
+{y:2025,c:`Chang, Y.-Y., Aruncharean, C., & Jansom, A. (2025). Exploration or exploitation? Rethinking innovation strategies through the lens of corporate entrepreneurship in Thailand. Asia Pacific Business Review.`,doi:'https://doi.org/10.1080/13602381.2025.2560398',d:['ent','inn'],tags:['SSCI']},
+{y:2025,c:`Chen, H.-Y., Chang, Y.-Y.*, & Yang, Y.-J. (2025). How does work curiosity affect employees' creativity and innovation: Do task characteristics matter? Technovation, 146, 103288. (*Corresponding author)`,doi:'https://doi.org/10.1016/j.technovation.2025.103288',d:['cur','inn'],tags:['SSCI']},
+{y:2025,c:`Chang, Y.-Y.*, Sathornsantikun, K., Yeshwant Raj, S., & Chen, H. Y. (2025). The Power of Curiosity: Exploring the Relationship between Joyous Curiosity, Self-efficacy, and Entrepreneurship. IEEE Transactions on Engineering Management. (*Corresponding author)`,doi:'https://doi.org/10.1109/TEM.2025.3553373',d:['cur','ent'],tags:['SSCI']},
+{y:2025,c:`Wannamakok, W., & Chang, Y.-Y.* (2025). Do Not Go Gentle into that Good Night: Exploring the Nexus between Senior Entrepreneurship and Entrepreneurial Culture. Journal of Enterprising Communities: People and Places in the Global Economy. (*Corresponding author)`,doi:'https://doi.org/10.1108/JEC-08-2023-0160',d:['ent'],tags:['ESCI']},
+{y:2025,c:`Aharonson, B.S., Arndt, F.F., Budhwar, P., Chang, Y.-Y., Chowdhury, S., Costa, A.C., Cullen, J.G., Daniels, K., Momtaz, P.P., Rigg, C., Śliwa, M., Vismara, S., Sarala, R., Ren, S., & Hibbert, P. (2025). Establishing a Contribution: Calibration, Contextualization, Construction and Creation. British Journal of Management.`,doi:'https://doi.org/10.1111/1467-8551.12910',d:[],tags:['SSCI']},
+{y:2025,c:`Chang, Y.-Y., Jansom, A. and Wongkhumsin, N. (2025). Unpacking the role of protean career attitudes and job crafting in employee turnover dynamics: the view of self-determination theory. Industrial and Commercial Training.`,doi:'https://doi.org/10.1108/ICT-09-2024-0091',d:['org'],tags:['ESCI']},
+{y:2025,c:`Chang, Y.-Y., Davidavičienė, V., Bronner, A., & Yeshwant Raj, S. (2025). Overqualified yet motivated: Work motivation, technology uncertainty, and overqualified employees' innovative behavior. IEEE Transactions on Engineering Management.`,doi:'https://doi.org/10.1109/TEM.2025.3546164',d:['org','inn'],tags:['SSCI']},
+{y:2025,c:`Chang, Y.-Y.*, & Chen, Y.-D. (2025). Are we ready for the unexpected disruption? Job embeddedness, calling, and turnover intentions. Journal of Air Transport Management, 124, 102762. (*Corresponding author)`,doi:'https://doi.org/10.1016/j.jairtraman.2025.102762',d:['org'],tags:['SSCI']},
+{y:2025,c:`Lin, B.-W., Shih, H.-Y., & Chang, Y.-Y. (2025). Knowledge Diffusion from Academia to Industry. British Journal of Management.`,doi:'https://doi.org/10.1111/1467-8551.12884',d:['inn'],tags:['SSCI']},
+{y:2024,c:`Chang, Y. Y., Purevlochin, U., & Chen, H. Y. (2024). Seeking silver lining for leaders' well-being: understanding gender differences in work-family conflict, leadership style and prioritizing coping strategy. Asia-Pacific Journal of Business Administration.`,doi:'https://doi.org/10.1108/APJBA-11-2023-0581',d:['org'],tags:['ESCI','ABDC']},
+{y:2024,c:`Chang, Y. Y., Chang, W. S., & Fadhil, A. (2024). Enterprising spirit rejuvenated: entrepreneurship education in shaping company employees' career commitment and turnover intentions. New England Journal of Entrepreneurship.`,doi:'https://doi.org/10.1108/NEJE-02-2024-0009',d:['ent','org'],tags:['ABI','ABDC']},
+{y:2023,c:`Chang, Y.-Y., Shih, H.-Y., & Lin, B.-W. (2023). Work curiosity and R&D professionals' creative performance: Scientists vs. engineers. Technovation, 124, 102739.`,doi:'https://doi.org/10.1016/j.technovation.2023.102739',d:['cur','inn'],tags:['SSCI']},
+{y:2023,c:`Chang, Y.-Y., Chen, H.-Y., & Chau, M.-D. (2023). Is There No Place Like Home? Expatriates' Locus of Control Personality, Self-efficacy, Cross-cultural Adjustment, and Organizational Support for Expatriate Career. International Journal of Intercultural Relations, 93.`,doi:'https://doi.org/10.1016/j.ijintrel.2023.101761',d:['org'],tags:['SSCI']},
+{y:2023,c:`Chang, Y.-Y., Wannamakok, W., & Lin, Y.-H. (2023). Work conformity as a double-edged sword: Disentangling intra-firm social dynamics and employees' innovative performance in technology-intensive firms. Asia Pacific Management Review.`,doi:'https://doi.org/10.1016/j.apmrv.2023.01.003',d:['org','inn'],tags:['ESCI']},
+{y:2023,c:`Chang, Y.-Y., Kao, C.-P., Lin, K.-Y., & Osborne, M. (2023). Factors driving volunteers' interest in science careers: self-efficacy, social support and satisfaction. Current Psychology.`,doi:'https://doi.org/10.1007/s12144-023-04266-0',d:['org'],tags:['SSCI']},
+{y:2022,c:`Chang, Y.-Y., Sanchez-Loor, D. A., Hsieh, H.-C., & Chang, W.-S. (2022). How aging affects opportunity-necessity entrepreneurship: Demographic and perceptual view. Australian Journal of Management.`,doi:'https://doi.org/10.1177/03128962221101084',d:['ent'],tags:['SSCI']},
+{y:2022,c:`Chang, Y.-Y., Wannamakok, W., & Schatzl, K. (2022). The Influence of Institutional Environment on the Development of Technology-Intensive Start-Ups: The Case of Austria. Journal of Enterprising Culture.`,doi:'https://doi.org/10.1142/S021849582250008X',d:['ent','inn'],tags:['ESCI','ABI','EconLit']},
+{y:2022,c:`Chang, Y. Y., Wannamakok, W., & Kao, C. P. (2022). Entrepreneurship education, academic major, and university students' social entrepreneurial intention: the perspective of Planned Behavior Theory. Studies in Higher Education, 47(11), 2204-2223.`,doi:'https://doi.org/10.1080/03075079.2021.2021875',d:['ent'],tags:['SSCI']},
+{y:2021,c:`Chang, Y.-Y.*, Potts, J., & Shih, H.-Y. (2021). The market for meaning: A new entrepreneurial approach to creative industries dynamics. Journal of Cultural Economics, 45, 491-511. (*Corresponding author)`,doi:'https://doi.org/10.1007/s10824-021-09416-5',d:['cci','ent'],tags:['SSCI']},
+{y:2021,c:`Lembana, D. A. A., Chang, Y.-Y., & Liang, W.-K. (2021). Satisfied with the Status Quo or Dare to Challenge the Future? Institutional Environment and Entrepreneurial Self-Efficacy of Company Employees. Review of Integrative Business and Economics Research, 10(2), 88-107.`,doi:null,d:['ent'],tags:['EconLit']},
+{y:2020,c:`Wannamakok, W., Chang, Y.-Y., & Täks, M. (2020). The Relationship between Institutional Environments and Entrepreneurial Intention in Estonia: Mediating Roles of Desirability and Feasibility. Entrepreneurial Business and Economics Review, 8(2), 111-126.`,doi:'https://doi.org/10.15678/eber.2020.080206',d:['ent'],tags:['ESCI','ABI']},
+{y:2020,c:`Wannamakok, W., & Chang, Y.-Y.* (2020). Understanding nascent women entrepreneurs: an exploratory investigation into their entrepreneurial intentions. Gender in Management: An International Journal, 35(6), 553-566. (*Corresponding author)`,doi:'https://doi.org/10.1108/gm-12-2019-0250',d:['ent'],tags:['SSCI']},
+{y:2020,c:`Chang, Y. Y., & Chen, M. H. (2020). Creative entrepreneurs' creativity, opportunity recognition, and career success: Is resource availability a double-edged sword? European Management Journal, 38(5), 750-762.`,doi:'https://doi.org/10.1016/j.emj.2020.03.004',d:['ent','cci','cur'],tags:['SSCI']},
+{y:2020,c:`Kao, C. P., Wu, Y. T., Chang, Y. Y., Chien, H. M., & Mou, T. Y. (2020). Understanding Web-Based Professional Development in Education: The Role of Attitudes and Self-efficacy in Predicting Teachers' Technology-Teaching Integration. The Asia-Pacific Education Researcher, 29(5), 405-415.`,doi:'https://doi.org/10.1007/s40299-019-00493-x',d:['org'],tags:['SSCI']},
+{y:2019,c:`Chang, Y.-Y., Chen, H.-Y., & Shih, H.-Y. (2019). Exploring How Work Motivation Affects Creative Performance through Creative Processes: The Moderating Effects of Work Design. Journal of Technology Management, 24(3), 37-76. (written in Chinese)`,doi:null,d:['cur','org'],tags:['TSSCI']},
+{y:2019,c:`Wannamakok, W., & Chang, Y.-Y. (2019). Institutional Environments and Social Entrepreneurial Intentions: A Case of Thailand. Review of Integrative Business and Economics Research, 9(1), 97-111.`,doi:null,d:['ent'],tags:['EconLit']},
+{y:2019,c:`Chang, Y. Y.*, & Shih, H. Y. (2019). Work curiosity: A new lens for understanding employee creativity. Human Resource Management Review, 29(4), 100672. (*Corresponding author)`,doi:'https://doi.org/10.1016/j.hrmr.2018.10.005',d:['cur','org'],tags:['SSCI']},
+{y:2018,c:`Chen, M.-H., Chang, Y.-Y.*, & Pan, J.-Y. (2018). Typology of Creative Entrepreneurs and Entrepreneurial Success. Journal of Enterprising Communities: People and Places in the Global Economy, 12(5), 632-656. (*Corresponding author)`,doi:'https://doi.org/10.1108/jec-07-2017-0041',d:['ent','cci'],tags:['EconLit','ABI']},
+{y:2018,c:`Chen, M.-H., Chang, Y.-Y.*, & Lin, Y.-C. (2018). Exploring Creative Entrepreneurs' Happiness: Cognitive Style, Guanxi, and Creativity. International Entrepreneurship and Management Journal, 14, 1089-1110. (*Corresponding author)`,doi:'https://doi.org/10.1007/s11365-017-0490-3',d:['ent','cci'],tags:['SSCI']},
+{y:2017,c:`Chen, M.-H., Chang, Y.-Y.*, & Chang, Y.-C. (2017). The trinity of entrepreneurial team dynamics: cognition, conflicts and cohesion. International Journal of Entrepreneurial Behavior & Research, 23(6), 934-951. (*Corresponding author)`,doi:'https://doi.org/10.1108/ijebr-07-2016-0213',d:['ent'],tags:['SSCI']},
+{y:2017,c:`Chen, M.-H., Chang, Y.-Y.*, Wang, H.-Y., & Chen, M.-H. (2017). Understanding Creative Entrepreneurs' Intention to Quit: The Role of Entrepreneurial Motivation, Creativity, and Opportunity. Entrepreneurship Research Journal, 7(3), 1-15. (*Corresponding author) (Leading article)`,doi:'https://doi.org/10.1515/erj-2016-0001',d:['ent','cci'],tags:['SSCI']},
+{y:2017,c:`Chen, M.-H., Chang, Y.-Y.*, & Chiang, M.-T. (2017). Human capital and career success of creative entrepreneurs: is guanxi network a missing link? Journal of Small Business & Entrepreneurship, 29(4), 313-331. (*Corresponding author)`,doi:'https://doi.org/10.1080/08276331.2017.1300849',d:['ent','cci'],tags:['EconLit','ABI']},
+{y:2015,c:`Chen, M.-H., Chang, Y.-Y.*, & Chang, Y.-C. (2015). Exploring individual-work context fit in affecting employee creativity in technology-based companies. Technological Forecasting & Social Change, 98, 1-12. (*Corresponding author) (Leading article)`,doi:'https://doi.org/10.1016/j.techfore.2015.05.002',d:['cur','org'],tags:['SSCI']},
+{y:2015,c:`Chen, M.-H., Chang, Y.-Y., & Chang, Y.-C. (2015). Entrepreneurial Orientation, Social Networks, and Creative Performance: Middle Managers as Corporate Entrepreneurs. Creativity and Innovation Management, 24(3), 493-507.`,doi:'https://doi.org/10.1111/caim.12108',d:['ent','cur'],tags:['SSCI']},
+{y:2015,c:`Chen, M.-H., Chang, Y.-Y.*, & Lo, Y.-H. (2015). Creativity cognitive style, conflict, and career success for creative entrepreneurs. Journal of Business Research, 68, 906-910. (*Corresponding author)`,doi:'https://doi.org/10.1016/j.jbusres.2014.11.050',d:['ent','cci'],tags:['SSCI']},
+{y:2015,c:`Chen, M.-H., Chang, Y.-Y.*, & Lee, C.-Y. (2015). Creative entrepreneurs' guanxi networks and success: Information and resource. Journal of Business Research, 68, 900-905. (*Corresponding author)`,doi:'https://doi.org/10.1016/j.jbusres.2014.11.049',d:['ent','cci'],tags:['SSCI']},
+{y:2013,c:`Chen, M.-H., & Chang, Y.-Y. (2013). The impacts of human capital in enhancing new venture's performance: Competence, motivation and creativity. Journal of Knowledge-based Innovation in China, 5(2), 146-168.`,doi:'https://doi.org/10.1108/jkic-06-2013-0011',d:['ent'],tags:['Scopus']},
+{y:2012,c:`Chen, M.-H., Pan, Y.-T., Chang, Y.-Y. & Wu, J.-D. (2012). "Cultural Creative Quarter and Urban Regeneration: The Case Studies of Tianzifang in Shanghai, China and Cultural Industries Quarter in Sheffield, United Kingdom". Journal of Technology Management, 17(1), 27-72. (written in Chinese)`,doi:null,d:['cci'],tags:['TSSCI']},
+];
+
+/* ---------- 渲染（依年分組）---------- */
+const MAIN=['SSCI','TSSCI','ESCI'];
+function tagClass(t){return t==='SSCI'?'tag--ssci':t==='TSSCI'?'tag--tssci':t==='ESCI'?'tag--esci':'tag--other';}
+function catOf(p){for(const m of MAIN){if(p.tags.includes(m))return m;}return 'other';}
+let query='', curDomain='all';
+
+function render(){
+  const list=document.getElementById('plist');
+  const q=query.toLowerCase();
+  const vis=PUBS.filter(p=>{
+    const okD = curDomain==='all' || (p.d && p.d.includes(curDomain)); // 領域 ∩ 搜尋
+    const okQ = !q || p.c.toLowerCase().includes(q);
+    return okD && okQ;
+  });
+  const years=[...new Set(vis.map(p=>p.y))].sort((a,b)=>b-a);
+  list.innerHTML='';
+  years.forEach(y=>{
+    const g=document.createElement('section');g.className='ygroup';
+    const items=vis.filter(p=>p.y===y);
+    g.innerHTML=`<div class="ygroup__head"><span class="ygroup__year">${y}</span><span class="ygroup__rule"></span><span class="ygroup__n">${items.length} paper${items.length>1?'s':''}</span></div>`;
+    items.forEach(p=>{
+      const d=document.createElement('article');d.className='pub';
+      const tags=p.tags.map(t=>`<span class="tag ${tagClass(t)}">${t}</span>`).join(' ');
+      const doi=p.doi?`<a class="pub__link" href="${p.doi}" target="_blank" rel="noopener">DOI ↗</a>`:'';
+      d.innerHTML=`<p class="pub__cite">${p.c}</p>
+        <div class="pub__meta">${tags}${doi}<button class="pub__copy" type="button">Copy citation</button></div>`;
+      d.querySelector('.pub__copy').addEventListener('click',e=>{
+        const btn=e.currentTarget;
+        const text=p.c+(p.doi?' '+p.doi:'');
+        (navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(()=>{
+          btn.textContent='Copied ✓';btn.classList.add('done');
+          setTimeout(()=>{btn.textContent='Copy citation';btn.classList.remove('done');},1600);
+        }).catch(()=>{prompt('Copy citation:',text);});
+      });
+      g.appendChild(d);
+    });
+    list.appendChild(g);
+  });
+  if(!vis.length)list.innerHTML='<p class="empty">No publications match your search.</p>';
+  document.getElementById('count').textContent=`Showing ${vis.length} of ${PUBS.length}`;
+}
+
+/* 領域 chips counts（一篇可多屬，故各自累加）*/
+const dcounts={all:PUBS.length,ent:0,cur:0,org:0,inn:0,cci:0};
+PUBS.forEach(p=>(p.d||[]).forEach(k=>{if(k in dcounts)dcounts[k]++;}));
+['all','ent','cur','org','inn','cci'].forEach(k=>{
+  const el=document.getElementById('d'+(k==='all'?'All':k));if(el)el.textContent=dcounts[k];
+});
+/* 領域 chips 點擊 */
+document.getElementById('domainChips').addEventListener('click',e=>{
+  const b=e.target.closest('.dchip');if(!b)return;
+  curDomain=b.dataset.d;
+  document.querySelectorAll('#domainChips .dchip').forEach(c=>c.classList.toggle('on',c===b));
+  render();
+});
+let deb;
+document.getElementById('search').addEventListener('input',e=>{
+  clearTimeout(deb);deb=setTimeout(()=>{query=e.target.value.trim();render();},160);
+});
+/* 深連結 ?d=ent → 載入即預選領域（供 landing 三支柱直達）*/
+const pd=new URLSearchParams(location.search).get('d');
+if(pd && ['ent','cur','org','inn','cci'].includes(pd)){
+  curDomain=pd;
+  document.querySelectorAll('#domainChips .dchip').forEach(c=>c.classList.toggle('on',c.dataset.d===pd));
+}
+render();
+</script>
+</body>
+</html>

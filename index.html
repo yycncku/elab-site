@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NCKU Lab of Entrepreneurship & Innovation Management</title>
+<meta name="description" content="We are a group of researchers at National Cheng Kung University exploring how entrepreneurs' venturing efforts change the course of industrial dynamics and drive economic evolution.">
+<meta property="og:title" content="NCKU Lab of Entrepreneurship & Innovation Management">
+<meta property="og:description" content="Research on entrepreneurship, user innovation, and work curiosity & creativity — at National Cheng Kung University, Tainan, Taiwan.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23182A44'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23E4572E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://static.wixstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<noscript><style>
+  .hero__title .line>span{transform:none}
+  .hero__kicker,.hero__sub,.hero__badge,.hero__actions{opacity:1;transform:none}
+  .reveal{opacity:1;transform:none}
+  .pillar__body{max-height:none;opacity:1}
+  .pillar{opacity:1!important}
+</style></noscript>
+<style>
+/* ============================================================
+   E-LAB LANDING v2 — warm academic × tech
+   ivory paper · navy ink · coral routes · gold laurels
+   ============================================================ */
+:root{
+  --paper:#F6F1E7;
+  --paper-2:#EFE7D6;
+  --paper-3:#FDFBF7;
+  --ink:#182A44;
+  --ink-soft:#41546F;
+  --coral:#E4572E;
+  --coral-soft:#F0906F;
+  --gold:#B08A2E;
+  --night:#0F1826;
+  --line:rgba(24,42,68,.14);
+  --radius:18px;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-tech:'Space Grotesk',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--font-tech);font-size:16px;line-height:1.6;
+  overflow-x:hidden;
+}
+::selection{background:var(--coral);color:var(--paper)}
+body::after{ /* paper grain */
+  content:'';position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+:focus-visible{outline:2.5px solid var(--coral);outline-offset:3px;border-radius:4px}
+section{scroll-margin-top:70px}
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(20px,4vw,56px);
+  transition:background .35s,box-shadow .35s,padding .35s;
+}
+.nav.scrolled{
+  background:rgba(246,241,231,.9);backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--line);padding:12px clamp(20px,4vw,56px);
+}
+.nav__brand{
+  font-weight:700;letter-spacing:.12em;font-size:15px;
+  text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px;
+}
+.nav__brand .dot{width:9px;height:9px;border-radius:50%;background:var(--coral)}
+.nav__ncku{width:32px;height:32px;display:block}
+.nav__links{display:flex;gap:clamp(14px,2.4vw,32px);align-items:center;list-style:none}
+.nav__links a{
+  text-decoration:none;color:var(--ink-soft);font-size:13.5px;letter-spacing:.06em;
+  text-transform:uppercase;font-weight:500;position:relative;
+}
+.nav__links a::after{content:'';position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--coral);transition:width .28s cubic-bezier(.65,0,.35,1)}
+.nav__links a:hover{color:var(--ink)}
+.nav__links a:hover::after{width:100%}
+.nav__cta{
+  border:1.5px solid var(--ink);border-radius:999px;padding:9px 22px;
+  font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;transition:background .25s,color .25s,transform .25s;
+}
+.nav__cta:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px)}
+.nav__toggle{
+  display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:102;
+}
+.nav__toggle span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:transform .3s,opacity .3s}
+.nav__toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__toggle.open span:nth-child(2){opacity:0}
+.nav__toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{
+  position:fixed;inset:0;background:var(--paper);z-index:101;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8vh;
+  opacity:0;pointer-events:none;transition:opacity .35s;
+}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu a{
+  font-family:var(--font-display);font-size:clamp(28px,8vw,40px);font-weight:600;
+  color:var(--ink);text-decoration:none;
+}
+.mobile-menu a:active{color:var(--coral)}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;min-height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:120px clamp(20px,5vw,64px) 90px;overflow:hidden;
+}
+#net{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero::before{ /* halftone corner accent */
+  content:'';position:absolute;right:-60px;top:-60px;width:340px;height:340px;
+  background-image:radial-gradient(rgba(228,87,46,.35) 1.5px,transparent 1.5px);
+  background-size:16px 16px;border-radius:50%;
+  -webkit-mask-image:radial-gradient(circle at 70% 30%,#000 0%,transparent 68%);
+          mask-image:radial-gradient(circle at 70% 30%,#000 0%,transparent 68%);
+  pointer-events:none;
+}
+.hero__inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%;text-align:center}
+.hero__kicker{
+  font-size:12.5px;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--coral);font-weight:700;margin-bottom:26px;
+}
+.hero__title{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(42px,8.2vw,118px);line-height:1.02;letter-spacing:-.015em;
+}
+.hero__title em{font-style:italic;color:var(--coral)}
+.hero__title .line{display:block;overflow:hidden}
+.hero__title .line>span{display:inline-block;transform:translateY(110%);transition:transform 1s cubic-bezier(.22,1,.36,1)}
+body.loaded .hero__title .line>span{transform:none}
+body.loaded .hero__title .line:nth-child(2)>span{transition-delay:.12s}
+.hero__sub{
+  max-width:640px;margin:34px auto 0;color:var(--ink-soft);
+  font-size:clamp(15px,1.35vw,18.5px);line-height:1.75;
+}
+.hero__badge{
+  display:inline-flex;align-items:center;gap:8px;margin-top:30px;
+  border:1px solid var(--line);border-radius:999px;padding:7px 18px;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+  background:rgba(253,251,247,.6);
+}
+.hero__badge b{color:var(--gold);font-weight:700}
+.hero__actions{margin-top:38px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.hero__kicker,.hero__sub,.hero__badge,.hero__actions{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s cubic-bezier(.22,1,.36,1)}
+body.loaded .hero__kicker{opacity:1;transform:none;transition-delay:.05s}
+body.loaded .hero__sub{opacity:1;transform:none;transition-delay:.3s}
+body.loaded .hero__badge{opacity:1;transform:none;transition-delay:.42s}
+body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
+.btn{
+  font-weight:500;font-size:14px;letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;border-radius:999px;padding:15px 34px;display:inline-flex;align-items:center;gap:10px;
+  transition:transform .25s,box-shadow .25s,background .25s,color .25s,border-color .25s;
+}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translateX(4px)}
+.btn--solid{background:var(--ink);color:var(--paper);border:1.5px solid var(--ink)}
+.btn--solid:hover{background:var(--coral);border-color:var(--coral);transform:translateY(-2px);box-shadow:0 12px 30px rgba(228,87,46,.28)}
+.btn--ghost{border:1.5px solid var(--ink);color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+/* Scroll 提示已移除（Alex：與按鈕重疊且無意義, 2026-07-03）*/
+
+/* ---------- marquee ---------- */
+.marquee{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;padding:18px 0;background:var(--paper);position:relative;z-index:2;
+}
+.marquee__track{display:flex;gap:56px;width:max-content;animation:mscroll 32s linear infinite}
+.marquee__track span{
+  font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);
+  display:flex;align-items:center;gap:56px;white-space:nowrap;
+}
+.marquee__track b{color:var(--coral);font-weight:400}
+@keyframes mscroll{to{transform:translateX(-50%)}}
+
+/* ---------- mission ---------- */
+.mission{background:var(--paper-2);padding:clamp(90px,14vh,150px) clamp(20px,5vw,64px);position:relative;overflow:hidden}
+.mission::after{
+  content:'';position:absolute;left:-80px;bottom:-80px;width:300px;height:300px;
+  background-image:radial-gradient(rgba(24,42,68,.18) 1.5px,transparent 1.5px);
+  background-size:15px 15px;border-radius:50%;
+  -webkit-mask-image:radial-gradient(circle at 30% 70%,#000 0%,transparent 66%);
+          mask-image:radial-gradient(circle at 30% 70%,#000 0%,transparent 66%);
+}
+.mission__inner{max-width:1080px;margin:0 auto;position:relative;z-index:2}
+.mission__text{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(24px,3.4vw,44px);line-height:1.35;letter-spacing:-.005em;
+}
+.mission__text .hl{
+  background-image:linear-gradient(var(--coral),var(--coral));
+  background-repeat:no-repeat;background-position:0 92%;background-size:0% 8%;
+  transition:background-size 1.2s cubic-bezier(.65,0,.35,1) .3s;
+}
+.mission.in .hl{background-size:100% 8%}
+.mission__text .hl:nth-of-type(2){transition-delay:.75s}
+.mission__text .hl:nth-of-type(3){transition-delay:1.2s}
+.mission__sig{margin-top:36px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;gap:14px}
+.mission__sig::before{content:'';width:44px;height:1.5px;background:var(--coral)}
+
+/* ---------- pillars (scroll-telling) ---------- */
+.pillars{position:relative;height:360vh;background:var(--paper)}
+.pillars__sticky{
+  position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  grid-template-rows:auto 1fr;
+  gap:0 clamp(24px,4vw,72px);
+  padding:clamp(70px,9vh,110px) clamp(20px,5vw,64px) clamp(24px,5vh,52px);
+  max-width:1440px;margin:0 auto;
+}
+.pillars__head{grid-column:1/-1;align-self:start;padding-bottom:clamp(14px,3vh,34px)}
+.section-kicker{
+  font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--coral);
+  font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:12px;
+}
+.section-kicker::before{content:'';width:34px;height:1.5px;background:var(--coral)}
+.pillars__title{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(30px,4.2vw,56px);line-height:1.06;letter-spacing:-.01em;max-width:720px;
+}
+.pillars__list{display:flex;flex-direction:column;justify-content:center;gap:6px;min-width:0}
+.pillar{border-top:1px solid var(--line);padding:18px 0;transition:opacity .4s}
+.pillar:last-child{border-bottom:1px solid var(--line)}
+.pillar__row{display:flex;align-items:baseline;gap:22px}
+.pillar__num{
+  font-weight:700;font-size:14px;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:8px;padding:5px 10px;flex:none;
+  transition:background .35s,color .35s,border-color .35s;
+}
+.pillar__name{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(21px,2.4vw,32px);line-height:1.15;letter-spacing:-.01em;
+}
+.pillar__body{max-height:0;overflow:hidden;opacity:0;transition:max-height .6s cubic-bezier(.65,0,.35,1),opacity .5s}
+.pillar__body p{
+  margin:16px 0 6px;color:var(--ink-soft);font-size:clamp(14px,1.1vw,16px);
+  line-height:1.7;max-width:520px;border-left:2px solid var(--coral);padding-left:18px;
+}
+.pillar__tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pillar__tags span{
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink-soft);
+}
+.pillar.is-active .pillar__num{background:var(--coral);color:#fff;border-color:var(--coral)}
+.pillar.is-active .pillar__body{max-height:320px;opacity:1}
+.pillar:not(.is-active){opacity:.42}
+.pillars__viz{display:flex;align-items:center;justify-content:center;min-width:0;position:relative}
+.pillars__viz::before{ /* dotted grid backdrop */
+  content:'';position:absolute;inset:6% 4%;
+  background-image:radial-gradient(rgba(24,42,68,.13) 1.2px,transparent 1.2px);
+  background-size:26px 26px;border-radius:24px;
+}
+.pillars__viz svg{width:100%;height:auto;max-height:70vh;overflow:visible;position:relative}
+.route{fill:none;stroke:var(--coral);stroke-width:2.5;stroke-linecap:round}
+.route--ghost{stroke:rgba(24,42,68,.10);stroke-dasharray:none!important;stroke-dashoffset:0!important}
+.node{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+.node--hub{fill:var(--coral);stroke:var(--coral)}
+.node-label{font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;fill:var(--ink);font-weight:500;font-family:var(--font-tech)}
+.vgroup{transition:opacity .5s}
+.vgroup.dim{opacity:.14}
+.viz-pulse{fill:var(--coral);opacity:0}
+.viz-hub-label{font-size:17px;letter-spacing:.2em;text-transform:uppercase;fill:var(--coral);font-weight:700;font-family:var(--font-tech)}
+/* 終幕：三軸全亮 + 光暈 + 中心節點脈動（區塊收尾的和弦）*/
+#vizsvg.finale .vgroup{opacity:1}
+#vizsvg.finale .route:not(.route--ghost){
+  stroke-dashoffset:0!important;
+  filter:drop-shadow(0 0 6px rgba(228,87,46,.65));
+  transition:filter .6s;
+}
+#vizsvg.finale .node{stroke:var(--coral);transition:stroke .5s}
+#vizsvg.finale .node--hub{
+  transform-box:fill-box;transform-origin:center;
+  animation:hubPulse 1.5s cubic-bezier(.45,0,.55,1) infinite;
+  filter:drop-shadow(0 0 10px rgba(228,87,46,.8));
+}
+@keyframes hubPulse{50%{transform:scale(1.4)}}
+
+/* ---------- stats ---------- */
+.stats{background:var(--paper-3);border-top:1px solid var(--line);padding:clamp(80px,12vh,140px) clamp(20px,5vw,64px)}
+.stats__inner{max-width:1280px;margin:0 auto}
+.stats__title{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(30px,4vw,54px);line-height:1.1;letter-spacing:-.01em;
+  max-width:760px;margin-bottom:clamp(40px,6vh,70px);
+}
+.stats__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.stat{background:var(--paper-3);padding:clamp(26px,3vw,44px);transition:background .35s,transform .35s;position:relative;overflow:hidden}
+.stat::after{content:'';position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--coral);transition:width .4s cubic-bezier(.65,0,.35,1)}
+.stat:hover{background:var(--ink);transform:translateY(-4px)}
+.stat:hover::after{width:100%}
+.stat:hover .stat__num,.stat:hover .stat__label{color:var(--paper)}
+.stat:hover .stat__desc{color:rgba(246,241,231,.72)}
+.stat__num{font-family:var(--font-display);font-weight:700;font-size:clamp(44px,4.6vw,72px);line-height:1;letter-spacing:-.02em;transition:color .35s}
+.stat__num sup{font-size:.45em;color:var(--coral);font-weight:600}
+.stat__label{margin-top:12px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;transition:color .35s}
+.stat__desc{margin-top:10px;font-size:13.5px;color:var(--ink-soft);line-height:1.6;transition:color .35s}
+
+/* ---------- recognition ---------- */
+.recog{background:var(--paper);padding:clamp(80px,12vh,140px) clamp(20px,5vw,64px);border-top:1px solid var(--line)}
+.recog__inner{max-width:1280px;margin:0 auto}
+.recog__title{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(30px,4vw,54px);line-height:1.1;letter-spacing:-.01em;margin-bottom:clamp(36px,5vh,60px);
+}
+.recog__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,22px)}
+.rcard{
+  border:1px solid var(--line);border-radius:var(--radius,18px);
+  padding:clamp(24px,2.6vw,36px);background:var(--paper-3);
+  position:relative;overflow:hidden;
+  transition:transform .35s,box-shadow .35s,border-color .35s;
+}
+.rcard:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(24,42,68,.10);border-color:rgba(176,138,46,.5)}
+.rcard__laurel{
+  width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:rgba(176,138,46,.12);color:var(--gold);margin-bottom:18px;font-size:18px;
+}
+.rcard__title{font-family:var(--font-display);font-weight:600;font-size:clamp(18px,1.6vw,22px);line-height:1.3}
+.rcard__meta{margin-top:8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.rcard__desc{margin-top:12px;font-size:14px;color:var(--ink-soft);line-height:1.65}
+/* 類型章：Award 金 / Grant 珊瑚 / News 深藍 */
+.rcard__chip{
+  display:inline-block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  border-radius:999px;padding:4px 12px;margin-bottom:16px;
+}
+.rcard__chip--award{background:rgba(176,138,46,.14);color:var(--gold)}
+.rcard__chip--grant{background:rgba(228,87,46,.12);color:var(--coral)}
+.rcard__chip--news{background:rgba(24,42,68,.09);color:var(--ink)}
+/* 里程碑翻頁卡：疊頁感 + 自動/點擊翻頁（取代 ARCHIVE 章）*/
+.rcard--flip{
+  cursor:pointer;background:var(--paper-2);perspective:900px;
+  border-color:rgba(176,138,46,.4);
+}
+.rcard--flip::before,.rcard--flip::after{ /* 底下兩張「疊頁」*/
+  content:'';position:absolute;inset:0;border-radius:inherit;z-index:-1;
+  border:1px solid rgba(176,138,46,.3);background:var(--paper-2);
+}
+.rcard--flip::before{transform:rotate(1.6deg) translate(4px,5px)}
+.rcard--flip::after{transform:rotate(-1.2deg) translate(-3px,7px)}
+.rcard--flip{overflow:visible}
+.flipinner{transition:transform .34s cubic-bezier(.55,0,.55,1),opacity .34s;transform-origin:50% 60%}
+.rcard--flip.flipping .flipinner{transform:rotateX(86deg);opacity:0}
+.rcard__year{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(34px,3vw,46px);
+  line-height:1;letter-spacing:-.01em;color:var(--gold);margin-bottom:10px;
+}
+.rcard__fliphint{
+  position:absolute;right:16px;bottom:12px;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-soft);opacity:.7;
+}
+
+/* ---------- gallery（自動漂移膠卷）---------- */
+.gallery{background:var(--night);padding:clamp(80px,12vh,140px) 0;overflow:hidden;position:relative}
+.gallery__head{max-width:1280px;margin:0 auto clamp(34px,5vh,54px);padding:0 clamp(20px,5vw,64px);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.gallery__title{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,4vw,54px);line-height:1.1;letter-spacing:-.01em;color:var(--paper)}
+.gallery .section-kicker{color:var(--coral-soft)}
+.gallery .section-kicker::before{background:var(--coral-soft)}
+.gallery__hint{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,231,.45)}
+.gallery__strip{
+  display:flex;gap:clamp(14px,1.8vw,24px);
+  overflow-x:auto;overscroll-behavior-x:contain;
+  padding:30px clamp(20px,5vw,64px) 34px; /* 上下留白讓躍出卡不被 overflow 裁切 */
+  cursor:grab;scrollbar-width:none;
+}
+.gallery__strip::-webkit-scrollbar{display:none}
+.gallery__strip.dragging{cursor:grabbing}
+.gcard{
+  position:relative;flex:none;height:clamp(260px,38vh,400px);
+  min-width:min(72vw,420px); /* 圖片載入前保持版面不塌陷 */
+  border-radius:20px;overflow:hidden;
+  border:1px solid rgba(246,241,231,.14);background:var(--night-2,#16233A);
+  transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s,border-color .45s;
+  will-change:transform;
+}
+@media (hover:hover){ /* 躍出效果僅限有指標裝置，避免觸控點一下卡在放大態 */
+  .gcard:hover{ /* 放大 + 上浮 + 深影 + 珊瑚描邊 */
+    transform:scale(1.07) translateY(-8px);z-index:5;
+    box-shadow:0 26px 60px rgba(0,0,0,.5);
+    border-color:rgba(228,87,46,.55);
+  }
+  .gcard:hover img{transform:scale(1.02)} /* 內層降為 1.02，避免與外層雙重放大過衝 */
+}
+.gallery__strip.dragging .gcard{transform:none!important} /* 拖曳中不彈跳 */
+.gcard img{min-width:100%;object-fit:cover}
+.gcard img{
+  height:100%;width:auto;display:block;
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.gcard__num{
+  position:absolute;top:14px;left:14px;z-index:2;
+  font-family:var(--font-tech);font-weight:700;font-size:12px;letter-spacing:.14em;
+  background:rgba(15,24,38,.72);color:var(--paper);border:1px solid rgba(246,241,231,.2);
+  border-radius:8px;padding:5px 10px;backdrop-filter:blur(6px);
+}
+/* caption 不顯示（Alex 定調極簡編號風）；CMS caption 欄位保留但前端忽略 */
+.gallery__bar{
+  max-width:1280px;margin:18px auto 0;padding:0 clamp(20px,5vw,64px);
+}
+.gallery__bar .track{height:2px;background:rgba(246,241,231,.14);border-radius:2px;overflow:hidden}
+.gallery__bar .fill{height:100%;width:0;background:var(--coral);border-radius:2px;transition:width .15s linear}
+
+/* ---------- people ---------- */
+.people{background:var(--paper-2);border-top:1px solid var(--line);padding:clamp(80px,12vh,140px) 0 clamp(70px,10vh,110px);overflow:hidden}
+.people__head{max-width:1280px;margin:0 auto clamp(36px,5vh,56px);padding:0 clamp(20px,5vw,64px);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.people__title{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,4vw,54px);line-height:1.1;letter-spacing:-.01em}
+.people__link{
+  font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  border-bottom:2px solid var(--coral);padding-bottom:4px;
+}
+.people__link:hover .arr{transform:translateX(4px)}
+.people__link .arr{transition:transform .25s;color:var(--coral)}
+.people__rows{display:flex;flex-direction:column;gap:18px}
+.prow{display:flex;gap:18px;width:max-content;will-change:transform}
+/* 橫移由 rAF 驅動（見 JS flowRows）：不受系統「減少動態」設定影響、hover 絲滑減速 */
+.face{
+  position:relative;width:148px;height:186px;border-radius:14px;overflow:hidden;flex:none;
+  border:1px solid var(--line);background:var(--paper-3);
+}
+.face > img{ /* 僅成員照片本體；旗幟(.flagimg)另計 */
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(1) contrast(1.02);transition:filter .45s,transform .45s;
+}
+.face:hover > img{filter:none;transform:scale(1.05)}
+.face span{
+  position:absolute;left:0;right:0;bottom:0;padding:26px 10px 9px;
+  font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;font-weight:500;
+  background:linear-gradient(transparent,rgba(15,24,38,.85));
+  opacity:0;transition:opacity .35s;text-align:center;
+}
+.face span small{
+  display:block;margin-top:3px;font-size:10px;letter-spacing:.08em;
+  color:rgba(246,241,231,.85);font-weight:400;
+}
+.flagimg{height:11px;width:auto;border-radius:2px;vertical-align:-1.5px;margin-right:5px;display:inline-block}
+.face:hover span{opacity:1}
+
+/* ---------- CTA ---------- */
+.cta{background:var(--night);color:var(--paper);position:relative;overflow:hidden;padding:clamp(100px,16vh,180px) clamp(20px,5vw,64px)}
+#ctanet{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+.cta__inner{position:relative;max-width:1100px;margin:0 auto;text-align:center;z-index:2}
+.cta__title{font-family:var(--font-display);font-weight:600;font-size:clamp(40px,7vw,96px);line-height:1.04;letter-spacing:-.015em}
+.cta__title em{font-style:italic;color:var(--coral-soft)}
+.cta__sub{margin:26px auto 0;max-width:560px;color:rgba(246,241,231,.65);font-size:clamp(14.5px,1.3vw,17.5px)}
+.cta__actions{margin-top:46px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn--paper{background:var(--paper);color:var(--night);border:1.5px solid var(--paper)}
+.btn--paper:hover{background:var(--coral);border-color:var(--coral);color:#fff;transform:translateY(-2px);box-shadow:0 12px 34px rgba(228,87,46,.35)}
+.btn--outline{border:1.5px solid rgba(246,241,231,.4);color:var(--paper)}
+.btn--outline:hover{border-color:var(--paper);background:rgba(246,241,231,.08);transform:translateY(-2px)}
+
+/* ---------- footer ---------- */
+.footer{background:var(--night);color:rgba(246,241,231,.55);border-top:1px solid rgba(246,241,231,.1);padding:48px clamp(20px,5vw,64px)}
+.footer__inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;font-size:13px;line-height:1.85}
+.footer a{color:rgba(246,241,231,.8);text-decoration:none}
+.footer a:hover{color:var(--coral-soft)}
+.footer__brand{font-weight:700;letter-spacing:.12em;color:var(--paper);margin-bottom:8px}
+/* NCKU 白色版校名：直接置於深藍底，自然比例（1000×676）*/
+.footer__ncku{display:block;align-self:center;opacity:.92;transition:opacity .25s,transform .25s}
+.footer__ncku img{height:96px;width:auto;display:block}
+.footer__ncku:hover{opacity:1;transform:translateY(-2px)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.33,1,.68,1),transform .8s cubic-bezier(.33,1,.68,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .recog__grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:960px){
+  .stats__grid{grid-template-columns:repeat(2,1fr)}
+  .pillars{height:auto}
+  .pillars__sticky{position:static;height:auto;overflow:visible;grid-template-columns:1fr;padding-top:80px}
+  .pillars__viz{display:none}
+  .pillar:not(.is-active){opacity:1}
+  .pillar .pillar__body{max-height:none;opacity:1}
+}
+@media (max-width:900px){
+  .nav__links,.nav__cta{display:none}
+  .nav__toggle{display:block}
+}
+@media (max-width:760px){
+  .recog__grid{grid-template-columns:1fr}
+  .face{width:122px;height:154px}
+}
+@media (max-width:640px){
+  .stats__grid{grid-template-columns:1fr}
+  .hero__actions .btn,.cta__actions .btn{width:100%;justify-content:center}
+  .gcard{max-width:86vw}
+  .gcard img{width:100%;height:100%;object-fit:cover}
+}
+/* compact pinned pillars on short viewports — prevents bottom pillar clipping */
+@media (max-height:780px) and (min-width:961px){
+  .pillars__sticky{padding-top:56px;padding-bottom:16px}
+  .pillars__head{padding-bottom:10px}
+  .pillars__title{font-size:clamp(24px,3vw,36px)}
+  .section-kicker{margin-bottom:8px}
+  .pillar{padding:11px 0}
+  .pillar__name{font-size:clamp(18px,1.9vw,24px)}
+  .pillar__body p{margin:10px 0 4px;font-size:13.5px;line-height:1.55}
+  .pillar__tags{margin-top:8px}
+  .pillar__tags span{padding:3px 10px;font-size:10.5px}
+  .pillar.is-active .pillar__body{max-height:230px}
+  .pillars__viz svg{max-height:78vh}
+}
+@media (prefers-reduced-motion:reduce){
+  /* 政策：降速/簡化，而非全面停止（Windows「顯示動畫」關閉時仍保留品牌動態）
+     - 進場動畫改為即時呈現（無位移）
+     - 注意力循環（脈動類）關閉
+     - 跑馬燈/漂移由 JS 端降速，hover 回饋保留 */
+  .hero__title .line>span{transform:none;transition:none}
+  .hero__kicker,.hero__sub,.hero__badge,.hero__actions{opacity:1;transform:none;transition:none}
+  .reveal{opacity:1;transform:none;transition:none}
+  .marquee__track{animation-duration:70s}
+  .viz-pulse{opacity:0!important}
+  #vizsvg.finale .node--hub,.tnode--now.in::before{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav" id="nav" aria-label="Main">
+  <a class="nav__brand" href="#top"><img class="nav__ncku" src="https://static.wixstatic.com/media/56b4ef_942f8b305d2047a0af132bd53a81a09b~mv2.png/v1/fit/w_72,h_72,q_90/ncku.png" alt="NCKU"><span class="dot"></span>E-LAB</a>
+  <ul class="nav__links">
+    <li><a href="#top">Home</a></li>
+    <li><a href="pi.html">Principal Investigator</a></li>
+    <li><a href="https://www.entrepreneurship-lab.com/people-update">People</a></li>
+    <li><a href="publications.html">Publications</a></li>
+    <li><a href="https://www.entrepreneurship-lab.com/research">Projects/Grants</a></li>
+  </ul>
+  <a class="nav__cta" href="https://www.entrepreneurship-lab.com/contact">Get in touch</a>
+  <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#top">Home</a>
+  <a href="pi.html">Principal Investigator</a>
+  <a href="https://www.entrepreneurship-lab.com/people-update">People</a>
+  <a href="publications.html">Publications</a>
+  <a href="https://www.entrepreneurship-lab.com/research">Projects/Grants</a>
+  <a href="https://www.entrepreneurship-lab.com/contact">Contact</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="hero__inner">
+    <p class="hero__kicker">Entrepreneurship: The Lab</p>
+    <h1 class="hero__title">
+      <span class="line"><span>Where ventures</span></span>
+      <span class="line"><span><em>reshape</em> industries.</span></span>
+    </h1>
+    <p class="hero__sub">We are a group of researchers at National Cheng Kung University exploring how entrepreneurs' venturing efforts change the course of industrial dynamics — and drive economic evolution.</p>
+    <div><span class="hero__badge">Institute of International Management <b>(IMBA)</b> · NCKU</span></div>
+    <div class="hero__actions">
+      <a class="btn btn--solid" href="#research">Explore our research <span class="arr">→</span></a>
+      <a class="btn btn--ghost" href="https://www.entrepreneurship-lab.com/people-update">Meet the team</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Entrepreneurship <b>●</b> User Innovation <b>●</b> Work Curiosity &amp; Creativity <b>●</b> Lean Startup <b>●</b> Maker Movement <b>●</b> Organizational Design <b>●</b></span>
+    <span>Entrepreneurship <b>●</b> User Innovation <b>●</b> Work Curiosity &amp; Creativity <b>●</b> Lean Startup <b>●</b> Maker Movement <b>●</b> Organizational Design <b>●</b></span>
+  </div>
+</div>
+
+<!-- ================= MISSION ================= -->
+<section class="mission" id="mission">
+  <div class="mission__inner">
+    <p class="mission__text reveal">We believe the entrepreneur is the engine of economic evolution — so we study the <span class="hl">people who leap</span>, the <span class="hl">communities that create</span>, and the <span class="hl">curiosity that keeps organizations alive</span>.</p>
+    <p class="mission__sig reveal d1">Our research philosophy</p>
+  </div>
+</section>
+
+<!-- ================= PILLARS ================= -->
+<section class="pillars" id="research">
+  <div class="pillars__sticky">
+    <div class="pillars__head">
+      <p class="section-kicker">Research directions</p>
+      <h2 class="pillars__title">Three questions we keep asking.</h2>
+    </div>
+
+    <div class="pillars__list">
+      <div class="pillar is-active" data-pillar="0">
+        <div class="pillar__row"><span class="pillar__num">01</span><h3 class="pillar__name">Entrepreneurship</h3></div>
+        <div class="pillar__body">
+          <p>Why do people leap? We study the psychological side of venturing — from entrepreneurial intention and fear of failure to lean-startup practice and how entrepreneurship should be taught.</p>
+          <div class="pillar__tags"><span>Psychology</span><span>Lean Startup</span><span>Education</span></div>
+        </div>
+      </div>
+      <div class="pillar" data-pillar="1">
+        <div class="pillar__row"><span class="pillar__num">02</span><h3 class="pillar__name">User Innovation</h3></div>
+        <div class="pillar__body">
+          <p>Innovation doesn't only come from firms. We trace how makers, open communities and user ecosystems create, share and commercialize ideas outside traditional R&amp;D.</p>
+          <div class="pillar__tags"><span>Maker Movement</span><span>Open Communities</span><span>Ecosystems</span></div>
+        </div>
+      </div>
+      <div class="pillar" data-pillar="2">
+        <div class="pillar__row"><span class="pillar__num">03</span><h3 class="pillar__name">Work Curiosity &amp; Creativity</h3></div>
+        <div class="pillar__body">
+          <p>What keeps minds exploring at work? We examine curiosity, creative cognition and organizational designs that let employees—and organizations—stay inventive.</p>
+          <div class="pillar__tags"><span>Curiosity</span><span>Creative Cognition</span><span>Org Design</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillars__viz" aria-hidden="true">
+      <svg viewBox="0 0 560 520" id="vizsvg">
+        <!-- ghost web -->
+        <g opacity=".55">
+          <path class="route route--ghost" d="M60,420 C140,380 180,300 280,280 S420,180 500,120"/>
+          <path class="route route--ghost" d="M80,120 C160,160 220,240 280,280 S400,360 480,400"/>
+          <path class="route route--ghost" d="M280,60 C270,140 285,210 280,280 S275,400 280,460"/>
+          <path class="route route--ghost" d="M60,420 C120,300 140,220 80,120"/>
+          <path class="route route--ghost" d="M500,120 C520,240 510,320 480,400"/>
+        </g>
+
+        <!-- pillar 0: entrepreneurship -->
+        <g class="vgroup" id="vg0">
+          <path class="route anim" id="r0" d="M60,420 C140,380 180,300 280,280 S420,180 500,120"/>
+          <circle class="node" cx="60"  cy="420" r="6"/>
+          <circle class="node" cx="500" cy="120" r="6"/>
+          <text class="node-label" x="60"  y="448" text-anchor="middle">Founder</text>
+          <text class="node-label" x="500" y="102" text-anchor="middle">New Industry</text>
+        </g>
+        <!-- pillar 1: user innovation -->
+        <g class="vgroup dim" id="vg1">
+          <path class="route anim" id="r1" d="M80,120 C160,160 220,240 280,280 S400,360 480,400"/>
+          <circle class="node" cx="80"  cy="120" r="6"/>
+          <circle class="node" cx="480" cy="400" r="6"/>
+          <text class="node-label" x="80"  y="102" text-anchor="middle">Makers</text>
+          <text class="node-label" x="480" y="428" text-anchor="middle">Ecosystem</text>
+        </g>
+        <!-- pillar 2: curiosity -->
+        <g class="vgroup dim" id="vg2">
+          <path class="route anim" id="r2" d="M280,60 C270,140 285,210 280,280 S275,400 280,460"/>
+          <circle class="node" cx="280" cy="60"  r="6"/>
+          <circle class="node" cx="280" cy="460" r="6"/>
+          <text class="node-label" x="280" y="42"  text-anchor="middle">Curiosity</text>
+          <text class="node-label" x="280" y="490" text-anchor="middle">Creation</text>
+        </g>
+
+        <circle class="node node--hub" cx="280" cy="280" r="12"/>
+        <text class="viz-hub-label" x="280" y="318" text-anchor="middle">The Lab</text>
+        <circle class="viz-pulse" id="pulse" r="5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="stats" id="impact">
+  <div class="stats__inner">
+    <p class="section-kicker reveal">Impact</p>
+    <h2 class="stats__title reveal">Our footprint.</h2>
+    <div class="stats__grid">
+      <div class="stat reveal"><div class="stat__num" data-count="55" data-key="members">0</div><div class="stat__label">Researchers &amp; Alumni</div><div class="stat__desc">One connected community of current members and graduates, since the lab's founding.</div></div>
+      <div class="stat reveal d1"><div class="stat__num" data-count="95" data-key="publications">0</div><div class="stat__label">Scholarly Outputs</div><div class="stat__desc">42 peer-reviewed journal articles and 53 conference papers — 27 in SSCI journals such as British Journal of Management, Technovation and IEEE TEM.</div></div>
+      <div class="stat reveal d2"><div class="stat__num" data-count="36" data-key="awards">0</div><div class="stat__label">Recognition</div><div class="stat__desc">Awards and honors across the lab — 15+ advisee thesis awards alongside PI honors including BAM Best Papers and the Einstein Young Scholar Fellowship.</div></div>
+      <div class="stat reveal d3"><div class="stat__num" data-count="9" data-key="nationalities">0</div><div class="stat__label">Nationalities</div><div class="stat__desc">Members from Taiwan, Thailand, Vietnam, Indonesia, India, Mongolia, Nepal, Germany and the United States.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RECOGNITION ================= -->
+<section class="recog" id="recognition">
+  <div class="recog__inner">
+    <p class="section-kicker reveal">Recognition</p>
+    <h2 class="recog__title reveal">Work that gets noticed.</h2>
+    <div class="recog__grid reveal" id="recogGrid"><!-- 2 最新 + 1 隨機往事，由 JS 渲染（CMS LabNews 驅動）--></div>
+  </div>
+</section>
+
+<!-- ================= GALLERY（自動漂移膠卷：靜置緩滾、hover 減速、可拖曳）================= -->
+<section class="gallery" id="gallery">
+  <div class="gallery__head">
+    <div>
+      <p class="section-kicker reveal">Life at the lab</p>
+      <h2 class="gallery__title reveal">Beyond the papers.</h2>
+    </div>
+    <span class="gallery__hint reveal">Drag ↔</span>
+  </div>
+  <div class="gallery__strip" id="galleryStrip" aria-label="Lab activity photos"><!-- cards injected --></div>
+  <div class="gallery__bar"><div class="track"><div class="fill" id="galleryFill"></div></div></div>
+</section>
+
+<!-- ================= PEOPLE ================= -->
+<section class="people" id="people">
+  <div class="people__head">
+    <div>
+      <p class="section-kicker reveal">The crew</p>
+      <h2 class="people__title reveal">Fifty-five stories, one lab.</h2>
+    </div>
+    <a class="people__link reveal" href="https://www.entrepreneurship-lab.com/people-update">Meet everyone <span class="arr">→</span></a>
+  </div>
+  <div class="people__rows" id="peopleRows"><!-- rows injected by JS --></div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta">
+  <canvas id="ctanet" aria-hidden="true"></canvas>
+  <div class="cta__inner">
+    <h2 class="cta__title reveal">Curious minds,<br><em>wanted.</em></h2>
+    <p class="cta__sub reveal">Whether you want to research venturing, build something new, or join a lab that feels like a crew — we'd love to hear from you.</p>
+    <div class="cta__actions reveal">
+      <a class="btn btn--paper" href="https://www.entrepreneurship-lab.com/people-update">Meet the people</a>
+      <a class="btn btn--outline" href="https://www.entrepreneurship-lab.com/contact">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">E-LAB — Entrepreneurship: The Lab</div>
+      Institute of International Management,<br>
+      National Cheng Kung University<br>
+      No.1, University Road, Tainan City 701, Taiwan
+    </div>
+    <a class="footer__ncku" href="https://www.ncku.edu.tw" target="_blank" rel="noopener" aria-label="National Cheng Kung University">
+      <img src="https://static.wixstatic.com/media/56b4ef_ffaf76b1a75c4c64900afb59c17bbb34~mv2.png/v1/fit/w_320,h_216,q_90/ncku.png" alt="National Cheng Kung University">
+    </a>
+    <div>
+      <a href="index.html">Home</a> ·
+      <a href="pi.html">Principal Investigator</a> ·
+      <a href="https://www.entrepreneurship-lab.com/people-update">People</a> ·
+      <a href="https://www.entrepreneurship-lab.com/graduated">Alumni</a> ·
+      <a href="publications.html">Publications</a> ·
+      <a href="https://www.entrepreneurship-lab.com/research">Projects/Grants</a> ·
+      <a href="https://www.entrepreneurship-lab.com/contact">Contact</a><br>
+      © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ 嵌入 Wix iframe 時：站內連結改導父頁對應 Wix 頁面（否則只在框內跳轉）============ */
+(function(){
+  if(window.top===window.self)return;
+  const MAP={'index.html':'https://www.entrepreneurship-lab.com/',
+             'publications.html':'https://www.entrepreneurship-lab.com/publications',
+             'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator'};
+  document.querySelectorAll('a[href]').forEach(a=>{
+    const base=(a.getAttribute('href')||'').split('#')[0].split('?')[0];
+    if(MAP[base]){a.setAttribute('href',MAP[base]);a.setAttribute('target','_top');}
+  });
+})();
+/* ============ load-in ============ */
+addEventListener('load', () => document.body.classList.add('loaded'));
+setTimeout(() => document.body.classList.add('loaded'), 1200); // fallback
+
+/* external links escape the iframe when embedded in Wix */
+document.querySelectorAll('a[href^="https://www.entrepreneurship-lab.com"]')
+  .forEach(a => a.target = '_top');
+
+/* ============ nav ============ */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), {passive:true});
+const toggle = document.getElementById('navToggle'), menu = document.getElementById('mobileMenu');
+toggle.addEventListener('click', () => {
+  const open = menu.classList.toggle('open');
+  toggle.classList.toggle('open', open);
+  toggle.setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  menu.classList.remove('open'); toggle.classList.remove('open');
+  toggle.setAttribute('aria-expanded','false'); document.body.style.overflow = '';
+}));
+
+/* ============ particle networks (pause offscreen) ============ */
+function makeNet(canvasId, opts){
+  const cv = document.getElementById(canvasId);
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DPR = Math.min(devicePixelRatio || 1, 2);
+  let W,H,nodes=[],mouse={x:-9e3,y:-9e3},running=false,raf=0;
+  const cfg = Object.assign({count:70,link:150,ink:'rgba(24,42,68,',coral:'228,87,46',speed:.35,dotR:2.2},opts);
+
+  function resize(){
+    const r = cv.parentElement.getBoundingClientRect();
+    W = cv.width = r.width*DPR; H = cv.height = r.height*DPR;
+    cv.style.width=r.width+'px'; cv.style.height=r.height+'px';
+    const n = innerWidth<700 ? Math.round(cfg.count*.45) : cfg.count;
+    const spd = cfg.speed*DPR*(reduced?.35:1); // 減少動態 → 降速而非靜止（hover 回饋保留）
+    nodes = Array.from({length:n},()=>({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*spd, vy:(Math.random()-.5)*spd,
+    }));
+  }
+  resize(); addEventListener('resize', resize);
+  cv.parentElement.addEventListener('pointermove', e=>{
+    const r=cv.getBoundingClientRect();
+    mouse.x=(e.clientX-r.left)*DPR; mouse.y=(e.clientY-r.top)*DPR;
+  });
+  cv.parentElement.addEventListener('pointerleave', ()=>{mouse.x=-9e3;mouse.y=-9e3});
+
+  const LINK=cfg.link*DPR, MR=190*DPR;
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of nodes){
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+    }
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i],b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<LINK){
+        const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,near=Math.hypot(mx-mouse.x,my-mouse.y)<MR;
+        const alpha=(1-d/LINK)*(near?.85:.28);
+        ctx.strokeStyle=near?`rgba(${cfg.coral},${alpha})`:cfg.ink+alpha+')';
+        ctx.lineWidth=(near?1.4:1)*DPR*.75;
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+      }
+    }
+    for(const p of nodes){
+      const near=Math.hypot(p.x-mouse.x,p.y-mouse.y)<MR;
+      ctx.fillStyle=near?`rgba(${cfg.coral},.9)`:cfg.ink+'.5)';
+      ctx.beginPath();ctx.arc(p.x,p.y,(near?cfg.dotR+1:cfg.dotR)*DPR*.75,0,7);ctx.fill();
+    }
+    if(running) raf=requestAnimationFrame(tick);
+  }
+  /* pause when offscreen */
+  new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting&&!running){running=true;tick();}
+    else if(!e.isIntersecting&&running){running=false;cancelAnimationFrame(raf);}
+  }),{threshold:.02}).observe(cv.parentElement);
+}
+makeNet('net',{count:72});
+makeNet('ctanet',{count:46,ink:'rgba(246,241,231,',coral:'240,144,111',link:170});
+
+/* ============ pillars scroll-telling ============ */
+const pillarsSec=document.querySelector('.pillars');
+const pillars=[...document.querySelectorAll('.pillar')];
+const routes=[0,1,2].map(i=>document.getElementById('r'+i));
+const vgroups=[0,1,2].map(i=>document.getElementById('vg'+i));
+routes.forEach(r=>{
+  const L=r.getTotalLength();
+  r.dataset.len=L; r.style.strokeDasharray=L; r.style.strokeDashoffset=L;
+});
+const pulse=document.getElementById('pulse');
+function setPillar(idx,prog){
+  pillars.forEach((p,i)=>p.classList.toggle('is-active',i===idx));
+  vgroups.forEach((g,i)=>g.classList.toggle('dim',i!==idx));
+  routes.forEach((r,i)=>{
+    const L=+r.dataset.len;
+    r.style.strokeDashoffset = i<idx?0 : i===idx?L*(1-prog) : L;
+  });
+  const r=routes[idx],L=+r.dataset.len,pt=r.getPointAtLength(L*prog);
+  pulse.setAttribute('cx',pt.x);pulse.setAttribute('cy',pt.y);
+  pulse.style.opacity=prog>.02&&prog<.98?.95:0;
+}
+const vizsvg=document.getElementById('vizsvg');
+function onScrollPillars(){
+  if(innerWidth<=960)return;
+  const rect=pillarsSec.getBoundingClientRect();
+  const total=rect.height-innerHeight;
+  const passed=Math.min(Math.max(-rect.top,0),total);
+  const t=total>0?passed/total:0;
+  /* 終幕（最後 6%）：三軸全亮、光暈、hub 脈動 */
+  if(t>=.94){
+    vizsvg.classList.add('finale');
+    pillars.forEach((p,i)=>p.classList.toggle('is-active',i===2));
+    vgroups.forEach(g=>g.classList.remove('dim'));
+    routes.forEach(r=>{r.style.strokeDashoffset=0;});
+    pulse.style.opacity=0;
+    return;
+  }
+  vizsvg.classList.remove('finale');
+  const seg=Math.min(2,Math.floor(t*3));
+  let prog=Math.min(1,Math.max(0,t*3-seg));
+  if(seg===2) prog=Math.min(1,prog/.82); // 第三條線在 t=.94 剛好畫完 → 無縫接終幕
+  setPillar(seg,prog);
+}
+addEventListener('scroll',onScrollPillars,{passive:true});
+addEventListener('resize',onScrollPillars);
+onScrollPillars();
+if(innerWidth<=960)pillars.forEach(p=>p.classList.add('is-active'));
+
+/* ============ people marquee (real members) ============ */
+const FACES_ALL=[{"n":"Dr. Wisuwat","m":"56b4ef_721b1dc826b34fe0a7125cfed5a1340c~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Dr. Devi","m":"56b4ef_51531025574b4f8a99f00b1f5a615b88~mv2.jpg","c":"Indonesia","f":"56b4ef_e38f55e27ffb4c0182625b2500105449~mv2.png"},{"n":"Jeffrey","m":"56b4ef_3265e1c47b87408181b06924392daa55~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Una","m":"56b4ef_824a32f48cce446bb7deb7439f7ca9ce~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Yeshwant","m":"56b4ef_eccf789e425a4396bbf61148205ced98~mv2.jpg","c":"India","f":"56b4ef_77b2476ce56c4e44a30c2337c4b48c3a~mv2.png"},{"n":"Gary","m":"56b4ef_efc7311f44a24db2af15289dfba554d0~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"MAN","m":"56b4ef_fba80b8af8824776961ccdc41ee96665~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Gustav","m":"073c52_992a5fd9f5694761ab8b51736561ddac~mv2.jpeg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Pearl","m":"073c52_1f83d12e482c4799aa37d1400b990991~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Eugene","m":"073c52_eefd55cf5e0948c4a71958d5db0b3ae3~mv2.jpg","c":"Indonesia","f":"56b4ef_e38f55e27ffb4c0182625b2500105449~mv2.png"},{"n":"May","m":"073c52_ce5675f2cae74fb7990e0000239d90b0~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Pym","m":"073c52_b3e7c7d6309b405a9311dc8b2124845c~mv2.jpeg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Palija","m":"073c52_e219e0eab2af42ad82caaa394a2d2436~mv2.jpg","c":"Nepal","f":"56b4ef_5b0653c8c2f349f783f4dae1a02038ac~mv2.png"},{"n":"Kai","m":"56b4ef_fb4c7a93a0f9427c92f31c356e8fd89f~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Bianca","m":"073c52_c39af793830e48c8a47dcd8084deefd2~mv2.jpg","c":"Germany","f":"56b4ef_d1cf8fc0f5bd4af892b7ca2fb3a414af~mv2.png"},{"n":"Jane","m":"56b4ef_8bc9afa7bb414357a5d495af0ee38df3~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Meen","m":"073c52_702fabb24d2c466dabe1b6594411e8e2~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Jacky","m":"56b4ef_cd2fef33d2784e1980b700cf025f105f~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Sharon","m":"073c52_2af45581cfb04c53a9d0b8dbe2f20936~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Bobo","m":"56b4ef_18d600b0b2d840f1a3184f1b08b74bb2~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Uka","m":"56b4ef_86a612b1b3dc47ca90ee86213975ccbc~mv2.jpg","c":"Mongolia","f":"56b4ef_5e8e5a3c86af4256ae0faab11378efd6~mv2.png"},{"n":"Maii","m":"56b4ef_e42e37e02c224bb19467face3e31af31~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Tar","m":"56b4ef_21c6c0e36ead4fa8bcb67bcd6aa9f3f2~mv2.png","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Tee","m":"56b4ef_b29fda74913a4fd6831e7a11e950047d~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Gee","m":"56b4ef_00d8026bc87c4a3788b9b5bddcee5d3f~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Aileen","m":"56b4ef_b28c8d12468b4d4cae1995e46d6dc525~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Tingting","m":"56b4ef_92ed60989a5f4e038f7f99838b94f259~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Mook","m":"56b4ef_0eecfed614f1456ea735c39cccd3bad3~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Julius","m":"56b4ef_6f9030dab04c4e9a93ce81a4327f33d8~mv2.jpg","c":"Indonesia","f":"56b4ef_e38f55e27ffb4c0182625b2500105449~mv2.png"},{"n":"Dora","m":"56b4ef_14483fca131c4d43874680367bade918~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Cherie","m":"56b4ef_02245402e8b141eaac65ea95c28832b1~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Nidnoi","m":"56b4ef_241689e2ad68495583246cf0736df41b~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Novilia","m":"56b4ef_e1d5180b7f0c41628f919306df73cefa~mv2.jpg","c":"Indonesia","f":"56b4ef_e38f55e27ffb4c0182625b2500105449~mv2.png"},{"n":"Salsabila","m":"56b4ef_ef8ebde4d60447edb63a26cdb5701a32~mv2.jpg","c":"Indonesia","f":"56b4ef_e38f55e27ffb4c0182625b2500105449~mv2.png"},{"n":"Febe","m":"56b4ef_a1c7c04d99794f69b4559b6309919af0~mv2.jpg","c":"Indonesia","f":"56b4ef_e38f55e27ffb4c0182625b2500105449~mv2.png"},{"n":"Kwang","m":"56b4ef_9080d765f071449baaf493e11ee9dc7a~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"NET","m":"56b4ef_82203185fe2f4d428461cb3c3f5cdcb0~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"CC","m":"56b4ef_d48e211318de4d198483d4be779d2350~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Frank","m":"56b4ef_c10488057f98459595f1172026ea76e4~mv2.png","c":"United States","f":"56b4ef_eae117158cee42899daa4898f04cd5e2~mv2.png"},{"n":"Fransiscus","m":"56b4ef_7778dba7e05a46f5b77b1ab84ad7eeb7~mv2.jpg","c":"Indonesia","f":"56b4ef_e38f55e27ffb4c0182625b2500105449~mv2.png"},{"n":"Lea","m":"56b4ef_d00a81e5ee66473e90d5b5bf7cabc246~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"One","m":"56b4ef_4eefae315dcb4ff69f98a5bff39b94aa~mv2.jpg","c":"Vietnam","f":"56b4ef_62fa87ca07ad439f8199b25483ef8acb~mv2.png"},{"n":"Owen","m":"56b4ef_10c03c6a40844d43a7ddb656dd60f5b9~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Khloe","m":"56b4ef_37bb50490412453496ecb9c7fb52b8f3~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Praew","m":"56b4ef_50eea0cee46740c9bd97f8f1682e9ec2~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Poupae","m":"56b4ef_6280eae4f9e14e2bac65bf419687d42f~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Gary L.","m":"56b4ef_0aa0978f4ebb4657bf9350beea96d85d~mv2.jpg","c":"Taiwan","f":"56b4ef_16033f521ff34ec2b8680fb6b014f07f~mv2.png"},{"n":"Mook S.","m":"073c52_e840228311f745499094372b1001934c~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Florence","m":"56b4ef_7d08b528910f4d4fa9dfb773a1b8a4e0~mv2.jpg","c":"Vietnam","f":"56b4ef_62fa87ca07ad439f8199b25483ef8acb~mv2.png"},{"n":"Punch","m":"56b4ef_ff3674f2d36f44ec85db505646c52063~mv2.jpg","c":"Thailand","f":"56b4ef_11d7d4143be54c70b28ef799f0f0619c~mv2.png"},{"n":"Grace","m":"073c52_2ff8b9b5a4dd493cbaae3c97326bfbab~mv2.jpg","c":"Indonesia","f":"56b4ef_e38f55e27ffb4c0182625b2500105449~mv2.png"},{"n":"Indi","m":"56b4ef_9f1bb79313a74ff88d192ea8f3d17c8e~mv2.jpg","c":"Indonesia","f":"56b4ef_e38f55e27ffb4c0182625b2500105449~mv2.png"},{"n":"Harlie","m":"56b4ef_83a148484e59415caa4da8434f4e6559~mv2.jpg","c":"Vietnam","f":"56b4ef_62fa87ca07ad439f8199b25483ef8acb~mv2.png"},{"n":"Teju","m":"56b4ef_dd66c9d750a34ee18054a524ff99b2f5~mv2.jpg","c":"India","f":"56b4ef_77b2476ce56c4e44a30c2337c4b48c3a~mv2.png"},{"n":"Jady","m":"56b4ef_7806c2174cf1483dacf3c1e34e139fbb~mv2.jpg","c":"Vietnam","f":"56b4ef_62fa87ca07ad439f8199b25483ef8acb~mv2.png"}];
+/* 每次載入隨機抽 26 位（Fisher–Yates）→ 刷新即輪替，55 位人人有機會亮相 */
+const FACES=(()=>{const a=FACES_ALL.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a.slice(0,26);})();
+(function buildPeople(){
+  const wrap=document.getElementById('peopleRows');
+  const thumb=m=>`https://static.wixstatic.com/media/${m}/v1/fill/w_180,h_226,al_c,q_82/f.jpg`;
+  const half=Math.ceil(FACES.length/2);
+  const rows=[FACES.slice(0,half),FACES.slice(half)];
+  rows.forEach((row,ri)=>{
+    const div=document.createElement('div');
+    div.className='prow '+(ri===0?'prow--a':'prow--b');
+    const cells=row.concat(row); // duplicate for seamless loop
+    cells.forEach(f=>{
+      const a=document.createElement('a');
+      a.className='face';
+      a.href='https://www.entrepreneurship-lab.com/people-update';
+      a.target='_top';
+      a.innerHTML=`<img src="${thumb(f.m)}" alt="${f.n}" loading="lazy"><span>${f.n}${f.c?`<small><img class="flagimg" src="https://static.wixstatic.com/media/${f.f}/v1/fit/w_40,h_28,q_85/fl.png" alt="" loading="lazy">${f.c}</small>`:''}</span>`;
+      div.appendChild(a);
+    });
+    wrap.appendChild(div);
+  });
+  flowRows();
+})();
+
+/* silky rAF-driven drift for people rows (hover = ease down to 20% speed) */
+function flowRows(){
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const BASE = reduced ? .22 : .55;               // px per frame @60fps
+  const rows = [...document.querySelectorAll('.prow')];
+  const st = rows.map((el,i)=>({el, dir: i%2===0 ? -1 : 1, x:0, cur:1, target:1, half:0}));
+  st.forEach(s=>{
+    s.el.addEventListener('pointerenter',()=>s.target=.2);
+    s.el.addEventListener('pointerleave',()=>s.target=1);
+  });
+  function measure(){ st.forEach(s=>{ s.half = s.el.scrollWidth/2; if(s.dir>0 && s.x===0) s.x = -s.half; }); }
+  addEventListener('resize', measure);
+  let last = performance.now();
+  (function loop(now){
+    const dt = Math.min(now-last, 50); last = now;
+    for(const s of st){
+      if(!s.half) continue;
+      s.cur += (s.target - s.cur) * .06;           // eased speed change
+      s.x += s.dir * BASE * s.cur * (dt/16.7);
+      if(s.x <= -s.half) s.x += s.half;
+      if(s.x >= 0 && s.dir > 0) s.x -= s.half;
+      s.el.style.transform = `translate3d(${s.x}px,0,0)`;
+    }
+    requestAnimationFrame(loop);
+  })(last);
+  /* measure after images/layout settle */
+  setTimeout(measure, 60);
+  addEventListener('load', measure);
+}
+
+/* ============ gallery (CMS LabGallery-backed filmstrip) ============ */
+/* 資料流：先用內建清單即刻渲染 → 嘗試抓 Wix 後端公開端點(/_functions/gallery)，
+   成功則以 CMS 最新內容重繪。Alex 在 CMS「LabGallery」上傳照片即自動更新。 */
+const GALLERY_FALLBACK=[
+  {m:'56b4ef_ea6913b8d52249128eaae5ca56f7b407~mv2.png',cap:''},
+  {m:'56b4ef_428445387984433fbd7ba1b3c3b96df4~mv2.png',cap:''},
+  {m:'56b4ef_be03d8e842594c23b19654ea21be87a1~mv2.jpg',cap:''},
+  {m:'56b4ef_d0ce00e792c4414d8e483904e77acbb2~mv2.jpg',cap:''},
+  {m:'56b4ef_877f4bbd63334f77902a6d32aac2bd75~mv2.jpg',cap:''},
+  {m:'56b4ef_73855769b43249e1ae927eea54ff7f7e~mv2.jpg',cap:''},
+];
+const GALLERY_ENDPOINT='https://www.entrepreneurship-lab.com/_functions/gallery';
+function renderGallery(items){
+  const strip=document.getElementById('galleryStrip');
+  strip.innerHTML='';
+  items.forEach((g,i)=>{
+    const url=`https://static.wixstatic.com/media/${g.m}/v1/fit/w_1200,h_800,q_85/g.jpg`;
+    const card=document.createElement('figure');
+    card.className='gcard';
+    card.innerHTML=`<span class="gcard__num">${String(i+1).padStart(2,'0')}</span>
+      <img src="${url}" alt="Lab activity photo ${i+1}" loading="lazy" draggable="false">`;
+    strip.appendChild(card);
+  });
+}
+renderGallery(GALLERY_FALLBACK);
+fetch(GALLERY_ENDPOINT,{mode:'cors'}).then(r=>r.ok?r.json():null).then(d=>{
+  if(d&&Array.isArray(d.items)&&d.items.length) renderGallery(d.items);
+}).catch(()=>{/* endpoint 尚未部署 → 使用內建清單 */});
+
+/* 自動漂移 + 拖曳 + 進度條（靜置緩滾、hover 絲滑減速、拖曳優先、端點折返）*/
+(function galleryDrift(){
+  const strip=document.getElementById('galleryStrip');
+  const fill=document.getElementById('galleryFill');
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const BASE=reduced?.35:.55;             // px/frame @60fps（RM 版調到可感知）
+  let down=false,startX=0,startScroll=0,moved=false;
+  let dir=1,cur=1,target=1;               // 漂移方向與速度係數
+  let pos=null;                           // float 累加器：外部持有真實位置，免疫 scrollLeft 像素取整
+  /* hover 某張卡 → 暫停漂移（逐卡委派，因卡片會被 renderGallery 重繪）*/
+  strip.addEventListener('pointerover',e=>{if(e.target.closest('.gcard'))target=0;});
+  strip.addEventListener('pointerout', e=>{if(e.target.closest('.gcard'))target=1;});
+  strip.addEventListener('pointerleave',()=>target=1); // 安全網（touch 殘留）
+  strip.addEventListener('pointerdown',e=>{
+    down=true;moved=false;startX=e.clientX;startScroll=strip.scrollLeft;
+    strip.classList.add('dragging');strip.setPointerCapture(e.pointerId);
+  });
+  strip.addEventListener('pointermove',e=>{
+    if(!down)return;
+    const dx=e.clientX-startX;
+    if(Math.abs(dx)>4)moved=true;
+    strip.scrollLeft=startScroll-dx;
+  });
+  const up=()=>{down=false;strip.classList.remove('dragging');pos=strip.scrollLeft;}; // 拖曳後重新同步累加器
+  strip.addEventListener('pointerup',up);
+  strip.addEventListener('pointercancel',up);
+  strip.addEventListener('wheel',()=>{pos=null;},{passive:true}); // 滾輪介入 → 下一幀自 scrollLeft 重取
+  strip.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();}},true);
+  function updBar(){
+    const max=strip.scrollWidth-strip.clientWidth;
+    fill.style.width=(max>0?(strip.scrollLeft/max)*100:0)+'%';
+  }
+  strip.addEventListener('scroll',updBar,{passive:true});
+  addEventListener('resize',updBar);
+  setTimeout(updBar,300);
+  let last=performance.now();
+  (function loop(now){
+    const dt=Math.min(now-last,50);last=now;
+    cur+=(target-cur)*.06;
+    if(!down){
+      const max=strip.scrollWidth-strip.clientWidth;
+      if(max>0){
+        if(pos===null)pos=strip.scrollLeft;      // 自目前位置重取（初次 / 滾輪介入後）
+        pos+=dir*BASE*cur*(dt/16.7);             // 小數累加於 pos，不依賴 scrollLeft 保存
+        if(pos>=max-1){pos=max-1;dir=-1;}
+        else if(pos<=1){pos=1;dir=1;}
+        strip.scrollLeft=pos;                    // 寫入被瀏覽器取整無妨，pos 保有小數
+      }
+    }
+    requestAnimationFrame(loop);
+  })(last);
+})();
+
+/* ============ recognition：2 最新 + 1 隨機往事（CMS LabNews 驅動）============ */
+const NEWS_FALLBACK=[
+ {t:'New lab website goes live',ty:'News',d:'2026-06-18',b:'People and alumni pages are now driven by our new CMS — updated in one click.'},
+ {t:'Two new members join the lab',ty:'News',d:'2026-06-18',b:'Welcome Teju (India) and Jady (Vietnam) to the IMBA cohort.'},
+ {t:"3 × Master's Thesis Awards",ty:'Award',d:'2024-07-01',b:'TSC Dissertation Competition 2024 — Novilia & One (Distinguished), Poupae (Outstanding, top of Business Strategy).'},
+ {t:"3 × Master's Thesis Awards",ty:'Award',d:'2023-07-01',b:'TSC Dissertation Competition 2023 — Dora (Distinguished), Cherie & Nidnoi (Excellent).'},
+ {t:"4 × Distinguished Master's Thesis Awards",ty:'Award',d:'2022-07-01',b:'TSC Dissertation Competition 2022 — Tar, Tee, Aileen & Tingting.'},
+ {t:"Outstanding Master's Thesis Award",ty:'Award',d:'2021-12-01',b:'Chinese Society for Management of Technology — Una Huei-Ying Chen.'},
+ {t:'Best Paper Award',ty:'Award',d:'2021-09-01',b:'British Academy of Management Conference — research on creativity, entrepreneurship and organizational behavior.'},
+];
+const NEWS_ENDPOINT='https://www.entrepreneurship-lab.com/_functions/news';
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtDate(d,archive){
+  const y=d.slice(0,4);
+  if(archive)return y;
+  const m=parseInt(d.slice(5,7),10)-1;
+  return (MONTHS[m]||'')+' '+y;
+}
+function recogCard(n){
+  const div=document.createElement('div');
+  div.className='rcard';
+  const cls='rcard__chip--'+(n.ty||'news').toLowerCase();
+  div.innerHTML=`<span class="rcard__chip ${cls}">${n.ty||'News'}</span>
+    <div class="rcard__title">${n.t}</div>
+    <div class="rcard__meta">${fmtDate(n.d,false)}</div>
+    <div class="rcard__desc">${n.b||''}</div>`;
+  return div;
+}
+/* 里程碑翻頁卡：疊頁 + 每 6 秒（或點擊）翻到下一則往事 */
+let flipTimer=null;
+function milestoneCard(pool){
+  const div=document.createElement('div');
+  div.className='rcard rcard--flip';
+  div.setAttribute('role','button');
+  div.setAttribute('aria-label','Milestones — click to flip');
+  let i=Math.floor(Math.random()*pool.length);
+  const inner=document.createElement('div');
+  inner.className='flipinner';
+  div.appendChild(inner);
+  const hint=document.createElement('span');
+  hint.className='rcard__fliphint';hint.textContent='Flip ↻';
+  div.appendChild(hint);
+  function setContent(n){
+    inner.innerHTML=`<span class="rcard__chip rcard__chip--award">Milestone</span>
+      <div class="rcard__year">${(n.d||'').slice(0,4)}</div>
+      <div class="rcard__title">${n.t}</div>
+      <div class="rcard__desc">${n.b||''}</div>`;
+  }
+  function flip(){
+    div.classList.add('flipping');
+    setTimeout(()=>{
+      i=(i+1)%pool.length;
+      setContent(pool[i]);
+      div.classList.remove('flipping');
+    },340);
+  }
+  setContent(pool[i]);
+  div.addEventListener('click',flip);
+  if(flipTimer)clearInterval(flipTimer);
+  flipTimer=setInterval(flip,6000);
+  return div;
+}
+function renderRecog(items){
+  const grid=document.getElementById('recogGrid');
+  const vis=items.slice().sort((a,b)=>(b.d||'').localeCompare(a.d||''));
+  const latest=vis.slice(0,2), pool=vis.slice(2);
+  grid.innerHTML='';
+  latest.forEach(n=>grid.appendChild(recogCard(n)));
+  if(pool.length)grid.appendChild(milestoneCard(pool));
+}
+renderRecog(NEWS_FALLBACK);
+fetch(NEWS_ENDPOINT).then(r=>r.ok?r.json():null).then(d=>{
+  if(d&&Array.isArray(d.items)&&d.items.length)renderRecog(d.items);
+}).catch(()=>{});
+
+/* ============ 統計連動（CMS 即時：members/awards/nationalities）============ */
+const STATS_ENDPOINT='https://www.entrepreneurship-lab.com/_functions/stats';
+fetch(STATS_ENDPOINT).then(r=>r.ok?r.json():null).then(s=>{
+  if(!s)return;
+  document.querySelectorAll('.stat__num[data-key]').forEach(el=>{
+    const v=s[el.dataset.key];
+    if(v){el.dataset.count=v;
+      if(el.textContent.trim()!=='0')el.textContent=v;} // 已跑完 count-up 就直接更新
+  });
+}).catch(()=>{});
+
+/* ============ reveal + mission + count-up (scroll-driven, deterministic) ============ */
+const revealEls=[...document.querySelectorAll('.reveal')];
+const missionEl=document.querySelector('.mission');
+const statNums=[...document.querySelectorAll('.stat__num')];
+function countUp(el){
+  const target=+el.dataset.count,t0=performance.now(),dur=1400;
+  (function step(now){
+    const k=Math.min(1,(now-t0)/dur);
+    el.textContent=Math.round(target*(1-Math.pow(1-k,3)));
+    if(k<1)requestAnimationFrame(step);
+  })(t0);
+  setTimeout(()=>{el.textContent=target;},dur+120); // guarantee final value even if RAF throttled
+}
+function checkReveals(){
+  const vh=innerHeight;
+  for(let i=revealEls.length-1;i>=0;i--){
+    const el=revealEls[i];
+    if(el.getBoundingClientRect().top < vh*.86){
+      el.classList.add('in'); revealEls.splice(i,1);
+    }
+  }
+  if(missionEl && !missionEl.classList.contains('in') &&
+     missionEl.getBoundingClientRect().top < vh*.6) missionEl.classList.add('in');
+  for(let i=statNums.length-1;i>=0;i--){
+    if(statNums[i].getBoundingClientRect().top < vh*.85){
+      countUp(statNums[i]); statNums.splice(i,1);
+    }
+  }
+}
+let lastReveal=0;
+addEventListener('scroll',()=>{
+  const n=performance.now();
+  if(n-lastReveal>70){lastReveal=n;checkReveals();}
+},{passive:true});
+addEventListener('resize',checkReveals);
+checkReveals();
+</script>
+</body>
+</html>
