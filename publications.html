@@ -149,6 +149,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 /* ---------- 嵌入 Wix 時（Option B）：保留自帶 nav 與原版面（僅連結導父頁）---------- */
+/* 嵌入時 iframe 很高 → 手機選單改頂部緊湊面板（否則 fixed 撐滿高框、選項被拉開）*/
+.framed .mobile-menu{position:absolute;inset:0 0 auto 0;height:auto;min-height:0;justify-content:flex-start;gap:26px;padding:88px 24px 72px}
 </style>
 </head>
 <body>
