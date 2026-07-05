@@ -236,6 +236,14 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
     if(MAP[base]){a.setAttribute('href',MAP[base]);a.setAttribute('target','_top');}
   });
 })();
+/* 嵌入 Wix 時回報自身高度 → HtmlComponent 自動調高 */
+(function(){
+  if(window.parent===window)return;
+  function report(){try{window.parent.postMessage({elabHeight:Math.ceil(document.documentElement.scrollHeight)},'*');}catch(e){}}
+  addEventListener('load',report);addEventListener('resize',report);
+  if(window.ResizeObserver){try{new ResizeObserver(report).observe(document.body);}catch(e){}}
+  [400,1000,2200,4000].forEach(t=>setTimeout(report,t));
+})();
 /* 手機漢堡選單 */
 (function(){
   const t=document.getElementById('navToggle'),m=document.getElementById('mobileMenu');

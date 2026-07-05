@@ -758,6 +758,14 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
     if(MAP[base]){a.setAttribute('href',MAP[base]);a.setAttribute('target','_top');}
   });
 })();
+/* ============ 嵌入 Wix 時回報自身高度 → Wix HtmlComponent 自動調高（免手動設高度）============ */
+(function(){
+  if(window.parent===window)return;
+  function report(){try{window.parent.postMessage({elabHeight:Math.ceil(document.documentElement.scrollHeight)},'*');}catch(e){}}
+  addEventListener('load',report);addEventListener('resize',report);
+  if(window.ResizeObserver){try{new ResizeObserver(report).observe(document.body);}catch(e){}}
+  [400,1000,2200,4000].forEach(t=>setTimeout(report,t));
+})();
 /* ============ load-in ============ */
 addEventListener('load', () => document.body.classList.add('loaded'));
 setTimeout(() => document.body.classList.add('loaded'), 1200); // fallback
