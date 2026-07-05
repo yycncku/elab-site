@@ -148,6 +148,10 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   .pub__meta{padding-left:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ---------- 嵌入 Wix 時：隱藏自帶 nav，篩選列吸頂改 0，收頁首上距 ---------- */
+.framed .nav,.framed .mobile-menu{display:none!important}
+.framed .phead{padding-top:70px}
+.framed .toolbar{top:0}
 </style>
 </head>
 <body>
@@ -226,6 +230,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 /* ============ 嵌入 Wix iframe 時：站內連結改導父頁對應 Wix 頁面 ============ */
 (function(){
   if(window.top===window.self)return;
+  document.documentElement.classList.add('framed');
   const MAP={'index.html':'https://www.entrepreneurship-lab.com/',
              'publications.html':'https://www.entrepreneurship-lab.com/publications',
              'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator'};
