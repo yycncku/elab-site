@@ -436,7 +436,13 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
 (function(){
   const t=document.getElementById('navToggle'),m=document.getElementById('mobileMenu');
   if(!t||!m)return;
-  t.addEventListener('click',()=>{const o=m.classList.toggle('open');t.classList.toggle('open',o);t.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+  t.addEventListener('click',()=>{
+    // 嵌入模式：選單定位到漢堡按鈕當前位置（否則釘在文件頂端，捲下來的人看不到）
+    if(document.documentElement.classList.contains('framed') && !m.classList.contains('open')){
+      const r=t.getBoundingClientRect();
+      m.style.top=Math.max(0,r.top+(window.scrollY||window.pageYOffset||0))+'px';
+    }
+    const o=m.classList.toggle('open');t.classList.toggle('open',o);t.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
   m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{m.classList.remove('open');t.classList.remove('open');t.setAttribute('aria-expanded','false');document.body.style.overflow='';}));
 })();
 
