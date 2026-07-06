@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Funded Research — E-LAB · NCKU</title>
-<meta name="description" content="Competitive research grants of E-LAB (Entrepreneurship: The Lab), National Cheng Kung University.">
+<title>Funded Research 研究計畫 — E-LAB · NCKU</title>
+<meta name="description" content="Competitive research grants of E-LAB (Entrepreneurship: The Lab), National Cheng Kung University. 國立成功大學創業實驗室研究計畫。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23182A44'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23E4572E'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Noto+Serif+TC:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    E-LAB FUNDED RESEARCH — editorial「資助檔案」＋主題脈絡線
    靈感：UI/UX Pro Max（editorial / full-bleed rules / portfolio filter
    / instant-inversion active）× E-LAB 品牌。巧思：Funding Thread。
+   i18n：靜態 chrome 用 .en/.zh 雙節點（body[data-lang] 切換）；
+        資料列由 LANG 變數渲染。計畫標題如實取自中文 CV，不自行翻譯。
    ============================================================ */
 :root{
   --paper:#F6F1E7;--paper-2:#EFE7D6;--paper-3:#FDFBF7;
@@ -25,12 +27,18 @@
   --font-display:'Fraunces',Georgia,serif;
   --font-tech:'Space Grotesk',system-ui,sans-serif;
   --font-mono:'Space Mono',ui-monospace,monospace;
+  --font-zh:'Noto Serif TC','Fraunces',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-size:16px;line-height:1.6;overflow-x:hidden}
 ::selection{background:var(--coral);color:var(--paper)}
 :focus-visible{outline:2.5px solid var(--coral);outline-offset:3px;border-radius:4px}
+/* ---------- i18n ---------- */
+.zh{font-family:var(--font-zh)}
+body[data-lang="en"] .zh{display:none!important}
+body[data-lang="zh"] .en{display:none!important}
+body[data-lang="zh"] .phead h1 .zh,body[data-lang="zh"] .grant__title{font-family:var(--font-zh)}
 
 /* ---------- nav（有底色，避免透明疊字）---------- */
 .nav{position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;
@@ -38,10 +46,17 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .nav__brand{font-weight:700;letter-spacing:.12em;font-size:15px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px}
 .nav__brand .dot{width:9px;height:9px;border-radius:50%;background:var(--coral)}
 .nav__ncku{width:30px;height:30px;display:block}
+.nav__right{display:flex;align-items:center;gap:clamp(12px,2vw,26px)}
 .nav__links{display:flex;gap:clamp(14px,2.4vw,30px);align-items:center;list-style:none}
 .nav__links a{text-decoration:none;color:var(--ink-soft);font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
 .nav__links a:hover{color:var(--coral)}
 .nav__links a[aria-current]{color:var(--coral)}
+body[data-lang="zh"] .nav__links a{text-transform:none;letter-spacing:.1em;font-size:14px}
+.langtoggle{cursor:pointer;border:1.5px solid var(--ink);background:none;color:var(--ink);border-radius:999px;
+  font-family:var(--font-tech);font-size:12px;font-weight:700;letter-spacing:.08em;padding:7px 15px;
+  display:inline-flex;align-items:center;gap:7px;transition:background .25s,color .25s,transform .25s}
+.langtoggle:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px)}
+.langtoggle .globe{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6}
 .nav__toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:102}
 .nav__toggle span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:transform .3s,opacity .3s}
 .nav__toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -50,14 +65,17 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;transition:opacity .35s}
 .mobile-menu.open{opacity:1;pointer-events:auto}
 .mobile-menu a{font-family:var(--font-display);font-size:clamp(26px,7vw,38px);font-weight:600;color:var(--ink);text-decoration:none;text-align:center;line-height:1.15;max-width:92%}
+body[data-lang="zh"] .mobile-menu a{font-family:var(--font-zh)}
 .mobile-menu a:active,.mobile-menu a[aria-current]{color:var(--coral)}
 
 /* ---------- header ---------- */
 .phead{padding:130px clamp(20px,5vw,64px) 30px;max-width:1120px;margin:0 auto}
 .section-kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:12px}
 .section-kicker::before{content:'';width:34px;height:1.5px;background:var(--coral)}
+body[data-lang="zh"] .section-kicker{letter-spacing:.14em}
 .phead h1{font-family:var(--font-display);font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.04;letter-spacing:-.015em}
 .phead__lead{margin-top:16px;color:var(--ink-soft);font-size:15.5px;max-width:640px;line-height:1.7}
+body[data-lang="zh"] .phead__lead{line-height:1.9;font-size:15px}
 
 /* ---------- toolbar（雙軸篩選）---------- */
 .toolbar{position:sticky;top:57px;z-index:50;background:rgba(246,241,231,.94);backdrop-filter:blur(12px);
@@ -66,6 +84,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .toolbar__row--fund{padding-bottom:4px}
 .toolbar__row--theme{padding-top:4px;padding-bottom:12px}
 .tlabel{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);opacity:.72;font-weight:700;flex:none;width:58px}
+body[data-lang="zh"] .tlabel{letter-spacing:.06em;font-size:12px}
 .chips{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:none;font-family:var(--font-tech);font-size:12.5px;letter-spacing:.03em;font-weight:500;cursor:pointer;
@@ -92,6 +111,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .threadnote__in{display:flex;align-items:center;gap:12px;padding:16px 0 2px;font-size:14px;color:var(--ink-soft)}
 .threadnote__dot{width:12px;height:12px;border-radius:3px;flex:none;background:var(--thread,var(--coral))}
 .threadnote b{color:var(--ink);font-weight:700}
+body[data-lang="zh"] .threadnote b{font-family:var(--font-zh)}
 
 /* ---------- 清單（editorial 檔案）---------- */
 .plist{position:relative;max-width:1120px;margin:0 auto;padding:8px clamp(20px,5vw,64px) 110px}
@@ -116,6 +136,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .gnum{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.02em;color:var(--ink-soft);
   border:1px solid var(--line);border-radius:6px;padding:2.5px 8px;background:var(--paper-3);white-space:nowrap}
 .grant__title{font-family:var(--font-display);font-weight:600;font-size:clamp(17px,1.7vw,21px);line-height:1.34;color:var(--ink);max-width:56ch}
+body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
 .grant__meta{margin-top:9px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;font-size:13px;color:var(--ink-soft)}
 .grant__funder{font-weight:500;color:var(--ink)}
 .grant__period{font-family:var(--font-mono);font-size:12px;letter-spacing:.02em}
@@ -149,53 +170,62 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .framed .mobile-menu{position:fixed;top:0;left:0;right:0;bottom:auto;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
 </style>
 </head>
-<body>
+<body data-lang="en">
 
 <nav class="nav" aria-label="Main">
   <a class="nav__brand" href="index.html">
     <img class="nav__ncku" src="https://static.wixstatic.com/media/56b4ef_942f8b305d2047a0af132bd53a81a09b~mv2.png/v1/fit/w_72,h_72,q_90/ncku.png" alt="NCKU">
     <span class="dot"></span>E-LAB
   </a>
-  <ul class="nav__links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="pi.html">Principal Investigator</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a></li>
-    <li><a href="publications.html">Publications</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/research" target="_top" aria-current="page">Projects/Grants</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a></li>
-  </ul>
-  <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav__right">
+    <ul class="nav__links">
+      <li><a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a></li>
+      <li><a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a></li>
+      <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a></li>
+      <li><a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a></li>
+      <li><a href="https://www.entrepreneurship-lab.com/research" target="_top" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
+      <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a></li>
+    </ul>
+    <button class="langtoggle" id="langBtn" aria-label="Switch language">
+      <svg class="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>
+      <span class="en">中文</span><span class="zh">EN</span>
+    </button>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html">Home</a>
-  <a href="pi.html">Principal Investigator</a>
-  <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a>
-  <a href="publications.html">Publications</a>
-  <a href="https://www.entrepreneurship-lab.com/research" target="_top" aria-current="page">Projects/Grants</a>
-  <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a>
+  <a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a>
+  <a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a>
+  <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a>
+  <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a>
+  <a href="https://www.entrepreneurship-lab.com/research" target="_top" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
+  <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a>
 </div>
 
 <header class="phead">
-  <p class="section-kicker">Entrepreneurship: The Lab</p>
-  <h1>Funded Research.</h1>
-  <p class="phead__lead">Competitive grants sustaining the lab's research programs — across national science councils, teaching-innovation schemes, and international collaborations. Filter by a theme to trace how a line of inquiry has been funded over the years.</p>
+  <p class="section-kicker"><span class="en">Entrepreneurship: The Lab</span><span class="zh">創業：實驗室</span></p>
+  <h1><span class="en">Funded Research.</span><span class="zh">研究計畫。</span></h1>
+  <p class="phead__lead">
+    <span class="en">Competitive grants sustaining the lab's research programs — across national science councils, teaching-innovation schemes, and international collaborations. Filter by a theme to trace how a line of inquiry has been funded over the years.</span>
+    <span class="zh">支撐本實驗室各研究計畫的競爭型補助——橫跨國科會／科技部、教育部教學實踐，以及國際合作。點選任一研究主題，即可看見該研究方向歷年獲補助的軌跡。</span>
+  </p>
 </header>
 
 <div class="toolbar">
   <div class="toolbar__row toolbar__row--fund">
-    <span class="tlabel">Funder</span>
+    <span class="tlabel"><span class="en">Funder</span><span class="zh">資助單位</span></span>
     <div class="chips" id="fundChips" role="group" aria-label="Filter by funder">
-      <button class="chip fchip on" data-f="all">All <small id="fAll"></small></button>
-      <button class="chip fchip" data-f="national">National · NSTC / MOST <small id="fnational"></small></button>
-      <button class="chip fchip" data-f="moe">Ministry of Education <small id="fmoe"></small></button>
-      <button class="chip fchip" data-f="intl">International <small id="fintl"></small></button>
-      <button class="chip fchip" data-f="industry">Industry <small id="findustry"></small></button>
+      <button class="chip fchip on" data-f="all"><span class="en">All</span><span class="zh">全部</span> <small id="fAll"></small></button>
+      <button class="chip fchip" data-f="national"><span class="en">National · NSTC / MOST</span><span class="zh">國科會／科技部</span> <small id="fnational"></small></button>
+      <button class="chip fchip" data-f="moe"><span class="en">Ministry of Education</span><span class="zh">教育部</span> <small id="fmoe"></small></button>
+      <button class="chip fchip" data-f="intl"><span class="en">International</span><span class="zh">國際</span> <small id="fintl"></small></button>
+      <button class="chip fchip" data-f="industry"><span class="en">Industry</span><span class="zh">產業</span> <small id="findustry"></small></button>
     </div>
   </div>
   <div class="toolbar__row toolbar__row--theme">
-    <span class="tlabel">Theme</span>
+    <span class="tlabel"><span class="en">Theme</span><span class="zh">研究主題</span></span>
     <div class="chips" id="themeChips" role="group" aria-label="Filter by research theme">
-      <button class="chip tchip on" data-t="all">All</button>
+      <button class="chip tchip on" data-t="all"></button>
       <button class="chip tchip" data-t="mkr"></button>
       <button class="chip tchip" data-t="edu"></button>
       <button class="chip tchip" data-t="org"></button>
@@ -214,19 +244,20 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   <div class="footer__inner">
     <div>
       <div class="footer__brand">E-LAB — Entrepreneurship: The Lab</div>
-      Institute of International Management,<br>National Cheng Kung University<br>No.1, University Road, Tainan City 701, Taiwan
+      <span class="en">Institute of International Management,<br>National Cheng Kung University<br>No.1, University Road, Tainan City 701, Taiwan</span>
+      <span class="zh">國立成功大學 國際經營管理研究所<br>701 臺南市東區大學路 1 號</span>
     </div>
     <a class="footer__ncku" href="https://www.ncku.edu.tw" target="_blank" rel="noopener" aria-label="National Cheng Kung University">
       <img src="https://static.wixstatic.com/media/56b4ef_ffaf76b1a75c4c64900afb59c17bbb34~mv2.png/v1/fit/w_320,h_216,q_90/ncku.png" alt="National Cheng Kung University">
     </a>
     <div>
-      <a href="index.html">Home</a> ·
-      <a href="pi.html">Principal Investigator</a> ·
-      <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a> ·
-      <a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a> ·
-      <a href="publications.html">Publications</a> ·
-      <a href="https://www.entrepreneurship-lab.com/research" target="_top">Projects/Grants</a> ·
-      <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a><br>
+      <a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a> ·
+      <a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">畢業生</span></a> ·
+      <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/research" target="_top"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
       © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
   </div>
@@ -250,7 +281,23 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{m.classList.remove('open');t.classList.remove('open');document.body.style.overflow='';}));
 })();
 
-/* ---------- 主題定義 ---------- */
+/* ---------- i18n 字串（頁面文案，非 CV 內容，可自然中譯）---------- */
+let LANG=document.body.dataset.lang||'en';
+const I18N={
+  en:{all:'All',
+      showing:(x,t)=>`Showing ${x} of ${t}`,
+      grants:n=>`${n} grant${n>1?'s':''}`,
+      empty:'No grants match this filter.',
+      funded:(a,b)=>`funded ${a===b?a:a+'–'+b}`},
+  zh:{all:'全部',
+      showing:(x,t)=>`共 ${t} 項，顯示 ${x} 項`,
+      grants:n=>`${n} 項`,
+      empty:'無符合條件的計畫。',
+      funded:(a,b)=>`${a===b?a:a+'–'+b} 年獲補助`}
+};
+const L=()=>I18N[LANG];
+
+/* ---------- 主題定義（label_zh 為研究方向命名，非 CV 逐字）---------- */
 const GLYPH={
   mkr:'<svg class="glyph" viewBox="0 0 12 12"><path d="M6 .8 11 3.5v5L6 11.2 1 8.5v-5z" fill="currentColor"/></svg>',       /* hexagon */
   edu:'<svg class="glyph" viewBox="0 0 12 12"><path d="M6 1 11 10.5H1z" fill="currentColor"/></svg>',                     /* triangle */
@@ -259,35 +306,96 @@ const GLYPH={
   dig:'<svg class="glyph" viewBox="0 0 12 12"><rect x="1.6" y="1.6" width="8.8" height="8.8" rx="1.4" fill="currentColor"/></svg>' /* square */
 };
 const THEMES={
-  mkr:{label:'Makerspace & Innovation Commons',short:'Makerspace',c:'var(--t-mkr)',cx:'#E4572E'},
-  edu:{label:'Entrepreneurship Education',short:'Entrepreneurship Ed.',c:'var(--t-edu)',cx:'#B08A2E'},
-  org:{label:'Work, Curiosity & Organizations',short:'Work & Orgs',c:'var(--t-org)',cx:'#7A5CA8'},
-  cci:{label:'Creative Industries',short:'Creative Industries',c:'var(--t-cci)',cx:'#2E7D74'},
-  dig:{label:'Digital Economy & Industry',short:'Digital & Industry',c:'var(--t-dig)',cx:'#5B6B84'}
+  mkr:{label:'Makerspace & Innovation Commons',short:'Makerspace',label_zh:'創客基地與創新共有資源',short_zh:'創客基地',c:'var(--t-mkr)'},
+  edu:{label:'Entrepreneurship Education',short:'Entrepreneurship Ed.',label_zh:'創業教育',short_zh:'創業教育',c:'var(--t-edu)'},
+  org:{label:'Work, Curiosity & Organizations',short:'Work & Orgs',label_zh:'工作、好奇心與組織',short_zh:'工作與組織',c:'var(--t-org)'},
+  cci:{label:'Creative Industries',short:'Creative Industries',label_zh:'文化創意產業',short_zh:'文化創意產業',c:'var(--t-cci)'},
+  dig:{label:'Digital Economy & Industry',short:'Digital & Industry',label_zh:'數位經濟與產業',short_zh:'數位經濟',c:'var(--t-dig)'}
 };
+const themeShort=k=>LANG==='zh'?THEMES[k].short_zh:THEMES[k].short;
+const themeLabel=k=>LANG==='zh'?THEMES[k].label_zh:THEMES[k].label;
 
-/* ---------- 19 筆計畫（逐字取自 CV Grants 段）---------- */
+/* ---------- 19 筆計畫 —— t/fu = 英文 CV；t_zh/fu_zh = 中文 CV 逐字（不自行翻譯）---------- */
 const GRANTS=[
-{y:2025,t:"From Reflection to Innovation: Exploring the Impact of Practice-Based Entrepreneurship Teaching on Entrepreneurial Mindset and Social Value Creation",fu:"Ministry of Education · Teaching Practice",fc:"moe",n:"PSR1140236",p:"2025.08 – 2026.07",th:"edu"},
-{y:2024,t:"Towards a New Theory of Common Pool Knowledge Creation: Stakeholders' Behavioral Dynamics in Decentralized Innovation",fu:"National Science & Technology Council",fc:"national",n:"NSTC 113-2410-H-006-132-MY2",p:"2024.08 – 2026.07",th:"mkr"},
-{y:2023,t:"Practice-based Entrepreneurship Education, Industrial Engagement, and Students' Prospect for Career Development: A Longitudinal Investigation",fu:"Ministry of Education · Teaching Practice",fc:"moe",n:"PSR1121274",p:"2023.08 – 2025.07",th:"edu"},
-{y:2023,t:"Makerspace and Entrepreneurship: The View of Innovation Commons (5/5)",fu:"National Science & Technology Council",fc:"national",n:"NSTC 112-2636-H-006-004",p:"2023.02 – 2024.01",th:"mkr"},
-{y:2022,t:"Understanding Practice-based Entrepreneurship Education and Students' Entrepreneurship Intentions: Entrepreneurial Curiosity, Startup-Engaging Experience, and Work Experience",fu:"Ministry of Education · Teaching Practice",fc:"moe",n:"PBM1110546",p:"2022.08 – 2023.07",th:"edu"},
-{y:2022,t:"Makerspace and Entrepreneurship: The View of Innovation Commons (4/5)",fu:"Ministry of Science & Technology",fc:"national",n:"MOST 111-2636-H-006-001",p:"2022.02 – 2023.01",th:"mkr"},
-{y:2021,t:"Practice-based Entrepreneurship Education, Lean Startup Processes, and Team Dynamics: How Team Members' Professional Heterogeneity and Cultural Diversity Affect Students' Entrepreneurial Cognition",fu:"Ministry of Education · Teaching Practice",fc:"moe",n:"PBM1101334",p:"2021.08 – 2022.07",th:"edu"},
-{y:2021,t:"The Impacts of COVID-19 on Female Workers and Management: A Comparative Study on Japan and Taiwan",fu:"Japan–Taiwan Exchange Association",fc:"intl",n:null,p:"2021.04 – 2022.03",th:"org"},
-{y:2021,t:"Makerspace and Entrepreneurship: The View of Innovation Commons (3/5) — Recruitment of Visiting S&T Personnel (Prof. Norihiko Takeuchi, Waseda University)",fu:"Ministry of Science & Technology",fc:"national",n:"MOST 110-2811-H-006-501",p:"2021.11 – 2022.01",th:"mkr"},
-{y:2021,t:"Makerspace and Entrepreneurship: The View of Innovation Commons (3/5)",fu:"Ministry of Science & Technology",fc:"national",n:"MOST 110-2636-H-006-001",p:"2021.02 – 2022.01",th:"mkr"},
-{y:2020,t:"The Engagement-based and Interaction-oriented Approach to Teaching Entrepreneurship and Creative Thinking: How Students' Professional Background Shapes Entrepreneurial Cognition",fu:"Ministry of Education · Teaching Practice",fc:"moe",n:"PBM1090559",p:"2020.08 – 2021.07",th:"edu"},
-{y:2020,t:"Strategic Planning for Shalun Smart Green Energy Science City",fu:"Green Energy Industry Promotion Center",fc:"industry",n:null,p:"2020.05 – 2020.11",th:"dig"},
-{y:2020,t:"Makerspace and Entrepreneurship: The View of Innovation Commons (2/5)",fu:"Ministry of Science & Technology",fc:"national",n:"MOST 109-2636-H-006-001",p:"2020.02 – 2021.01",th:"mkr"},
-{y:2019,t:"Makerspace and Entrepreneurship: The View of Innovation Commons (1/5)",fu:"Ministry of Science & Technology",fc:"national",n:"MOST 108-2636-H-006-001",p:"2019.02 – 2020.01",th:"mkr"},
-{y:2019,t:"Ethics in Digital Economy: Developing Innovative Services and Workforce in Senior-oriented Industries",fu:"Ministry of Education",fc:"moe",n:"C-06-108-0-0941",p:"2019.02 – 2019.08",th:"dig"},
-{y:2018,t:"From Employability to Proactivity: Human Resource Development for Older Workers in East Asia (research collaborator; PI: Prof. Takeuchi Norihiko, Waseda University)",fu:"Japan Society for the Promotion of Science",fc:"intl",n:null,p:"2018 – 2022",th:"org"},
-{y:2017,t:"Value Evolution Model in Creative Industries: A Preliminary Investigation",fu:"Ministry of Science & Technology",fc:"national",n:"MOST 106-2410-H-218-017",p:"2017.08 – 2018.11",th:"cci"},
-{y:2016,t:"Exploring the Relationship between Work Curiosity, Conformity, Contextual Characteristics, and Professional Employees' Creative Performance",fu:"Ministry of Science & Technology",fc:"national",n:"MOST 105-2410-H-218-021-SSS",p:"2016.11 – 2017.10",th:"org"},
-{y:2013,t:"Entrepreneurial Cognitive Style, Guanxi Networks, and Venture Success in the Creative Industries",fu:"Ministry of Science & Technology",fc:"national",n:"MOST 102-2420-H-005-003-DR",p:"2013.08 – 2014.07",th:"cci"}
+{y:2025,fc:"moe",n:"PSR1140236",p:"2025.08 – 2026.07",th:"edu",
+ t:"From Reflection to Innovation: Exploring the Impact of Practice-Based Entrepreneurship Teaching on Entrepreneurial Mindset and Social Value Creation",
+ fu:"Ministry of Education · Teaching Practice",
+ t_zh:"從反思到創新：探索實踐性創業教學法對創業心態與社會價值創造的影響",fu_zh:"教育部教學實踐研究計畫"},
+{y:2024,fc:"national",n:"NSTC 113-2410-H-006-132-MY2",p:"2024.08 – 2026.07",th:"mkr",
+ t:"Towards a New Theory of Common Pool Knowledge Creation: Stakeholders' Behavioral Dynamics in Decentralized Innovation",
+ fu:"National Science & Technology Council",
+ t_zh:"建構創新知識公共財的新理論視角：使用者創新與生產者創新的利害關係人動態",fu_zh:"國科會專題研究計畫"},
+{y:2023,fc:"moe",n:"PSR1121274",p:"2023.08 – 2025.07",th:"edu",
+ t:"Practice-based Entrepreneurship Education, Industrial Engagement, and Students' Prospect for Career Development: A Longitudinal Investigation",
+ fu:"Ministry of Education · Teaching Practice",
+ t_zh:"實務性創業教學法、產業實踐與學生職涯發展意向：以縱貫性調查為基礎之長期研究",fu_zh:"教育部教學實踐研究計畫"},
+{y:2023,fc:"national",n:"NSTC 112-2636-H-006-004",p:"2023.02 – 2024.01",th:"mkr",
+ t:"Makerspace and Entrepreneurship: The View of Innovation Commons (5/5)",
+ fu:"National Science & Technology Council",
+ t_zh:"創客基地與創業家精神：創新共有資源觀點 (5/5)",fu_zh:"國科會愛因斯坦培植計畫"},
+{y:2022,fc:"moe",n:"PBM1110546",p:"2022.08 – 2023.07",th:"edu",
+ t:"Understanding Practice-based Entrepreneurship Education and Students' Entrepreneurship Intentions: Entrepreneurial Curiosity, Startup-Engaging Experience, and Work Experience",
+ fu:"Ministry of Education · Teaching Practice",
+ t_zh:"探討實踐性創業教學法與學生創業意圖之動態變化：創業好奇心、新創涉入經驗與工作經歷之影響",fu_zh:"教育部教學實踐研究計畫"},
+{y:2022,fc:"national",n:"MOST 111-2636-H-006-001",p:"2022.02 – 2023.01",th:"mkr",
+ t:"Makerspace and Entrepreneurship: The View of Innovation Commons (4/5)",
+ fu:"Ministry of Science & Technology",
+ t_zh:"創客基地與創業家精神：創新共有資源觀點 (4/5)",fu_zh:"科技部愛因斯坦培植計畫"},
+{y:2021,fc:"moe",n:"PBM1101334",p:"2021.08 – 2022.07",th:"edu",
+ t:"Practice-based Entrepreneurship Education, Lean Startup Processes, and Team Dynamics: How Team Members' Professional Heterogeneity and Cultural Diversity Affect Students' Entrepreneurial Cognition",
+ fu:"Ministry of Education · Teaching Practice",
+ t_zh:"實踐性創業教學法、精實創業過程與團隊動態：探討團隊跨領域組成與文化多元性對於創業認知建構之影響",fu_zh:"教育部教學實踐研究計畫"},
+{y:2021,fc:"intl",n:null,p:"2021.04 – 2022.03",th:"org",
+ t:"The Impacts of COVID-19 on Female Workers and Management: A Comparative Study on Japan and Taiwan",
+ fu:"Japan–Taiwan Exchange Association",
+ t_zh:"COVID-19 對於女性工作者及其管理的影響：台日比較分析",fu_zh:"公益財團法人日本台灣交流協會"},
+{y:2021,fc:"national",n:"MOST 110-2811-H-006-501",p:"2021.11 – 2022.01",th:"mkr",
+ t:"Makerspace and Entrepreneurship: The View of Innovation Commons (3/5) — Recruitment of Visiting S&T Personnel (Prof. Norihiko Takeuchi, Waseda University)",
+ fu:"Ministry of Science & Technology",
+ t_zh:"創客基地與創業家精神：創新共有資源觀點 (3/5)",fu_zh:"科技部愛因斯坦培植計畫（延攬客座科技人才：竹內規彥，日本早稻田大學商學院管理學教授）"},
+{y:2021,fc:"national",n:"MOST 110-2636-H-006-001",p:"2021.02 – 2022.01",th:"mkr",
+ t:"Makerspace and Entrepreneurship: The View of Innovation Commons (3/5)",
+ fu:"Ministry of Science & Technology",
+ t_zh:"創客基地與創業家精神：創新共有資源觀點 (3/5)",fu_zh:"科技部愛因斯坦培植計畫"},
+{y:2020,fc:"moe",n:"PBM1090559",p:"2020.08 – 2021.07",th:"edu",
+ t:"The Engagement-based and Interaction-oriented Approach to Teaching Entrepreneurship and Creative Thinking: How Students' Professional Background Shapes Entrepreneurial Cognition",
+ fu:"Ministry of Education · Teaching Practice",
+ t_zh:"實踐式與互動式教學法導入創意創業教學之研究：探討學生專業背景對創業認知建構的影響",fu_zh:"教育部教學實踐研究計畫"},
+{y:2020,fc:"industry",n:null,p:"2020.05 – 2020.11",th:"dig",
+ t:"Strategic Planning for Shalun Smart Green Energy Science City",
+ fu:"Green Energy Industry Promotion Center",
+ t_zh:"沙崙科學城整體發展策略委託研究規劃案",fu_zh:"綠能科技產業推動中心"},
+{y:2020,fc:"national",n:"MOST 109-2636-H-006-001",p:"2020.02 – 2021.01",th:"mkr",
+ t:"Makerspace and Entrepreneurship: The View of Innovation Commons (2/5)",
+ fu:"Ministry of Science & Technology",
+ t_zh:"創客基地與創業家精神：創新共有資源觀點 (2/5)",fu_zh:"科技部愛因斯坦培植計畫"},
+{y:2019,fc:"national",n:"MOST 108-2636-H-006-001",p:"2019.02 – 2020.01",th:"mkr",
+ t:"Makerspace and Entrepreneurship: The View of Innovation Commons (1/5)",
+ fu:"Ministry of Science & Technology",
+ t_zh:"創客基地與創業家精神：創新共有資源觀點 (1/5)",fu_zh:"科技部愛因斯坦培植計畫"},
+{y:2019,fc:"moe",n:"C-06-108-0-0941",p:"2019.02 – 2019.08",th:"dig",
+ t:"Ethics in Digital Economy: Developing Innovative Services and Workforce in Senior-oriented Industries",
+ fu:"Ministry of Education",
+ t_zh:"數位經濟的倫理觀：高齡創新服務人才培育計畫",fu_zh:"教育部人文社會與科技前瞻人才培育計畫"},
+{y:2018,fc:"intl",n:null,p:"2018 – 2022",th:"org",
+ t:"From Employability to Proactivity: Human Resource Development for Older Workers in East Asia (research collaborator; PI: Prof. Takeuchi Norihiko, Waseda University)",
+ fu:"Japan Society for the Promotion of Science",
+ t_zh:"From Employability to Proactivity: Human Resource Development for Older Workers in East Asia（協同研究人員；計畫主持人：Professor Takeuchi Norihiko, Waseda University）",fu_zh:"日本學術振興會（JSPS）"},
+{y:2017,fc:"national",n:"MOST 106-2410-H-218-017",p:"2017.08 – 2018.11",th:"cci",
+ t:"Value Evolution Model in Creative Industries: A Preliminary Investigation",
+ fu:"Ministry of Science & Technology",
+ t_zh:"文化創意產業之價值演化模型初探",fu_zh:"科技部專題研究計畫"},
+{y:2016,fc:"national",n:"MOST 105-2410-H-218-021-SSS",p:"2016.11 – 2017.10",th:"org",
+ t:"Exploring the Relationship between Work Curiosity, Conformity, Contextual Characteristics, and Professional Employees' Creative Performance",
+ fu:"Ministry of Science & Technology",
+ t_zh:"探討工作好奇心、從眾傾向、環境特性與知識型員工之創意：量表建構與模型驗證",fu_zh:"科技部專題研究計畫"},
+{y:2013,fc:"national",n:"MOST 102-2420-H-005-003-DR",p:"2013.08 – 2014.07",th:"cci",
+ t:"Entrepreneurial Cognitive Style, Guanxi Networks, and Venture Success in the Creative Industries",
+ fu:"Ministry of Science & Technology",
+ t_zh:"Entrepreneurial Cognitive Style, Guanxi Networks, and Venture Success in the Creative Industries",fu_zh:"科技部獎勵人文與社會科學領域博士候選人撰寫博士論文計畫"}
 ];
+const gT=g=>LANG==='zh'?(g.t_zh||g.t):g.t;
+const gF=g=>LANG==='zh'?(g.fu_zh||g.fu):g.fu;
 
 /* ---------- 篩選狀態 ---------- */
 let curFund='all', curTheme='all';
@@ -300,28 +408,28 @@ function render(){
   years.forEach(y=>{
     const items=vis.filter(g=>g.y===y);
     const sec=document.createElement('section');sec.className='ygroup';
-    sec.innerHTML=`<div class="ygroup__head"><span class="ygroup__year">${y}</span><span class="ygroup__rule"></span><span class="ygroup__n">${items.length} grant${items.length>1?'s':''}</span></div>`;
+    sec.innerHTML=`<div class="ygroup__head"><span class="ygroup__year">${y}</span><span class="ygroup__rule"></span><span class="ygroup__n">${L().grants(items.length)}</span></div>`;
     items.forEach(g=>{
       const th=THEMES[g.th];
       const art=document.createElement('article');art.className='grant reveal';art.style.setProperty('--gc',th.c);
       const num=g.n?`<span class="gnum">${g.n}</span>`:'';
-      art.innerHTML=`<div class="grant__top"><span class="gtag">${GLYPH[g.th]}${th.short}</span>${num}</div>
-        <h3 class="grant__title">${g.t}</h3>
-        <div class="grant__meta"><span class="grant__funder">${g.fu}</span><span class="grant__period">${g.p}</span></div>`;
+      art.innerHTML=`<div class="grant__top"><span class="gtag">${GLYPH[g.th]}${themeShort(g.th)}</span>${num}</div>
+        <h3 class="grant__title">${gT(g)}</h3>
+        <div class="grant__meta"><span class="grant__funder">${gF(g)}</span><span class="grant__period">${g.p}</span></div>`;
       sec.appendChild(art);
     });
     list.appendChild(sec);
   });
-  if(!vis.length)list.innerHTML='<p class="empty">No grants match this filter.</p>';
-  document.getElementById('count').textContent=`Showing ${vis.length} of ${GRANTS.length}`;
+  if(!vis.length)list.innerHTML=`<p class="empty">${L().empty}</p>`;
+  document.getElementById('count').textContent=L().showing(vis.length,GRANTS.length);
   /* Funding Thread：單一主題 → 連續脊線 + 敘事列 */
   const note=document.getElementById('threadnote');
   if(curTheme!=='all'){
     const th=THEMES[curTheme];
     list.classList.add('thread');list.style.setProperty('--thread',th.c);
     document.documentElement.style.setProperty('--thread',th.c);
-    const ys=vis.map(g=>g.y); const span=ys.length?`${Math.min(...ys)}–${Math.max(...ys)}`:'—';
-    document.getElementById('threadtext').innerHTML=`<b>${th.label}</b> · ${vis.length} grant${vis.length>1?'s':''} · funded ${span}`;
+    const ys=vis.map(g=>g.y); const a=ys.length?Math.min(...ys):'—',b=ys.length?Math.max(...ys):'—';
+    document.getElementById('threadtext').innerHTML=`<b>${themeLabel(curTheme)}</b> · ${L().grants(vis.length)} · ${L().funded(a,b)}`;
     note.style.setProperty('--thread',th.c);note.classList.add('show');
   }else{
     list.classList.remove('thread');note.classList.remove('show');
@@ -335,18 +443,30 @@ GRANTS.forEach(g=>fc[g.fc]++);
 ['all','national','moe','intl','industry'].forEach(k=>{const el=document.getElementById('f'+(k==='all'?'All':k));if(el)el.textContent=fc[k];});
 const tc={all:GRANTS.length,mkr:0,edu:0,org:0,cci:0,dig:0};
 GRANTS.forEach(g=>tc[g.th]++);
-/* 主題 chips 標籤（glyph + short + count），active 色靠 CSS */
-document.querySelectorAll('#themeChips .tchip').forEach(c=>{
-  const k=c.dataset.t;
-  if(k==='all'){c.innerHTML=`All <small>${GRANTS.length}</small>`;return;}
-  c.innerHTML=`${GLYPH[k]}${THEMES[k].short} <small>${tc[k]}</small>`;
-  c.style.setProperty('--chipc',THEMES[k].c); /* 未 active 時 glyph/文字帶主題色調；active 由 .on 覆蓋為 paper */
-});
+/* 主題 chips 標籤（glyph + short + count），依 LANG 重建 */
+function buildThemeChips(){
+  document.querySelectorAll('#themeChips .tchip').forEach(c=>{
+    const k=c.dataset.t;
+    if(k==='all'){c.innerHTML=`${L().all} <small>${GRANTS.length}</small>`;return;}
+    c.innerHTML=`${GLYPH[k]}${themeShort(k)} <small>${tc[k]}</small>`;
+    c.style.setProperty('--chipc',THEMES[k].c);
+  });
+}
+buildThemeChips();
 
 document.getElementById('fundChips').addEventListener('click',e=>{const b=e.target.closest('.fchip');if(!b)return;
   curFund=b.dataset.f;document.querySelectorAll('#fundChips .fchip').forEach(c=>c.classList.toggle('on',c===b));render();});
 document.getElementById('themeChips').addEventListener('click',e=>{const b=e.target.closest('.tchip');if(!b)return;
   curTheme=b.dataset.t;document.querySelectorAll('#themeChips .tchip').forEach(c=>c.classList.toggle('on',c===b));render();});
+
+/* ---------- 語言切換 ---------- */
+document.getElementById('langBtn').addEventListener('click',()=>{
+  LANG=LANG==='en'?'zh':'en';
+  document.body.dataset.lang=LANG;
+  document.documentElement.lang=LANG==='zh'?'zh-Hant':'en';
+  buildThemeChips();
+  render();
+});
 
 /* ---------- reveal：嵌入用 IO（母頁捲動）、直連用 scroll ---------- */
 const useIO=document.documentElement.classList.contains('framed') && 'IntersectionObserver' in window;
@@ -362,8 +482,11 @@ function wireReveals(){
 }
 if(!useIO){let last=0;addEventListener('scroll',()=>{const n=performance.now();if(n-last>80){last=n;wireReveals();}},{passive:true});}
 
-/* 深連結 ?theme=mkr（供 landing 三支柱或其他頁直達）*/
-const pt=new URLSearchParams(location.search).get('theme');
+/* 深連結：?theme=mkr 直達主題脈絡線；?lang=zh 直接中文 */
+const qs=new URLSearchParams(location.search);
+const ql=qs.get('lang');
+if(ql==='zh'||ql==='en'){LANG=ql;document.body.dataset.lang=LANG;document.documentElement.lang=LANG==='zh'?'zh-Hant':'en';buildThemeChips();}
+const pt=qs.get('theme');
 if(pt&&THEMES[pt]){curTheme=pt;document.querySelectorAll('#themeChips .tchip').forEach(c=>c.classList.toggle('on',c.dataset.t===pt));}
 render();
 </script>
