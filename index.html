@@ -527,7 +527,7 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 .framed .pillars__viz{display:none}
 .framed .pillar:not(.is-active){opacity:1}
 .framed .pillar .pillar__body{max-height:none;opacity:1}
-.framed .mobile-menu{position:absolute;inset:0 0 auto 0;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
+.framed .mobile-menu{position:fixed;top:0;left:0;right:0;bottom:auto;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
 </style>
 </head>
 <body>
@@ -786,11 +786,6 @@ const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), {passive:true});
 const toggle = document.getElementById('navToggle'), menu = document.getElementById('mobileMenu');
 toggle.addEventListener('click', () => {
-  // 嵌入模式：選單定位到漢堡按鈕當前位置（否則釘在文件頂端，捲下來的人看不到）
-  if(document.documentElement.classList.contains('framed') && !menu.classList.contains('open')){
-    const r = toggle.getBoundingClientRect();
-    menu.style.top = Math.max(0, r.top + (window.scrollY || window.pageYOffset || 0)) + 'px';
-  }
   const open = menu.classList.toggle('open');
   toggle.classList.toggle('open', open);
   toggle.setAttribute('aria-expanded', open);

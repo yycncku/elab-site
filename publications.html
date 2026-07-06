@@ -150,7 +150,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 /* ---------- 嵌入 Wix 時（Option B）：保留自帶 nav 與原版面（僅連結導父頁）---------- */
 /* 嵌入時 iframe 很高 → 手機選單改頂部緊湊面板（否則 fixed 撐滿高框、選項被拉開）*/
-.framed .mobile-menu{position:absolute;inset:0 0 auto 0;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
+.framed .mobile-menu{position:fixed;top:0;left:0;right:0;bottom:auto;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
 </style>
 </head>
 <body>
@@ -250,13 +250,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 (function(){
   const t=document.getElementById('navToggle'),m=document.getElementById('mobileMenu');
   if(!t||!m)return;
-  t.addEventListener('click',()=>{
-    // 嵌入模式：選單定位到漢堡按鈕當前位置（否則釘在文件頂端，捲下來的人看不到）
-    if(document.documentElement.classList.contains('framed') && !m.classList.contains('open')){
-      const r=t.getBoundingClientRect();
-      m.style.top=Math.max(0,r.top+(window.scrollY||window.pageYOffset||0))+'px';
-    }
-    const o=m.classList.toggle('open');t.classList.toggle('open',o);t.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+  t.addEventListener('click',()=>{const o=m.classList.toggle('open');t.classList.toggle('open',o);t.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
   m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{m.classList.remove('open');t.classList.remove('open');t.setAttribute('aria-expanded','false');document.body.style.overflow='';}));
 })();
 
