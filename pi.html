@@ -500,6 +500,20 @@ let last=0;
 addEventListener('scroll',()=>{const n=performance.now();if(n-last>70){last=n;check();}},{passive:true});
 addEventListener('resize',()=>{check();mqMeasure();});
 mqMeasure();check();requestAnimationFrame(mqTick);
+/* 嵌入 Wix 時 iframe 不捲動（母頁在捲）→ scroll 不觸發，捲動動畫失效。
+   改為載入後強制跑到最終狀態（reveal 全顯示、節點全亮、時間軸填滿）；
+   CSS 過渡讓它「載入即播放」生長效果。多次重算以待版面/字型穩定。 */
+if(document.documentElement.classList.contains('framed')){
+  const finalize=()=>{
+    revealEls.slice().forEach(e=>{e.classList.add('in');});revealEls.length=0;
+    tnodes.forEach(n=>n.classList.add('in'));
+    if(tl&&tlFill&&tnodes.length){
+      const tr=tl.getBoundingClientRect(),nr=tnodes[tnodes.length-1].getBoundingClientRect();
+      tlFill.style.height=Math.max(0,nr.top-tr.top+14)+'px';
+    }
+  };
+  [250,800,1600,2800].forEach(t=>setTimeout(finalize,t));
+}
 </script>
 </body>
 </html>
