@@ -511,9 +511,9 @@ if(useIO){
     const h=Math.max(0,nr.top-tr.top+14);
     if(h>(parseFloat(tlFill.style.height)||0))tlFill.style.height=h+'px';
   };
-  window.refillTL=()=>{ // 語言切換後版面位移 → 重算填充
-    const lit=document.querySelectorAll('.tnode.in');
-    if(lit.length){tlFill.style.height='0px';fillTo(lit[lit.length-1]);}
+  window.refillTL=()=>{ // 語言切換 → 時間軸動畫重播（歸零重置、重新觀察，捲動時再漸進生長）
+    tlFill.style.height='0px';
+    tnodes.forEach(n=>{n.classList.remove('in');io.unobserve(n);io.observe(n);});
   };
   const io=new IntersectionObserver(es=>{
     es.forEach(en=>{
