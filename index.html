@@ -521,6 +521,12 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 }
 /* ---------- 嵌入 Wix 時（Option B）：保留自帶 nav；僅收束 100vh hero（iframe 內會爆高）---------- */
 .framed .hero{min-height:640px}
+/* 釘住捲動劇場依賴 iframe 自身捲動（嵌入時不捲）→ 改用手機版的靜態展開版面 */
+.framed .pillars{height:auto}
+.framed .pillars__sticky{position:static;height:auto;overflow:visible;grid-template-columns:1fr;padding-top:80px}
+.framed .pillars__viz{display:none}
+.framed .pillar:not(.is-active){opacity:1}
+.framed .pillar .pillar__body{max-height:none;opacity:1}
 .framed .mobile-menu{position:absolute;inset:0 0 auto 0;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
 </style>
 </head>
@@ -1153,13 +1159,31 @@ function checkReveals(){
     }
   }
 }
+/* 嵌入 Wix 時：iframe innerHeight=整框高（vh 檢查載入即全亮）且捲動在母頁（scroll 不觸發）
+   → 改用 IntersectionObserver（以訪客實際螢幕計算，跨 iframe 有效）驅動漸進亮起與 count-up。 */
+const useIO=document.documentElement.classList.contains('framed') && 'IntersectionObserver' in window;
 let lastReveal=0;
 addEventListener('scroll',()=>{
   const n=performance.now();
-  if(n-lastReveal>70){lastReveal=n;checkReveals();}
+  if(n-lastReveal>70){lastReveal=n;if(!useIO)checkReveals();}
 },{passive:true});
-addEventListener('resize',checkReveals);
-checkReveals();
+addEventListener('resize',()=>{if(!useIO)checkReveals();});
+if(!useIO)checkReveals();
+if(useIO){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(en=>{
+      if(!en.isIntersecting)return;
+      const el=en.target;
+      if(el===missionEl){el.classList.add('in');}
+      else if(el.classList.contains('stat__num')){countUp(el);}
+      else{el.classList.add('in');}
+      io.unobserve(el);
+    });
+  },{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+  revealEls.forEach(e=>io.observe(e));
+  statNums.forEach(s=>io.observe(s));
+  if(missionEl)io.observe(missionEl);
+}
 </script>
 </body>
 </html>

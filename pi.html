@@ -447,7 +447,7 @@ langBtn.addEventListener('click',()=>{
   const next=cur==='en'?'zh':'en';
   document.body.dataset.lang=next;
   document.documentElement.lang=next==='zh'?'zh-Hant':'en';
-  setTimeout(()=>{check();mqMeasure();},30); // 語言切換後重算版位
+  setTimeout(()=>{if(!window.__useIO)check();mqMeasure();if(window.refillTL)window.refillTL();},30); // 語言切換後重算版位
 });
 
 /* ---------- 榮譽完整列表展開 ---------- */
@@ -496,23 +496,36 @@ function check(){
   tnodes.forEach(n=>{if(n.getBoundingClientRect().top<vh*.82){n.classList.add('in');lastLit=n;}});
   if(lastLit&&tl){const tr=tl.getBoundingClientRect(),nr=lastLit.getBoundingClientRect();tlFill.style.height=Math.max(0,nr.top-tr.top+14)+'px';}
 }
+/* 嵌入 Wix 時：iframe 的 innerHeight=整框高（vh 檢查會「載入即全亮」）、且捲動發生在
+   母頁（iframe 永不觸發 scroll）→ 改用 IntersectionObserver：它以「訪客實際螢幕」
+   （頂層視窗）計算可視，跨 iframe 有效 → 漸進亮起/珊瑚線生長效果完整恢復。 */
+const useIO=document.documentElement.classList.contains('framed') && 'IntersectionObserver' in window;
+window.__useIO=useIO;
 let last=0;
-addEventListener('scroll',()=>{const n=performance.now();if(n-last>70){last=n;check();}},{passive:true});
-addEventListener('resize',()=>{check();mqMeasure();});
-mqMeasure();check();requestAnimationFrame(mqTick);
-/* 嵌入 Wix 時 iframe 不捲動（母頁在捲）→ scroll 不觸發，捲動動畫失效。
-   改為載入後強制跑到最終狀態（reveal 全顯示、節點全亮、時間軸填滿）；
-   CSS 過渡讓它「載入即播放」生長效果。多次重算以待版面/字型穩定。 */
-if(document.documentElement.classList.contains('framed')){
-  const finalize=()=>{
-    revealEls.slice().forEach(e=>{e.classList.add('in');});revealEls.length=0;
-    tnodes.forEach(n=>n.classList.add('in'));
-    if(tl&&tlFill&&tnodes.length){
-      const tr=tl.getBoundingClientRect(),nr=tnodes[tnodes.length-1].getBoundingClientRect();
-      tlFill.style.height=Math.max(0,nr.top-tr.top+14)+'px';
-    }
+addEventListener('scroll',()=>{const n=performance.now();if(n-last>70){last=n;if(!useIO)check();}},{passive:true});
+addEventListener('resize',()=>{if(!useIO)check();mqMeasure();});
+mqMeasure();if(!useIO)check();requestAnimationFrame(mqTick);
+if(useIO){
+  const fillTo=(el)=>{
+    const tr=tl.getBoundingClientRect(),nr=el.getBoundingClientRect();
+    const h=Math.max(0,nr.top-tr.top+14);
+    if(h>(parseFloat(tlFill.style.height)||0))tlFill.style.height=h+'px';
   };
-  [250,800,1600,2800].forEach(t=>setTimeout(finalize,t));
+  window.refillTL=()=>{ // 語言切換後版面位移 → 重算填充
+    const lit=document.querySelectorAll('.tnode.in');
+    if(lit.length){tlFill.style.height='0px';fillTo(lit[lit.length-1]);}
+  };
+  const io=new IntersectionObserver(es=>{
+    es.forEach(en=>{
+      if(!en.isIntersecting)return;
+      const el=en.target;
+      el.classList.add('in');
+      if(el.classList.contains('tnode'))fillTo(el);
+      io.unobserve(el);
+    });
+  },{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+  revealEls.forEach(e=>io.observe(e));
+  tnodes.forEach(n=>io.observe(n));
 }
 </script>
 </body>
