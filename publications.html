@@ -46,7 +46,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .nav__toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav__toggle.open span:nth-child(2){opacity:0}
 .nav__toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:101;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;transition:opacity .35s}
+.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;transition:opacity .35s}
 .mobile-menu.open{opacity:1;pointer-events:auto}
 .mobile-menu a{font-family:var(--font-display);font-size:clamp(26px,7vw,38px);font-weight:600;color:var(--ink);text-decoration:none;text-align:center;line-height:1.15;max-width:92%}
 .mobile-menu a:active,.mobile-menu a[aria-current]{color:var(--coral)}
@@ -150,7 +150,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 /* ---------- 嵌入 Wix 時（Option B）：保留自帶 nav 與原版面（僅連結導父頁）---------- */
 /* 嵌入時 iframe 很高 → 手機選單改頂部緊湊面板（否則 fixed 撐滿高框、選項被拉開）*/
-.framed .mobile-menu{position:absolute;inset:0 0 auto 0;height:auto;min-height:0;justify-content:flex-start;gap:26px;padding:88px 24px 72px}
+.framed .mobile-menu{position:absolute;inset:0 0 auto 0;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
 </style>
 </head>
 <body>
