@@ -151,6 +151,10 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 /* ---------- 嵌入 Wix 時（Option B）：保留自帶 nav 與原版面（僅連結導父頁）---------- */
 /* 嵌入時 iframe 很高 → 手機選單改頂部緊湊面板（否則 fixed 撐滿高框、選項被拉開）*/
 .framed .mobile-menu{position:fixed;top:0;left:0;right:0;bottom:auto;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
+/* 嵌入時：框高>內容 → footer 下方空白以深色填滿（消除留白差異）*/
+.tailfill{display:none}
+.framed body{display:flex;flex-direction:column;min-height:100vh}
+.framed .tailfill{display:block;flex:1 0 auto;background:var(--night)}
 </style>
 </head>
 <body>
@@ -224,6 +228,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
     </div>
   </div>
 </footer>
+<div class="tailfill" aria-hidden="true"></div>
 
 <script>
 /* ============ 嵌入 Wix iframe 時：站內連結改導父頁對應 Wix 頁面 ============ */

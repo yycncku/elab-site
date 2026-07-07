@@ -101,6 +101,10 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.reveal{opacity:1;transform:none}}
 /* 嵌入 Wix：手機選單釘可視畫面頂端 */
 .framed .mobile-menu{position:fixed;top:0;left:0;right:0;bottom:auto;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
+/* 嵌入時：框高>內容 → footer 下方空白以深色填滿（短頁尤其明顯）*/
+.tailfill{display:none}
+.framed body{display:flex;flex-direction:column;min-height:100vh}
+.framed .tailfill{display:block;flex:1 0 auto;background:var(--night)}
 </style>
 </head>
 <body>
@@ -186,6 +190,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
     </div>
   </div>
 </footer>
+<div class="tailfill" aria-hidden="true"></div>
 
 <script>
 /* ============ 嵌入 Wix：連結導父頁 + framed class ============ */

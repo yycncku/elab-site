@@ -529,6 +529,10 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 .framed .pillar:not(.is-active){opacity:1}
 .framed .pillar .pillar__body{max-height:none;opacity:1}
 .framed .mobile-menu{position:fixed;top:0;left:0;right:0;bottom:auto;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
+/* 嵌入時：框高>內容 → footer 下方空白以深色填滿（與 footer 同色），消除中英/展開留白差異 */
+.tailfill{display:none}
+.framed body{display:flex;flex-direction:column;min-height:100vh}
+.framed .tailfill{display:block;flex:1 0 auto;background:var(--night)}
 /* 桌機嵌入：珊瑚 viz 回到柱子右側（雙欄靜態；畫線動畫由 IO 觸發）。手機仍隱藏（太窄）。*/
 @media(min-width:961px){
   .framed .pillars__sticky{grid-template-columns:minmax(0,5fr) minmax(0,6fr);grid-template-rows:auto auto}
@@ -757,6 +761,7 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
     </div>
   </div>
 </footer>
+<div class="tailfill" aria-hidden="true"></div>
 
 <script>
 /* ============ 嵌入 Wix iframe 時：站內連結改導父頁對應 Wix 頁面（否則只在框內跳轉）============ */

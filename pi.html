@@ -227,6 +227,10 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
 }
 /* ---------- 嵌入 Wix 時（Option B）：保留自帶 nav 與語言鈕、原版面（僅連結導父頁）---------- */
 .framed .mobile-menu{position:fixed;top:0;left:0;right:0;bottom:auto;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
+/* 嵌入時：框高>內容 → footer 下方的空白以深色填滿（與 footer 同色），消除中英留白差異 */
+.tailfill{display:none}
+.framed body{display:flex;flex-direction:column;min-height:100vh}
+.framed .tailfill{display:block;flex:1 0 auto;background:var(--night)}
 </style>
 </head>
 <body data-lang="en">
@@ -410,6 +414,7 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
     </div>
   </div>
 </footer>
+<div class="tailfill" aria-hidden="true"></div>
 
 <script>
 /* ============ 嵌入 Wix iframe 時：站內連結改導父頁對應 Wix 頁面 ============ */
