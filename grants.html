@@ -117,7 +117,7 @@ body[data-lang="zh"] .threadnote b{font-family:var(--font-zh)}
 /* ---------- 清單（editorial 檔案）---------- */
 .plist{position:relative;max-width:1120px;margin:0 auto;padding:8px clamp(20px,5vw,64px) 110px}
 /* Funding Thread：單一主題時，左側連續脊線 */
-.plist.thread{--railx:calc(clamp(20px,5vw,64px) + 2px)}
+.plist.thread{--railx:calc(clamp(20px,5vw,64px) - 16px)}   /* 脊線移到內容左緣外側的留白區，避免穿過年份大字 */
 .plist.thread::before{content:'';position:absolute;left:var(--railx);top:64px;bottom:130px;width:3px;border-radius:3px;
   background:var(--thread);opacity:.9;box-shadow:0 0 0 4px color-mix(in srgb,var(--thread) 12%,transparent)}
 .ygroup{padding-top:38px}
