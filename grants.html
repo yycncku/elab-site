@@ -85,7 +85,7 @@ body[data-lang="zh"] .phead__lead{line-height:1.9;font-size:15px}
 .toolbar__row--theme{padding-top:4px;padding-bottom:12px}
 .tlabel{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);opacity:.72;font-weight:700;flex:none;width:58px}
 body[data-lang="zh"] .tlabel{letter-spacing:.06em;font-size:12px}
-.chips{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.chips{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:none;font-family:var(--font-tech);font-size:12.5px;letter-spacing:.03em;font-weight:500;cursor:pointer;
   border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;background:none;color:var(--ink-soft);
@@ -100,6 +100,7 @@ body[data-lang="zh"] .tlabel{letter-spacing:.06em;font-size:12px}
 .tchip{color:var(--chipc,var(--ink-soft))}
 .tchip.on{color:var(--paper);border-color:transparent}
 .tchip.on small{color:var(--paper);opacity:.8}
+.tchip[data-t="all"].on{background:var(--ink);border-color:var(--ink)}
 .tchip[data-t="mkr"].on{background:var(--t-mkr)} .tchip[data-t="edu"].on{background:var(--t-edu)}
 .tchip[data-t="org"].on{background:var(--t-org)} .tchip[data-t="cci"].on{background:var(--t-cci)}
 .tchip[data-t="dig"].on{background:var(--t-dig)}
