@@ -194,7 +194,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   document.documentElement.classList.add('framed');
   const MAP={'index.html':'https://www.entrepreneurship-lab.com/','publications.html':'https://www.entrepreneurship-lab.com/publications','pi.html':'https://www.entrepreneurship-lab.com/principal-investigator','grants.html':'https://www.entrepreneurship-lab.com/research','contact.html':'https://www.entrepreneurship-lab.com/contact'};
   document.querySelectorAll('a[href]').forEach(a=>{const b=(a.getAttribute('href')||'').split('#')[0].split('?')[0];if(MAP[b]){a.setAttribute('href',MAP[b]);a.setAttribute('target','_top');}});
-  function report(){try{window.parent.postMessage({elabHeight:Math.ceil(document.documentElement.scrollHeight)},'*');}catch(e){}}
+  function report(){try{window.parent.postMessage({elabHeight:Math.ceil(document.documentElement.scrollHeight)},'https://www.entrepreneurship-lab.com');}catch(e){}}
   addEventListener('load',report);addEventListener('resize',report);
   if(window.ResizeObserver){try{new ResizeObserver(report).observe(document.body);}catch(e){}}
   [400,1000,2200].forEach(t=>setTimeout(report,t));
@@ -223,13 +223,15 @@ wireReveals();
 /* ============ 未來：CMS 驅動的實驗室聯絡人（現在無端點→靜默略過，欄位保持隱藏）============
    之後在 Wix Velo 加一支 _functions/contact，回傳 {name, role, email, show:true} 即自動顯示。 */
 (function(){
+  const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   fetch('https://www.entrepreneurship-lab.com/_functions/contact',{mode:'cors'})
     .then(r=>r.ok?r.json():null).then(d=>{
       if(!d||!d.name||!d.show)return;
       const el=document.getElementById('labContact');if(!el)return;
-      const mail=d.email?`<a class="ccard__link" href="mailto:${d.email}">${d.email} <span class="arr">→</span></a>`:'';
+      const email=/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(d.email||'')?d.email:''; // 白名單驗證後才進 mailto
+      const mail=email?`<a class="ccard__link" href="mailto:${email}">${esc(email)} <span class="arr">→</span></a>`:'';
       el.innerHTML=`<div class="ccard__k"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Lab contact</div>`+
-        `<div class="ccard__v">${d.name}</div>`+(d.role?`<div class="ccard__sub">${d.role}</div>`:'')+mail;
+        `<div class="ccard__v">${esc(d.name)}</div>`+(d.role?`<div class="ccard__sub">${esc(d.role)}</div>`:'')+mail;
       el.hidden=false; wireReveals();
     }).catch(()=>{});
 })();
