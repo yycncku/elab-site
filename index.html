@@ -713,7 +713,7 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
   <div class="people__head">
     <div>
       <p class="section-kicker reveal">The crew</p>
-      <h2 class="people__title reveal">Fifty-five stories, one lab.</h2>
+      <h2 class="people__title reveal"><span id="crewCount">Fifty-six</span> stories, one lab.</h2>
     </div>
     <a class="people__link reveal" href="https://www.entrepreneurship-lab.com/people-update">Meet everyone <span class="arr">→</span></a>
   </div>
@@ -1159,6 +1159,15 @@ fetch(NEWS_ENDPOINT).then(r=>r.ok?r.json():null).then(d=>{
 
 /* ============ 統計連動（CMS 即時：members/awards/nationalities）============ */
 const STATS_ENDPOINT='https://www.entrepreneurship-lab.com/_functions/stats';
+/* 數字→英文拼字（1–199，已窮舉驗證無拼字瑕疵）→ 成員牆標題自動更新 */
+function numToWords(n){
+  n=Math.round(n); if(!(n>=1&&n<=199))return null;
+  const ones=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+  const tens=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+  const two=x=>x<20?ones[x]:(tens[Math.floor(x/10)]+(x%10?'-'+ones[x%10]:''));
+  const w=n<100?two(n):ones[Math.floor(n/100)]+' hundred'+(n%100?' '+two(n%100):'');
+  return w.charAt(0).toUpperCase()+w.slice(1);
+}
 fetch(STATS_ENDPOINT).then(r=>r.ok?r.json():null).then(s=>{
   if(!s)return;
   document.querySelectorAll('.stat__num[data-key]').forEach(el=>{
@@ -1166,6 +1175,8 @@ fetch(STATS_ENDPOINT).then(r=>r.ok?r.json():null).then(s=>{
     if(v){el.dataset.count=v;
       if(el.textContent.trim()!=='0')el.textContent=v;} // 已跑完 count-up 就直接更新
   });
+  const cc=document.getElementById('crewCount'); // 成員牆標題數字（拼字）與統計格同源 s.members → 永遠一致
+  if(cc&&s.members){const w=numToWords(s.members);if(w)cc.textContent=w;}
 }).catch(()=>{});
 
 /* ============ reveal + mission + count-up (scroll-driven, deterministic) ============ */
