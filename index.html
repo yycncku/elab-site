@@ -526,11 +526,14 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 /* 釘住捲動劇場依賴 iframe 自身捲動（嵌入時不捲）→ 改用手機版的靜態展開版面 */
 .framed .pillars{height:auto}
 .framed .pillars__sticky{position:static;height:auto;overflow:visible;grid-template-columns:1fr;padding-top:80px}
-/* 嵌入時 viz 顯示在柱子下方（單欄第二列、置中限寬）；滾動劇場改由 IO 觸發終幕（畫線過場走行內樣式）*/
-.framed .pillars__viz{display:flex;max-width:560px;margin:26px auto 4px}
 .framed .pillar:not(.is-active){opacity:1}
 .framed .pillar .pillar__body{max-height:none;opacity:1}
 .framed .mobile-menu{position:fixed;top:0;left:0;right:0;bottom:auto;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
+/* 桌機嵌入：珊瑚 viz 回到柱子右側（雙欄靜態；畫線動畫由 IO 觸發）。手機仍隱藏（太窄）。*/
+@media(min-width:961px){
+  .framed .pillars__sticky{grid-template-columns:minmax(0,5fr) minmax(0,6fr);grid-template-rows:auto auto}
+  .framed .pillars__viz{display:flex}
+}
 </style>
 </head>
 <body>
