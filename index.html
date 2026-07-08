@@ -938,6 +938,12 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const mediaId=s=>/^[\w./~-]+$/.test(String(s||''))?String(s):'';  /* 非法字元（含 " < 空白）→ 空，杜絕屬性逸出 */
 /* 國籍→國旗對照（由內建清單推得，供 CMS 即時成員查旗；未知國家則只顯示國名）*/
 const FLAG_BY_COUNTRY={};FACES_ALL.forEach(f=>{if(f.c&&f.f&&!FLAG_BY_COUNTRY[f.c])FLAG_BY_COUNTRY[f.c]=f.f;});
+/* 圖床沒有旗子的國家 → 內嵌 SVG 三色旗（硬編碼可信；跨平台，不依賴 emoji/圖床）。key 須與 CMS nationality 完全一致 */
+const FLAG_SVG={
+  Austria:'<svg class="flagimg" style="width:16px" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#ED2939"/><rect y=".667" width="3" height=".666" fill="#fff"/></svg>',
+  France:'<svg class="flagimg" style="width:16px" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#fff"/><rect width="1" height="2" fill="#0055A4"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg>',
+  Hungary:'<svg class="flagimg" style="width:16px" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#fff"/><rect width="3" height=".667" fill="#CD2A3E"/><rect y="1.333" width="3" height=".667" fill="#436F4D"/></svg>'
+};
 /* 每次載入隨機抽 26 位（Fisher–Yates）→ 刷新即輪替，人人有機會亮相 */
 function pick26(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a.slice(0,Math.min(26,a.length));}
 let FACES=pick26(FACES_ALL);
@@ -958,7 +964,7 @@ function renderPeople(){
       a.href='https://www.entrepreneurship-lab.com/people-update';
       a.target='_top';
       const fl=mediaId(f.f);
-      const flag=fl?`<img class="flagimg" src="https://static.wixstatic.com/media/${fl}/v1/fit/w_40,h_28,q_85/fl.png" alt="" loading="lazy">`:'';
+      const flag=fl?`<img class="flagimg" src="https://static.wixstatic.com/media/${fl}/v1/fit/w_40,h_28,q_85/fl.png" alt="" loading="lazy">`:(FLAG_SVG[f.c]||'');
       a.innerHTML=`<img src="${thumb(mediaId(f.m))}" alt="${esc(f.n)}" loading="lazy"><span>${esc(f.n)}${f.c?`<small>${flag}${esc(f.c)}</small>`:''}</span>`;
       div.appendChild(a);
     });
