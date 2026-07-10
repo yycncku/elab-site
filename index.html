@@ -964,8 +964,8 @@ function renderPeople(){
       a.href='https://www.entrepreneurship-lab.com/people-update';
       a.target='_top';
       const fl=mediaId(f.f);
-      const flag=fl?`<img class="flagimg" src="https://static.wixstatic.com/media/${fl}/v1/fit/w_40,h_28,q_85/fl.png" alt="" loading="lazy">`:(FLAG_SVG[f.c]||'');
-      a.innerHTML=`<img src="${thumb(mediaId(f.m))}" alt="${esc(f.n)}" loading="lazy"><span>${esc(f.n)}${f.c?`<small>${flag}${esc(f.c)}</small>`:''}</span>`;
+      const flag=fl?`<img class="flagimg" src="https://static.wixstatic.com/media/${fl}/v1/fit/w_40,h_28,q_85/fl.png" alt="" decoding="async">`:(FLAG_SVG[f.c]||'');
+      a.innerHTML=`<img src="${thumb(mediaId(f.m))}" alt="${esc(f.n)}" decoding="async"><span>${esc(f.n)}${f.c?`<small>${flag}${esc(f.c)}</small>`:''}</span>`;
       div.appendChild(a);
     });
     wrap.appendChild(div);
