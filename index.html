@@ -920,14 +920,14 @@ addEventListener('resize',onScrollPillars);
 onScrollPillars();
 const _framed=document.documentElement.classList.contains('framed');
 if(innerWidth<=960)pillars.forEach(p=>p.classList.add('is-active')); // 手機：三根全展開（viz 隱藏、無劇場）
-/* 嵌入桌機：iframe 收不到 scroll（母頁在捲）→ 於「每張卡片內」埋哨兵，用 IntersectionObserver
-   偵測哨兵通過視窗的「閱讀線」（上方 65% 處）來推進進度。如此 route1/2/3 必然對齊
-   Entrepreneurship / User Innovation / Work Curiosity 三張卡的閱讀時機，
-   且動畫在區塊標題浮現、卡片進入閱讀位置之後才開始（不會標題還在浮現就先畫線）。
+/* 嵌入桌機：iframe 收不到 scroll（母頁在捲）→ 直接觀察「三張卡片本身」，
+   root 以 rootMargin 裁到視窗上方 65%（＝閱讀線）。卡片的 intersectionRatio ＝
+   「它已越過閱讀線的比例」，隨捲動**逐幀連續變化**（解析度遠高於離散哨兵，不會跳格）。
+   取各卡歷史最大值 R[i]（單調不回退），p=(R0+R1+R2)/3 → route i 必然在卡 i 通過閱讀線時繪製，
+   且動畫在標題浮現、卡片進入閱讀位置後才開始。
    卡片高亮 + 節點標籤浮現 + 珊瑚線延伸三者同步；只改透明度不動 max-height → 高度恆定。*/
 if(_framed && innerWidth>960 && 'IntersectionObserver' in window && document.querySelector('.pillars__viz')){
-  const PER=12, TOTAL=PER*pillars.length;   // 每張卡 12 個哨兵 → 共 36 段
-  routes.forEach(r=>{r.style.transition='stroke-dashoffset .12s linear, filter .6s';}); // 行內優先，不被 finale 蓋
+  routes.forEach(r=>{r.style.transition='stroke-dashoffset .08s linear, filter .6s';}); // 行內優先，不被 finale 蓋；短過場吸收滾輪跳格
   const step=p=>{ // p:0→1 → 三段劇場（不呼叫 setPillar：那會收合內文、改變高度）
     const seg=Math.min(2,Math.floor(p*3)), prog=Math.min(1,Math.max(0,p*3-seg));
     pillars.forEach((pl,i)=>pl.classList.toggle('is-active',i===seg));  // 卡片：前一張淡出、當前浮現
@@ -935,25 +935,14 @@ if(_framed && innerWidth>960 && 'IntersectionObserver' in window && document.que
     routes.forEach((r,i)=>{const L=+r.dataset.len;r.style.strokeDashoffset=i<seg?0:i===seg?L*(1-prog):L;});
   };
   step(0);
-  const sentinels=[];
-  pillars.forEach((pl,ci)=>{
-    if(getComputedStyle(pl).position==='static')pl.style.position='relative';
-    for(let j=0;j<PER;j++){
-      const s=document.createElement('i');
-      s.setAttribute('aria-hidden','true');
-      s.style.cssText='position:absolute;left:0;width:1px;height:1px;pointer-events:none;top:'+(((j+0.5)/PER)*100)+'%';
-      s.dataset.i=ci*PER+j;
-      pl.appendChild(s); sentinels.push(s);
-    }
-  });
-  let hi=-1, locked=false;
+  const R=pillars.map(()=>0);                                   // 各卡「已越過閱讀線」的歷史最大比例
+  const idxOf=new Map(pillars.map((pl,i)=>[pl,i]));
+  let locked=false;
   const vio=new IntersectionObserver(es=>{
     if(locked)return;
-    let moved=false;
-    es.forEach(en=>{ if(en.isIntersecting){const i=+en.target.dataset.i; if(i>hi){hi=i;moved=true;}} });
-    if(!moved)return;
-    const p=(hi+1)/TOTAL;
-    if(p>=1){ // 終幕：三張卡全亮、標籤全現、線畫滿 + 光暈 + hub 脈動
+    es.forEach(en=>{const i=idxOf.get(en.target); if(i!==undefined && en.intersectionRatio>R[i])R[i]=en.intersectionRatio;});
+    const p=R.reduce((a,b)=>a+b,0)/R.length;
+    if(p>=.995){ // 終幕：三張卡全亮、標籤全現、線畫滿 + 光暈 + hub 脈動
       locked=true; vizsvg.classList.add('finale');
       pillars.forEach(pl=>pl.classList.add('is-active'));
       vgroups.forEach(g=>g.classList.remove('dim'));
@@ -962,8 +951,8 @@ if(_framed && innerWidth>960 && 'IntersectionObserver' in window && document.que
     }
     vizsvg.classList.remove('finale');
     step(p);
-  },{rootMargin:'0px 0px -35% 0px', threshold:0});  // 閱讀線＝視窗上方 65% 處
-  sentinels.forEach(s=>vio.observe(s));
+  },{rootMargin:'0px 0px -35% 0px', threshold:Array.from({length:101},(_,i)=>i/100)}); // 閱讀線＝上方 65%；101 段門檻→逐幀更新
+  pillars.forEach(pl=>vio.observe(pl));
 }else if(_framed){ pillars.forEach(p=>p.classList.add('is-active')); } // 無 IO / 無 viz：退回全展開
 
 /* ============ people marquee (real members) ============ */
