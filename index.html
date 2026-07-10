@@ -918,17 +918,33 @@ addEventListener('scroll',onScrollPillars,{passive:true});
 addEventListener('resize',onScrollPillars);
 onScrollPillars();
 if(innerWidth<=960 || document.documentElement.classList.contains('framed'))pillars.forEach(p=>p.classList.add('is-active')); // 手機/嵌入：三根全展開
-/* 嵌入模式：scroll 不觸發 → 用 IntersectionObserver 於 viz 進視窗時觸發終幕（珊瑚線畫出＋hub 脈動）*/
+/* 嵌入模式：iframe 收不到 scroll（母頁在捲）→ 用 IntersectionObserver 的 intersectionRatio
+   （跨 iframe 有效）當繪製進度，重現「捲多少、畫多少」的珊瑚線漸進延伸；畫滿即鎖終幕。
+   不動柱子/節點（嵌入時三根全展開），只依序畫三條路徑。*/
 if(document.documentElement.classList.contains('framed') && 'IntersectionObserver' in window){
-  const vio=new IntersectionObserver(es=>es.forEach(en=>{
-    if(!en.isIntersecting)return;
-    vio.disconnect();
-    routes.forEach(r=>{r.style.transition='stroke-dashoffset 1.15s cubic-bezier(.22,1,.36,1)';}); // 行內：優先級最高，不被 finale 蓋
-    requestAnimationFrame(()=>routes.forEach(r=>{r.style.strokeDashoffset=0;}));  // 珊瑚線畫出
-    setTimeout(()=>{vizsvg.classList.add('finale');vgroups.forEach(g=>g.classList.remove('dim'));},1150); // 畫完接光暈+hub 脈動
-  }),{threshold:.25});
   const vizEl=document.querySelector('.pillars__viz');
-  if(vizEl)vio.observe(vizEl);
+  if(vizEl){
+    routes.forEach(r=>{r.style.transition='stroke-dashoffset .12s linear, filter .6s';}); // 平滑離散步進；行內優先，不被 finale 蓋
+    let locked=false;
+    const draw=p=>{ // p:0→1 三條線依序畫（不觸碰 setPillar，避免收合柱子）
+      const seg=Math.min(2,Math.floor(p*3)), prog=Math.min(1,Math.max(0,p*3-seg));
+      routes.forEach((r,i)=>{const L=+r.dataset.len;r.style.strokeDashoffset=i<seg?0:i===seg?L*(1-prog):L;});
+    };
+    const vio=new IntersectionObserver(es=>{
+      if(locked)return;
+      const en=es[es.length-1];
+      const p=en.isIntersecting?en.intersectionRatio:0;
+      if(p>=.9){ // 幾乎全入畫 → 畫滿 + 終幕（光暈 + hub 脈動），鎖定不回退
+        locked=true; vizsvg.classList.add('finale');
+        routes.forEach(r=>{r.style.strokeDashoffset=0;});
+        vgroups.forEach(g=>g.classList.remove('dim'));
+        return;
+      }
+      vizsvg.classList.remove('finale');
+      draw(Math.min(1,p/.9)); // 正規化：三條線恰好在鎖點(.9)畫滿，避免終幕瞬間跳動
+    },{threshold:Array.from({length:41},(_,i)=>i/40)});
+    vio.observe(vizEl);
+  }
 }
 
 /* ============ people marquee (real members) ============ */
