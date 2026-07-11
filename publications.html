@@ -5,10 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Publications — E-LAB · NCKU</title>
 <meta name="description" content="Peer-reviewed publications of E-LAB (Entrepreneurship: The Lab), National Cheng Kung University.">
+<link rel="canonical" href="https://lab.entrepreneurship-lab.com/publications.html">
+<meta property="og:title" content="Publications — E-LAB · NCKU">
+<meta property="og:description" content="Peer-reviewed publications of E-LAB (Entrepreneurship: The Lab), National Cheng Kung University.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lab.entrepreneurship-lab.com/publications.html">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23182A44'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23E4572E'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://static.wixstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    E-LAB PUBLICATIONS — 認知負擔優先的書目設計
@@ -170,7 +176,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
     <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a></li>
     <li><a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a></li>
     <li><a href="publications.html" aria-current="page">Publications</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/research" target="_top">Projects/Grants</a></li>
+    <li><a href="grants.html">Projects/Grants</a></li>
     <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a></li>
   </ul>
   <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -181,7 +187,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a>
   <a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a>
   <a href="publications.html" aria-current="page">Publications</a>
-  <a href="https://www.entrepreneurship-lab.com/research" target="_top">Projects/Grants</a>
+  <a href="grants.html">Projects/Grants</a>
   <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a>
 </div>
 
@@ -193,12 +199,12 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 <div class="toolbar">
   <div class="toolbar__inner">
     <div class="chips chips--scroll" id="domainChips" role="group" aria-label="Filter by research area">
-      <button class="chip dchip on" data-d="all">All <small id="dAll"></small></button>
-      <button class="chip dchip" data-d="ent">Entrepreneurship <small id="dent"></small></button>
-      <button class="chip dchip" data-d="cur">Curiosity &amp; Creativity <small id="dcur"></small></button>
-      <button class="chip dchip" data-d="org">People &amp; Organizations <small id="dorg"></small></button>
-      <button class="chip dchip" data-d="inn">Innovation &amp; Technology <small id="dinn"></small></button>
-      <button class="chip dchip" data-d="cci">Creative Industries <small id="dcci"></small></button>
+      <button class="chip dchip on" data-d="all" aria-pressed="true">All <small id="dAll"></small></button>
+      <button class="chip dchip" data-d="ent" aria-pressed="false">Entrepreneurship <small id="dent"></small></button>
+      <button class="chip dchip" data-d="cur" aria-pressed="false">Curiosity &amp; Creativity <small id="dcur"></small></button>
+      <button class="chip dchip" data-d="org" aria-pressed="false">People &amp; Organizations <small id="dorg"></small></button>
+      <button class="chip dchip" data-d="inn" aria-pressed="false">Innovation &amp; Technology <small id="dinn"></small></button>
+      <button class="chip dchip" data-d="cci" aria-pressed="false">Creative Industries <small id="dcci"></small></button>
     </div>
     <input class="search" id="search" type="search" placeholder="Search author, title, journal…" aria-label="Search publications">
     <span class="count" id="count"></span>
@@ -224,7 +230,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
       <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a> ·
       <a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a> ·
       <a href="publications.html">Publications</a> ·
-      <a href="https://www.entrepreneurship-lab.com/research" target="_top">Projects/Grants</a> ·
+      <a href="grants.html">Projects/Grants</a> ·
       <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a><br>
       © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
@@ -239,7 +245,9 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   document.documentElement.classList.add('framed');
   const MAP={'index.html':'https://www.entrepreneurship-lab.com/',
              'publications.html':'https://www.entrepreneurship-lab.com/publications',
-             'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator'};
+             'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator',
+             'grants.html':'https://www.entrepreneurship-lab.com/research',
+             'contact.html':'https://www.entrepreneurship-lab.com/contact'};
   document.querySelectorAll('a[href]').forEach(a=>{
     const base=(a.getAttribute('href')||'').split('#')[0].split('?')[0];
     if(MAP[base]){a.setAttribute('href',MAP[base]);a.setAttribute('target','_top');}
@@ -308,9 +316,7 @@ const PUBS=[
 ];
 
 /* ---------- 渲染（依年分組）---------- */
-const MAIN=['SSCI','TSSCI','ESCI'];
 function tagClass(t){return t==='SSCI'?'tag--ssci':t==='TSSCI'?'tag--tssci':t==='ESCI'?'tag--esci':'tag--other';}
-function catOf(p){for(const m of MAIN){if(p.tags.includes(m))return m;}return 'other';}
 let query='', curDomain='all';
 
 function render(){
@@ -359,7 +365,7 @@ PUBS.forEach(p=>(p.d||[]).forEach(k=>{if(k in dcounts)dcounts[k]++;}));
 document.getElementById('domainChips').addEventListener('click',e=>{
   const b=e.target.closest('.dchip');if(!b)return;
   curDomain=b.dataset.d;
-  document.querySelectorAll('#domainChips .dchip').forEach(c=>c.classList.toggle('on',c===b));
+  document.querySelectorAll('#domainChips .dchip').forEach(c=>{const on=c===b;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on);});
   render();
 });
 let deb;
@@ -370,7 +376,7 @@ document.getElementById('search').addEventListener('input',e=>{
 const pd=new URLSearchParams(location.search).get('d');
 if(pd && ['ent','cur','org','inn','cci'].includes(pd)){
   curDomain=pd;
-  document.querySelectorAll('#domainChips .dchip').forEach(c=>c.classList.toggle('on',c.dataset.d===pd));
+  document.querySelectorAll('#domainChips .dchip').forEach(c=>{const on=c.dataset.d===pd;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on);});
 }
 render();
 </script>

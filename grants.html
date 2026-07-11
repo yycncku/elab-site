@@ -5,10 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Funded Research 研究計畫 — E-LAB · NCKU</title>
 <meta name="description" content="Competitive research grants of E-LAB (Entrepreneurship: The Lab), National Cheng Kung University. 國立成功大學創業實驗室研究計畫。">
+<link rel="canonical" href="https://lab.entrepreneurship-lab.com/grants.html">
+<meta property="og:title" content="Funded Research — E-LAB · NCKU">
+<meta property="og:description" content="Competitive research grants of E-LAB (Entrepreneurship: The Lab), National Cheng Kung University.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lab.entrepreneurship-lab.com/grants.html">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23182A44'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23E4572E'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Noto+Serif+TC:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://static.wixstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    E-LAB FUNDED RESEARCH — editorial「資助檔案」＋主題脈絡線
@@ -190,10 +196,10 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
       <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a></li>
       <li><a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a></li>
       <li><a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a></li>
-      <li><a href="https://www.entrepreneurship-lab.com/research" target="_top" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
+      <li><a href="grants.html" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
       <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a></li>
     </ul>
-    <button class="langtoggle" id="langBtn" aria-label="Switch language">
+    <button class="langtoggle" id="langBtn" aria-label="Switch language" aria-pressed="false">
       <svg class="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>
       <span class="en">中文</span><span class="zh">EN</span>
     </button>
@@ -206,7 +212,7 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
   <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a>
   <a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a>
   <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a>
-  <a href="https://www.entrepreneurship-lab.com/research" target="_top" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
+  <a href="grants.html" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
   <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a>
 </div>
 
@@ -219,22 +225,22 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
   <div class="toolbar__row toolbar__row--fund">
     <span class="tlabel"><span class="en">Funder</span><span class="zh">資助單位</span></span>
     <div class="chips" id="fundChips" role="group" aria-label="Filter by funder">
-      <button class="chip fchip on" data-f="all"><span class="en">All</span><span class="zh">全部</span> <small id="fAll"></small></button>
-      <button class="chip fchip" data-f="national"><span class="en">National · NSTC / MOST</span><span class="zh">國科會／科技部</span> <small id="fnational"></small></button>
-      <button class="chip fchip" data-f="moe"><span class="en">Ministry of Education</span><span class="zh">教育部</span> <small id="fmoe"></small></button>
-      <button class="chip fchip" data-f="intl"><span class="en">International</span><span class="zh">國際</span> <small id="fintl"></small></button>
-      <button class="chip fchip" data-f="industry"><span class="en">Industry</span><span class="zh">產業</span> <small id="findustry"></small></button>
+      <button class="chip fchip on" data-f="all" aria-pressed="true"><span class="en">All</span><span class="zh">全部</span> <small id="fAll"></small></button>
+      <button class="chip fchip" data-f="national" aria-pressed="false"><span class="en">National · NSTC / MOST</span><span class="zh">國科會／科技部</span> <small id="fnational"></small></button>
+      <button class="chip fchip" data-f="moe" aria-pressed="false"><span class="en">Ministry of Education</span><span class="zh">教育部</span> <small id="fmoe"></small></button>
+      <button class="chip fchip" data-f="intl" aria-pressed="false"><span class="en">International</span><span class="zh">國際</span> <small id="fintl"></small></button>
+      <button class="chip fchip" data-f="industry" aria-pressed="false"><span class="en">Industry</span><span class="zh">產業</span> <small id="findustry"></small></button>
     </div>
   </div>
   <div class="toolbar__row toolbar__row--theme">
     <span class="tlabel"><span class="en">Theme</span><span class="zh">研究主題</span></span>
     <div class="chips" id="themeChips" role="group" aria-label="Filter by research theme">
-      <button class="chip tchip on" data-t="all"></button>
-      <button class="chip tchip" data-t="mkr"></button>
-      <button class="chip tchip" data-t="edu"></button>
-      <button class="chip tchip" data-t="org"></button>
-      <button class="chip tchip" data-t="cci"></button>
-      <button class="chip tchip" data-t="dig"></button>
+      <button class="chip tchip on" data-t="all" aria-pressed="true"></button>
+      <button class="chip tchip" data-t="mkr" aria-pressed="false"></button>
+      <button class="chip tchip" data-t="edu" aria-pressed="false"></button>
+      <button class="chip tchip" data-t="org" aria-pressed="false"></button>
+      <button class="chip tchip" data-t="cci" aria-pressed="false"></button>
+      <button class="chip tchip" data-t="dig" aria-pressed="false"></button>
     </div>
     <span class="count" id="count"></span>
   </div>
@@ -260,7 +266,7 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
       <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a> ·
       <a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a> ·
       <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a> ·
-      <a href="https://www.entrepreneurship-lab.com/research" target="_top"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
+      <a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
       <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
       © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
@@ -273,7 +279,7 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
 (function(){
   if(window.top===window.self)return;
   document.documentElement.classList.add('framed');
-  const MAP={'index.html':'https://www.entrepreneurship-lab.com/','publications.html':'https://www.entrepreneurship-lab.com/publications','pi.html':'https://www.entrepreneurship-lab.com/principal-investigator','grants.html':'https://www.entrepreneurship-lab.com/research'};
+  const MAP={'index.html':'https://www.entrepreneurship-lab.com/','publications.html':'https://www.entrepreneurship-lab.com/publications','pi.html':'https://www.entrepreneurship-lab.com/principal-investigator','grants.html':'https://www.entrepreneurship-lab.com/research','contact.html':'https://www.entrepreneurship-lab.com/contact'};
   document.querySelectorAll('a[href]').forEach(a=>{const b=(a.getAttribute('href')||'').split('#')[0].split('?')[0];if(MAP[b]){a.setAttribute('href',MAP[b]);a.setAttribute('target','_top');}});
   function report(){try{window.parent.postMessage({elabHeight:Math.ceil(document.documentElement.scrollHeight)},'https://www.entrepreneurship-lab.com');}catch(e){}}
   addEventListener('load',report);addEventListener('resize',report);
@@ -460,15 +466,16 @@ function buildThemeChips(){
 buildThemeChips();
 
 document.getElementById('fundChips').addEventListener('click',e=>{const b=e.target.closest('.fchip');if(!b)return;
-  curFund=b.dataset.f;document.querySelectorAll('#fundChips .fchip').forEach(c=>c.classList.toggle('on',c===b));render();});
+  curFund=b.dataset.f;document.querySelectorAll('#fundChips .fchip').forEach(c=>{const on=c===b;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on);});render();});
 document.getElementById('themeChips').addEventListener('click',e=>{const b=e.target.closest('.tchip');if(!b)return;
-  curTheme=b.dataset.t;document.querySelectorAll('#themeChips .tchip').forEach(c=>c.classList.toggle('on',c===b));render();});
+  curTheme=b.dataset.t;document.querySelectorAll('#themeChips .tchip').forEach(c=>{const on=c===b;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on);});render();});
 
 /* ---------- 語言切換 ---------- */
 document.getElementById('langBtn').addEventListener('click',()=>{
   LANG=LANG==='en'?'zh':'en';
   document.body.dataset.lang=LANG;
   document.documentElement.lang=LANG==='zh'?'zh-Hant':'en';
+  document.getElementById('langBtn').setAttribute('aria-pressed',LANG==='zh');
   buildThemeChips();
   render();
 });
@@ -490,9 +497,9 @@ if(!useIO){let last=0;addEventListener('scroll',()=>{const n=performance.now();i
 /* 深連結：?theme=mkr 直達主題脈絡線；?lang=zh 直接中文 */
 const qs=new URLSearchParams(location.search);
 const ql=qs.get('lang');
-if(ql==='zh'||ql==='en'){LANG=ql;document.body.dataset.lang=LANG;document.documentElement.lang=LANG==='zh'?'zh-Hant':'en';buildThemeChips();}
+if(ql==='zh'||ql==='en'){LANG=ql;document.body.dataset.lang=LANG;document.documentElement.lang=LANG==='zh'?'zh-Hant':'en';document.getElementById('langBtn').setAttribute('aria-pressed',LANG==='zh');buildThemeChips();}
 const pt=qs.get('theme');
-if(pt&&THEMES[pt]){curTheme=pt;document.querySelectorAll('#themeChips .tchip').forEach(c=>c.classList.toggle('on',c.dataset.t===pt));}
+if(pt&&THEMES[pt]){curTheme=pt;document.querySelectorAll('#themeChips .tchip').forEach(c=>{const on=c.dataset.t===pt;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on);});}
 render();
 </script>
 </body>

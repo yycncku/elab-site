@@ -5,11 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alex Yu-Yu Chang — Principal Investigator · E-LAB</title>
 <meta name="description" content="Alex Yu-Yu Chang (張佑宇), Professor & Director, Institute of International Management, NCKU. Principal Investigator of E-LAB.">
+<link rel="canonical" href="https://lab.entrepreneurship-lab.com/pi.html">
+<meta property="og:title" content="Principal Investigator — E-LAB · NCKU">
+<meta property="og:description" content="Alex Yu-Yu Chang, Professor & Director, Institute of International Management, NCKU — Principal Investigator of E-LAB.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lab.entrepreneurship-lab.com/pi.html">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23182A44'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23E4572E'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://static.wixstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    E-LAB PI PAGE — 學者敘事（策展）· 中英可切換（EN ⇄ 中）
@@ -247,10 +252,10 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
       <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a></li>
       <li><a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a></li>
       <li><a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a></li>
-      <li><a href="https://www.entrepreneurship-lab.com/research" target="_top"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
+      <li><a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
       <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a></li>
     </ul>
-    <button class="langtoggle" id="langBtn" aria-label="Switch language">
+    <button class="langtoggle" id="langBtn" aria-label="Switch language" aria-pressed="false">
       <svg class="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>
       <span class="en">中文</span><span class="zh">EN</span>
     </button>
@@ -263,7 +268,7 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
   <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a>
   <a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a>
   <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a>
-  <a href="https://www.entrepreneurship-lab.com/research" target="_top"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
+  <a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
   <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a>
 </div>
 
@@ -410,7 +415,7 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
       <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a> ·
       <a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a> ·
       <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a> ·
-      <a href="https://www.entrepreneurship-lab.com/research" target="_top"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
+      <a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
       <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
       © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
@@ -425,7 +430,9 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
   document.documentElement.classList.add('framed');
   const MAP={'index.html':'https://www.entrepreneurship-lab.com/',
              'publications.html':'https://www.entrepreneurship-lab.com/publications',
-             'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator'};
+             'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator',
+             'grants.html':'https://www.entrepreneurship-lab.com/research',
+             'contact.html':'https://www.entrepreneurship-lab.com/contact'};
   document.querySelectorAll('a[href]').forEach(a=>{
     const base=(a.getAttribute('href')||'').split('#')[0].split('?')[0];
     if(MAP[base]){a.setAttribute('href',MAP[base]);a.setAttribute('target','_top');}
@@ -454,6 +461,7 @@ langBtn.addEventListener('click',()=>{
   const next=cur==='en'?'zh':'en';
   document.body.dataset.lang=next;
   document.documentElement.lang=next==='zh'?'zh-Hant':'en';
+  langBtn.setAttribute('aria-pressed',next==='zh');
   setTimeout(()=>{if(!window.__useIO)check();mqMeasure();if(window.refillTL)window.refillTL();},30); // 語言切換後重算版位
 });
 
