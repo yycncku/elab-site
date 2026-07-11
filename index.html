@@ -825,8 +825,9 @@ function makeNet(canvasId, opts){
     const r = cv.parentElement.getBoundingClientRect();
     W = cv.width = r.width*DPR; H = cv.height = r.height*DPR;
     cv.style.width=r.width+'px'; cv.style.height=r.height+'px';
-    const n = innerWidth<700 ? Math.round(cfg.count*.45) : cfg.count;
-    const spd = cfg.speed*DPR*(reduced?.35:1); // 減少動態 → 降速而非靜止（hover 回饋保留）
+    let n = innerWidth<700 ? Math.round(cfg.count*.45) : cfg.count;
+    if(reduced) n = Math.round(n*.6);          // B4 降載：RM 粒子再減 40%（不熄燈——遵守 D16「降速/簡化而非停止」）
+    const spd = cfg.speed*DPR*(reduced?.7:1);  // RM 時 tick 降為 30fps（見 tick 開頭）→ .7×30fps ≈ 原 .35×60fps，視覺速度不變、CPU 減半
     nodes = Array.from({length:n},()=>({
       x:Math.random()*W, y:Math.random()*H,
       vx:(Math.random()-.5)*spd, vy:(Math.random()-.5)*spd,
@@ -839,8 +840,10 @@ function makeNet(canvasId, opts){
   });
   cv.parentElement.addEventListener('pointerleave', ()=>{mouse.x=-9e3;mouse.y=-9e3});
 
-  const LINK=cfg.link*DPR, MR=190*DPR;
+  const LINK=cfg.link*DPR, MR=190*DPR, LINK2=LINK*LINK, MR2=MR*MR;
+  let skip=false;
   function tick(){
+    if(reduced&&(skip=!skip)){if(running)raf=requestAnimationFrame(tick);return;} // B4：RM 降載＝隔幀繪製 30fps（spd .7 補償，視覺速度同前）
     ctx.clearRect(0,0,W,H);
     for(const p of nodes){
       p.x+=p.vx; p.y+=p.vy;
@@ -848,9 +851,10 @@ function makeNet(canvasId, opts){
       if(p.y<0||p.y>H)p.vy*=-1;
     }
     for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
-      const a=nodes[i],b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);
-      if(d<LINK){
-        const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,near=Math.hypot(mx-mouse.x,my-mouse.y)<MR;
+      const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy; // B3：先平方比較篩選，只有真的相連的 pair 才開根號
+      if(d2<LINK2){
+        const d=Math.sqrt(d2);
+        const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,nx=mx-mouse.x,ny=my-mouse.y,near=nx*nx+ny*ny<MR2;
         const alpha=(1-d/LINK)*(near?.85:.28);
         ctx.strokeStyle=near?`rgba(${cfg.coral},${alpha})`:cfg.ink+alpha+')';
         ctx.lineWidth=(near?1.4:1)*DPR*.75;
@@ -858,7 +862,7 @@ function makeNet(canvasId, opts){
       }
     }
     for(const p of nodes){
-      const near=Math.hypot(p.x-mouse.x,p.y-mouse.y)<MR;
+      const px=p.x-mouse.x,py=p.y-mouse.y,near=px*px+py*py<MR2; // B3：平方比較，免開根號
       ctx.fillStyle=near?`rgba(${cfg.coral},.9)`:cfg.ink+'.5)';
       ctx.beginPath();ctx.arc(p.x,p.y,(near?cfg.dotR+1:cfg.dotR)*DPR*.75,0,7);ctx.fill();
     }
@@ -870,8 +874,8 @@ function makeNet(canvasId, opts){
     else if(!e.isIntersecting&&running){running=false;cancelAnimationFrame(raf);}
   }),{threshold:.02}).observe(cv.parentElement);
 }
-makeNet('net',{count:72});
-makeNet('ctanet',{count:46,ink:'rgba(246,241,231,',coral:'240,144,111',link:170});
+makeNet('net',{count:44});    /* B3：72→44（每幀 pair 比較 2556→946）*/
+makeNet('ctanet',{count:30,ink:'rgba(246,241,231,',coral:'240,144,111',link:170}); /* B3：46→30（1035→435）*/
 
 /* ============ pillars scroll-telling ============ */
 const pillarsSec=document.querySelector('.pillars');
