@@ -492,7 +492,9 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 @media (max-width:640px){
   .stats__grid{grid-template-columns:1fr}
   .hero__actions .btn,.cta__actions .btn{width:100%;justify-content:center}
-  .gcard{max-width:86vw}
+  /* 手機：卡片鎖 3:2（86vw × 57.3vw）＝圖庫官方比例 → 照片零裁切（D46 修「直式瀏覽被切」）。
+     舊寫法卡片近正方形＋cover，3:2 照片左右各裁 ~15%。非 3:2 的舊橫幅仍會微裁（比以前輕）。 */
+  .gcard{width:86vw;max-width:86vw;min-width:0;height:57.3vw}
   .gcard img{width:100%;height:100%;object-fit:cover}
 }
 /* compact pinned pillars on short viewports — prevents bottom pillar clipping */
