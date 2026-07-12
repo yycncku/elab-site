@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Join the Lab — E-LAB · NCKU</title>
-<meta name="description" content="Join E-LAB (Entrepreneurship: The Lab), Institute of International Management, National Cheng Kung University. Submit your profile for review.">
+<meta name="description" content="Profile submission for incoming members of E-LAB (Entrepreneurship: The Lab), National Cheng Kung University.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://lab.entrepreneurship-lab.com/join.html">
 <meta property="og:title" content="Join the Lab — E-LAB · NCKU">
 <meta property="og:description" content="Submit your profile to join E-LAB (Entrepreneurship: The Lab), National Cheng Kung University.">
@@ -177,9 +178,9 @@ html.framed{background:var(--night)}
 </div>
 
 <header class="chead">
-  <p class="section-kicker reveal">Join us</p>
-  <h1 class="reveal">Join the lab.</h1>
-  <p class="chead__lead reveal">Tell us about yourself. Your profile goes to Professor Chang for review, and once approved it appears on our People page. Fields marked <span style="color:var(--coral)">*</span> are required.</p>
+  <p class="section-kicker reveal">Welcome</p>
+  <h1 class="reveal">Welcome to the lab.</h1>
+  <p class="chead__lead reveal">You're joining E-LAB — let's get your profile onto our People page. Fill in your details below; we'll polish the wording and publish it for you. Fields marked <span style="color:var(--coral)">*</span> are required.</p>
 </header>
 
 <main class="fwrap">
@@ -294,8 +295,8 @@ html.framed{background:var(--night)}
     </div>
 
     <div class="submit-row">
-      <button type="submit" class="btn-submit" id="submitBtn">Submit for review</button>
-      <p class="form-note">We review submissions manually. You'll appear on the site once approved — usually within a few days.</p>
+      <button type="submit" class="btn-submit" id="submitBtn">Submit my profile</button>
+      <p class="form-note">We'll tidy up the wording and add you to the People page — usually within a few days.</p>
     </div>
     <div class="form-fail" id="formFail">
       Something went wrong sending your submission. Please try again, or email us directly at
@@ -305,8 +306,8 @@ html.framed{background:var(--night)}
 
   <div class="success" id="success" role="status" aria-live="polite">
     <div class="success__mark"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
-    <h2>Thanks — you're in the queue.</h2>
-    <p>Your profile has been submitted for review. Once Professor Chang approves it, you'll appear on the People page. We'll be in touch if we need anything else.</p>
+    <h2>Thanks — welcome aboard!</h2>
+    <p>We've got your details and will add you to the People page shortly. We'll be in touch if we need anything else.</p>
     <a class="back" href="index.html">← Back to home</a>
   </div>
 </main>
@@ -487,7 +488,7 @@ function submit(data){
     .catch(function(){
       fail.classList.add('show');
       submitBtn.removeAttribute('aria-busy');
-      submitBtn.textContent='Submit for review';
+      submitBtn.textContent='Submit my profile';
     });
 }
 function showSuccess(){
