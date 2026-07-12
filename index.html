@@ -774,6 +774,19 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 (function(){
   if(window.top===window.self)return;
   document.documentElement.classList.add('framed'); // 被 Wix 嵌入 → 隱藏自帶 nav、收 hero 高
+  /* D40 母站收束：被嵌入（Wix 舊頁）→ 把外層整頁帶去子網域直出版。?embed=1 豁免（測試/合法嵌入）。
+     外層沙箱若禁止自動導航則靜默失敗 → 1.2s 後浮出前往連結（使用者點擊導航必被允許）。 */
+  var _leaf=location.pathname.split('/').pop()||'index.html';
+  var _full='https://lab.entrepreneurship-lab.com/'+(_leaf==='index.html'?'':_leaf);
+  if(!/[?&]embed=1(?:&|$)/.test(location.search)){
+    try{window.top.location.replace(_full);}catch(e){}
+    setTimeout(function(){
+      var b=document.createElement('a');
+      b.href=_full;b.target='_top';b.textContent='Open the full experience ↗';
+      b.style.cssText='position:fixed;top:0;left:0;right:0;z-index:9999;display:block;text-align:center;padding:11px 16px;background:#182A44;color:#F6F1E7;font:600 12.5px/1.4 "Space Grotesk",sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none';
+      document.body.appendChild(b);
+    },1200);
+  }
   const MAP={'index.html':'https://www.entrepreneurship-lab.com/',
              'publications.html':'https://www.entrepreneurship-lab.com/publications',
              'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator',
