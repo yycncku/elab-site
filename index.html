@@ -41,7 +41,21 @@
   --radius:18px;
   --font-display:'Fraunces',Georgia,serif;
   --font-tech:'Space Grotesk',system-ui,sans-serif;
+  --font-zh:'Noto Serif TC','Fraunces',serif;
 }
+/* ---------- i18n（雙語：折衷版，只切閱讀文字）---------- */
+.zh{font-family:var(--font-zh)}
+body[data-lang="en"] .zh{display:none!important}
+body[data-lang="zh"] .en{display:none!important}
+.langtoggle{cursor:pointer;border:1.5px solid var(--ink);background:none;color:var(--ink);border-radius:999px;
+  font-family:var(--font-tech);font-size:12px;font-weight:700;letter-spacing:.08em;padding:7px 15px;
+  display:inline-flex;align-items:center;gap:7px;transition:background .25s,color .25s,transform .25s}
+.langtoggle:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px)}
+.langtoggle .globe{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6}
+body[data-lang="zh"] .nav__links a{text-transform:none;letter-spacing:.1em}
+body[data-lang="zh"] .mobile-menu a{font-family:var(--font-zh)}
+/* 支柱 tag 內的 en/zh 節點不可繼承藥丸外框（.pillar__tags span 為後代選取器）*/
+.pillar__tags span .en,.pillar__tags span .zh{border:0;padding:0;border-radius:0}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -546,32 +560,33 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 }
 </style>
 </head>
-<body>
+<body data-lang="en">
 
 <!-- ================= NAV ================= -->
 <nav class="nav" id="nav" aria-label="Main">
   <a class="nav__brand" href="#top"><img class="nav__ncku" src="https://static.wixstatic.com/media/56b4ef_942f8b305d2047a0af132bd53a81a09b~mv2.png/v1/fit/w_72,h_72,q_90/ncku.png" alt="NCKU"><span class="dot"></span>E-LAB</a>
   <ul class="nav__links">
-    <li><a href="#top">Home</a></li>
-    <li><a href="pi.html">Principal Investigator</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/people-update">People</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/graduated">Alumni</a></li>
-    <li><a href="publications.html">Publications</a></li>
-    <li><a href="grants.html">Projects/Grants</a></li>
+    <li><a href="#top"><span class="en">Home</span><span class="zh">首頁</span></a></li>
+    <li><a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a></li>
+    <li><a href="https://www.entrepreneurship-lab.com/people-update"><span class="en">People</span><span class="zh">團隊</span></a></li>
+    <li><a href="https://www.entrepreneurship-lab.com/graduated"><span class="en">Alumni</span><span class="zh">校友</span></a></li>
+    <li><a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a></li>
+    <li><a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
   </ul>
-  <a class="nav__cta" href="https://www.entrepreneurship-lab.com/contact">Get in touch</a>
+  <a class="nav__cta" href="https://www.entrepreneurship-lab.com/contact"><span class="en">Get in touch</span><span class="zh">聯絡我們</span></a>
+  <button class="langtoggle" id="langBtn" aria-label="Switch language" aria-pressed="false"><svg class="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg><span class="en">中文</span><span class="zh">EN</span></button>
   <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#top">Home</a>
-  <a href="pi.html">Principal Investigator</a>
-  <a href="https://www.entrepreneurship-lab.com/people-update">People</a>
-  <a href="https://www.entrepreneurship-lab.com/graduated">Alumni</a>
-  <a href="publications.html">Publications</a>
-  <a href="grants.html">Projects/Grants</a>
-  <a href="https://www.entrepreneurship-lab.com/contact">Contact</a>
+  <a href="#top"><span class="en">Home</span><span class="zh">首頁</span></a>
+  <a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a>
+  <a href="https://www.entrepreneurship-lab.com/people-update"><span class="en">People</span><span class="zh">團隊</span></a>
+  <a href="https://www.entrepreneurship-lab.com/graduated"><span class="en">Alumni</span><span class="zh">校友</span></a>
+  <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a>
+  <a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
+  <a href="https://www.entrepreneurship-lab.com/contact"><span class="en">Contact</span><span class="zh">聯絡</span></a>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -583,11 +598,11 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
       <span class="line"><span>Where ventures</span></span>
       <span class="line"><span><em>reshape</em> industries.</span></span>
     </h1>
-    <p class="hero__sub">We are a group of researchers at National Cheng Kung University exploring how entrepreneurs' venturing efforts change the course of industrial dynamics — and drive economic evolution.</p>
-    <div><span class="hero__badge">Institute of International Management <b>(IMBA)</b> · NCKU</span></div>
+    <p class="hero__sub"><span class="en">We are a group of researchers at National Cheng Kung University exploring how entrepreneurs' venturing efforts change the course of industrial dynamics — and drive economic evolution.</span><span class="zh">E-LAB 致力於探索創業家精神與科技創新如何改變產業的動態，並驅動經濟的演化。</span></p>
+    <div><span class="hero__badge"><span class="en">Institute of International Management <b>(IMBA)</b> · NCKU</span><span class="zh">國立成功大學國際經營管理研究所（IMBA）</span></span></div>
     <div class="hero__actions">
-      <a class="btn btn--solid" href="#research">Explore our research <span class="arr">→</span></a>
-      <a class="btn btn--ghost" href="https://www.entrepreneurship-lab.com/people-update">Meet the team</a>
+      <a class="btn btn--solid" href="#research"><span class="en">Explore our research</span><span class="zh">看我們在忙什麼</span> <span class="arr">→</span></a>
+      <a class="btn btn--ghost" href="https://www.entrepreneurship-lab.com/people-update"><span class="en">Meet the team</span><span class="zh">認識這群人</span></a>
     </div>
   </div>
 </header>
@@ -603,7 +618,7 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 <!-- ================= MISSION ================= -->
 <section class="mission" id="mission">
   <div class="mission__inner">
-    <p class="mission__text reveal">We believe the entrepreneur is the engine of economic evolution — so we study the <span class="hl">people who leap</span>, the <span class="hl">communities that create</span>, and the <span class="hl">curiosity that keeps organizations alive</span>.</p>
+    <p class="mission__text reveal"><span class="en">We believe the entrepreneur is the engine of economic evolution — so we study the <span class="hl">people who leap</span>, the <span class="hl">communities that create</span>, and the <span class="hl">curiosity that keeps organizations alive</span>.</span><span class="zh">我們相信，推動經濟與社會進步的，從來都是人們<span class="hl">跳出體制</span>、<span class="hl">好奇探索</span>、並<span class="hl">勇於承擔</span>的創業家精神。</span></p>
     <p class="mission__sig reveal d1">Our research philosophy</p>
   </div>
 </section>
@@ -612,30 +627,30 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 <section class="pillars" id="research">
   <div class="pillars__sticky">
     <div class="pillars__head">
-      <p class="section-kicker">Research directions</p>
-      <h2 class="pillars__title">Three questions we keep asking.</h2>
+      <p class="section-kicker"><span class="en">Research directions</span><span class="zh">研究方向</span></p>
+      <h2 class="pillars__title"><span class="en">Three questions we keep asking.</span><span class="zh">三個關鍵問題</span></h2>
     </div>
 
     <div class="pillars__list">
       <div class="pillar is-active" data-pillar="0">
-        <div class="pillar__row"><span class="pillar__num">01</span><h3 class="pillar__name">Entrepreneurship</h3></div>
+        <div class="pillar__row"><span class="pillar__num">01</span><h3 class="pillar__name"><span class="en">Entrepreneurship</span><span class="zh">創業家精神</span></h3></div>
         <div class="pillar__body">
-          <p>Why do people leap? We study the psychological side of venturing — from entrepreneurial intention and fear of failure to lean-startup practice and how entrepreneurship should be taught.</p>
-          <div class="pillar__tags"><span>Psychology</span><span>Lean Startup</span><span>Education</span></div>
+          <p><span class="en">Why do people leap? We study the psychological side of venturing — from entrepreneurial intention and fear of failure to lean-startup practice and how entrepreneurship should be taught.</span><span class="zh">是什麼讓人敢放下穩定、跳進未知？從第一個創業念頭、對失敗的恐懼，到精實創業。創業者心裡的風景與行動，是我們的主場。</span></p>
+          <div class="pillar__tags"><span><span class="en">Psychology</span><span class="zh">心理學</span></span><span><span class="en">Lean Startup</span><span class="zh">精實創業</span></span><span><span class="en">Education</span><span class="zh">創業教育</span></span></div>
         </div>
       </div>
       <div class="pillar" data-pillar="1">
-        <div class="pillar__row"><span class="pillar__num">02</span><h3 class="pillar__name">User Innovation</h3></div>
+        <div class="pillar__row"><span class="pillar__num">02</span><h3 class="pillar__name"><span class="en">User Innovation</span><span class="zh">使用者創新</span></h3></div>
         <div class="pillar__body">
-          <p>Innovation doesn't only come from firms. We trace how makers, open communities and user ecosystems create, share and commercialize ideas outside traditional R&amp;D.</p>
-          <div class="pillar__tags"><span>Maker Movement</span><span>Open Communities</span><span>Ecosystems</span></div>
+          <p><span class="en">Innovation doesn't only come from firms. We trace how makers, open communities and user ecosystems create, share and commercialize ideas outside traditional R&amp;D.</span><span class="zh">最酷的創新常常不在大公司裡。自造者、開放社群和使用者自己動手，把點子做出來、傳出去、變成生意。我們探索背後社群的力量。</span></p>
+          <div class="pillar__tags"><span><span class="en">Maker Movement</span><span class="zh">自造者運動</span></span><span><span class="en">Open Communities</span><span class="zh">開放社群</span></span><span><span class="en">Ecosystems</span><span class="zh">生態系</span></span></div>
         </div>
       </div>
       <div class="pillar" data-pillar="2">
-        <div class="pillar__row"><span class="pillar__num">03</span><h3 class="pillar__name">Work Curiosity &amp; Creativity</h3></div>
+        <div class="pillar__row"><span class="pillar__num">03</span><h3 class="pillar__name"><span class="en">Work Curiosity &amp; Creativity</span><span class="zh">工作好奇心與創造力</span></h3></div>
         <div class="pillar__body">
-          <p>What keeps minds exploring at work? We examine curiosity, creative cognition and organizational designs that let employees—and organizations—stay inventive.</p>
-          <div class="pillar__tags"><span>Curiosity</span><span>Creative Cognition</span><span>Org Design</span></div>
+          <p><span class="en">What keeps minds exploring at work? We examine curiosity, creative cognition and organizational designs that let employees—and organizations—stay inventive.</span><span class="zh">為什麼有些人的眼睛總在發光？我們探索好奇心、創意思考與安心冒險的組織設計，找出創新不斷發生的祕密。</span></p>
+          <div class="pillar__tags"><span><span class="en">Curiosity</span><span class="zh">好奇心</span></span><span><span class="en">Creative Cognition</span><span class="zh">創意認知</span></span><span><span class="en">Org Design</span><span class="zh">組織設計</span></span></div>
         </div>
       </div>
     </div>
@@ -688,12 +703,12 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 <section class="stats" id="impact">
   <div class="stats__inner">
     <p class="section-kicker reveal">Impact</p>
-    <h2 class="stats__title reveal">Our footprint.</h2>
+    <h2 class="stats__title reveal"><span class="en">Our footprint.</span><span class="zh">我們的足跡</span></h2>
     <div class="stats__grid">
-      <div class="stat reveal"><div class="stat__num" data-count="58" data-key="members">0</div><div class="stat__label">Researchers &amp; Alumni</div><div class="stat__desc">One connected community of current members and graduates, since the lab's founding.</div></div>
-      <div class="stat reveal d1"><div class="stat__num" data-count="95" data-key="publications">0</div><div class="stat__label">Scholarly Outputs</div><div class="stat__desc">42 peer-reviewed journal articles and 53 conference papers — 27 in SSCI journals such as British Journal of Management, Technovation and IEEE TEM.</div></div>
-      <div class="stat reveal d2"><div class="stat__num" data-count="36">0</div><div class="stat__label">Recognition</div><div class="stat__desc">Awards and honors across the lab — 15+ advisee thesis awards alongside PI honors including BAM Best Papers and the Einstein Young Scholar Fellowship.</div></div>
-      <div class="stat reveal d3"><div class="stat__num" data-count="12" data-key="nationalities">0</div><div class="stat__label">Nationalities</div><div class="stat__desc">Members from Taiwan, Thailand, Vietnam, Indonesia, India, Mongolia, Nepal, Germany, Austria, France, Hungary and the United States.</div></div>
+      <div class="stat reveal"><div class="stat__num" data-count="58" data-key="members">0</div><div class="stat__label"><span class="en">Researchers &amp; Alumni</span><span class="zh">研究者與校友</span></div><div class="stat__desc"><span class="en">One connected community of current members and graduates, since the lab's founding.</span><span class="zh">現任成員與畢業校友構成一個緊密相連的社群。</span></div></div>
+      <div class="stat reveal d1"><div class="stat__num" data-count="95" data-key="publications">0</div><div class="stat__label"><span class="en">Scholarly Outputs</span><span class="zh">學術成果</span></div><div class="stat__desc"><span class="en">42 peer-reviewed journal articles and 53 conference papers — 27 in SSCI journals such as British Journal of Management, Technovation and IEEE TEM.</span><span class="zh">透過學術期刊與國際會議，我們期待與世界分享我們的發現。</span></div></div>
+      <div class="stat reveal d2"><div class="stat__num" data-count="36">0</div><div class="stat__label"><span class="en">Recognition</span><span class="zh">獲獎與榮譽</span></div><div class="stat__desc"><span class="en">Awards and honors across the lab — 15+ advisee thesis awards alongside PI honors including BAM Best Papers and the Einstein Young Scholar Fellowship.</span><span class="zh">E-LAB 的獎項與榮譽，那些發光的瞬間。</span></div></div>
+      <div class="stat reveal d3"><div class="stat__num" data-count="12" data-key="nationalities">0</div><div class="stat__label"><span class="en">Nationalities</span><span class="zh">多元國籍</span></div><div class="stat__desc"><span class="en">Members from Taiwan, Thailand, Vietnam, Indonesia, India, Mongolia, Nepal, Germany, Austria, France, Hungary and the United States.</span><span class="zh">台灣、泰國、越南、印尼、印度、蒙古、尼泊爾、德國、奧地利、法國、匈牙利、美國。</span></div></div>
     </div>
   </div>
 </section>
@@ -702,7 +717,7 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 <section class="recog" id="recognition">
   <div class="recog__inner">
     <p class="section-kicker reveal">Recognition</p>
-    <h2 class="recog__title reveal">Work that gets noticed.</h2>
+    <h2 class="recog__title reveal"><span class="en">Work that gets noticed.</span><span class="zh">新消息以及那些被記下的里程碑</span></h2>
     <div class="recog__grid reveal" id="recogGrid"><!-- 2 最新 + 1 隨機往事，由 JS 渲染（CMS LabNews 驅動）--></div>
   </div>
 </section>
@@ -711,10 +726,10 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
 <section class="gallery" id="gallery">
   <div class="gallery__head">
     <div>
-      <p class="section-kicker reveal">Life at the lab</p>
-      <h2 class="gallery__title reveal">Beyond the papers.</h2>
+      <p class="section-kicker reveal"><span class="en">Life at the lab</span><span class="zh">實驗室日常</span></p>
+      <h2 class="gallery__title reveal"><span class="en">Beyond the papers.</span><span class="zh">研究之外的我們。</span></h2>
     </div>
-    <span class="gallery__hint reveal">Drag ↔</span>
+    <span class="gallery__hint reveal"><span class="en">Drag ↔</span><span class="zh">拖著看 ↔</span></span>
   </div>
   <div class="gallery__strip" id="galleryStrip" aria-label="Lab activity photos"><!-- cards injected --></div>
   <div class="gallery__bar"><div class="track"><div class="fill" id="galleryFill"></div></div></div>
@@ -737,10 +752,10 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
   <canvas id="ctanet" aria-hidden="true"></canvas>
   <div class="cta__inner">
     <h2 class="cta__title reveal">Curious minds,<br><em>wanted.</em></h2>
-    <p class="cta__sub reveal">Whether you want to research venturing, build something new, or join a lab that feels like a crew — we'd love to hear from you.</p>
+    <p class="cta__sub reveal"><span class="en">Whether you want to research venturing, build something new, or join a lab that feels like a crew — we'd love to hear from you.</span><span class="zh">無論你想研究創業、動手打造新東西，或加入一個像夥伴一樣的實驗室，我們都想認識你。</span></p>
     <div class="cta__actions reveal">
-      <a class="btn btn--paper" href="https://www.entrepreneurship-lab.com/people-update">Meet the people</a>
-      <a class="btn btn--outline" href="https://www.entrepreneurship-lab.com/contact">Get in touch</a>
+      <a class="btn btn--paper" href="https://www.entrepreneurship-lab.com/people-update"><span class="en">Meet the people</span><span class="zh">認識我們</span></a>
+      <a class="btn btn--outline" href="https://www.entrepreneurship-lab.com/contact"><span class="en">Get in touch</span><span class="zh">來聊聊</span></a>
     </div>
   </div>
 </section>
@@ -758,13 +773,13 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
       <img src="https://static.wixstatic.com/media/56b4ef_ffaf76b1a75c4c64900afb59c17bbb34~mv2.png/v1/fit/w_320,h_216,q_90/ncku.png" alt="National Cheng Kung University">
     </a>
     <div>
-      <a href="index.html">Home</a> ·
-      <a href="pi.html">Principal Investigator</a> ·
-      <a href="https://www.entrepreneurship-lab.com/people-update">People</a> ·
-      <a href="https://www.entrepreneurship-lab.com/graduated">Alumni</a> ·
-      <a href="publications.html">Publications</a> ·
-      <a href="grants.html">Projects/Grants</a> ·
-      <a href="https://www.entrepreneurship-lab.com/contact">Contact</a><br>
+      <a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a> ·
+      <a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/people-update"><span class="en">People</span><span class="zh">團隊</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/graduated"><span class="en">Alumni</span><span class="zh">校友</span></a> ·
+      <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a> ·
+      <a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
+      <a href="https://www.entrepreneurship-lab.com/contact"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
       © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
   </div>
@@ -1319,6 +1334,13 @@ if(useIO){
   statNums.forEach(s=>io.observe(s));
   if(missionEl)io.observe(missionEl);
 }
+
+/* ============ 語言切換（雙語折衷版：只切閱讀文字，動畫全數不動）============ */
+let LANG='en';
+const langBtn=document.getElementById('langBtn');
+function setLang(l){LANG=l;document.body.dataset.lang=l;document.documentElement.lang=l==='zh'?'zh-Hant':'en';langBtn.setAttribute('aria-pressed',l==='zh');}
+langBtn.addEventListener('click',()=>setLang(LANG==='en'?'zh':'en'));
+const _ql=new URLSearchParams(location.search).get('lang'); if(_ql==='zh'||_ql==='en')setLang(_ql);
 </script>
 </body>
 </html>
