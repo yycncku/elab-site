@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Researchers — E-LAB</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://static.wixstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   E-LAB SENIOR RESEARCHERS — 嵌入片段（People 頁 SR 區）
+   透明底、無 nav/footer、無 D40 轉向（本檔設計為被嵌入）。
+   資料：對已知 SR 的 member_id 逐一打 /_functions/researcher。
+   新增/移除 SR 只需改下方 SR_IDS 陣列（TARS 部署，Alex 零 Editor）。
+   ============================================================ */
+:root{
+  --paper:#F6F1E7;--paper-3:#FDFBF7;--ink:#182A44;--ink-soft:#41546F;
+  --coral:#E4572E;--coral-soft:#F0906F;--gold:#B08A2E;--line:rgba(24,42,68,.14);
+  --font-display:'Fraunces',Georgia,serif;--font-tech:'Space Grotesk',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:transparent}
+body{font-family:var(--font-tech);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+:focus-visible{outline:2.5px solid var(--coral);outline-offset:3px;border-radius:8px}
+
+.srwrap{max-width:1120px;margin:0 auto;padding:8px clamp(16px,4vw,40px) 24px}
+.srgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,28px)}
+@media (max-width:840px){.srgrid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+
+.srcard{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  background:var(--paper-3);border:1px solid var(--line);border-radius:20px;overflow:hidden;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .35s;opacity:0}
+.srcard.in{opacity:1}
+@media (hover:hover){.srcard:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(24,42,68,.14);border-color:rgba(228,87,46,.5)}}
+.srcard__figure{position:relative;width:100%;aspect-ratio:4/5;background:var(--ink);overflow:hidden}
+.srcard__figure img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;
+  transition:transform .5s cubic-bezier(.22,1,.36,1)}
+@media (hover:hover){.srcard:hover .srcard__figure img{transform:scale(1.04)}}
+.srcard__tag{position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:700;color:var(--paper);background:rgba(24,42,68,.72);backdrop-filter:blur(4px);border-radius:999px;padding:5px 11px}
+.srcard__body{padding:18px clamp(16px,1.8vw,22px) 20px;display:flex;flex-direction:column;flex:1}
+.srcard__name{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,1.5vw,23px);line-height:1.2;letter-spacing:-.01em}
+.srcard__pos{margin-top:9px;color:var(--ink-soft);font-size:14px;line-height:1.55;flex:1}
+.srcard__cta{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-family:var(--font-tech);
+  font-weight:700;font-size:12.5px;letter-spacing:.04em;color:var(--coral)}
+.srcard__cta .arr{transition:transform .25s}
+@media (hover:hover){.srcard:hover .srcard__cta .arr{transform:translateX(4px)}}
+.srcard__figure.noimg img{display:none}
+
+@media (prefers-reduced-motion:reduce){.srcard{opacity:1;transition:none}.srcard__figure img{transition:none}}
+</style>
+</head>
+<body>
+<div class="srwrap">
+  <div class="srgrid" id="srGrid"><!-- cards injected --></div>
+</div>
+
+<script>
+/* 安全：esc()/mediaId() 白名單（比照 index.html / researcher.html）*/
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mediaId=s=>/^[\w./~-]+$/.test(String(s||''))?String(s):'';
+
+/* 目前的 Senior Researchers（依顯示順序）。新增/移除 SR＝改這行 → TARS 部署，Alex 零 Editor。*/
+const SR_IDS=['MEM-001','MEM-002','MEM-005'];
+const PROFILE_BASE='https://lab.entrepreneurship-lab.com/researcher.html?m=';
+const ENDPOINT='https://www.entrepreneurship-lab.com/_functions/researcher?m=';
+
+/* 端點失效時的內建備援（與 researcher.html 同步）*/
+const FALLBACK={
+ 'MEM-001':{id:'MEM-001',name:'Dr. Wisuwat Wannamakok',position:'Lecturer & Head, Marine Product Technology Department, Chiang Mai University',photo:'56b4ef_721b1dc826b34fe0a7125cfed5a1340c~mv2.jpg'},
+ 'MEM-002':{id:'MEM-002',name:'Dr. Devi Angrahini Anni Lembana',position:'Associate Professor, Faculty of Economics and Business, Atma Jaya Catholic University of Indonesia',photo:'56b4ef_51531025574b4f8a99f00b1f5a615b88~mv2.jpg'},
+ 'MEM-005':{id:'MEM-005',name:'Yeshwant Raj',position:'Assistant Professor, Tunghai University, Taiwan',photo:'56b4ef_eccf789e425a4396bbf61148205ced98~mv2.jpg'}
+};
+
+function cardHTML(it){
+  const pid=mediaId(it.photo);
+  const img=pid?`https://static.wixstatic.com/media/${pid}/v1/fill/w_600,h_750,q_85/p.jpg`:'';
+  const href=PROFILE_BASE+encodeURIComponent(it.id);
+  return `<a class="srcard" href="${href}" target="_top" aria-label="View profile of ${esc(it.name)}">
+    <div class="srcard__figure${img?'':' noimg'}">
+      <span class="srcard__tag">Senior Researcher</span>
+      ${img?`<img src="${img}" alt="Portrait of ${esc(it.name)}" loading="lazy" decoding="async">`:''}
+    </div>
+    <div class="srcard__body">
+      <div class="srcard__name">${esc(it.name)}</div>
+      <div class="srcard__pos">${esc(it.position)}</div>
+      <div class="srcard__cta">View profile <span class="arr">&#8594;</span></div>
+    </div>
+  </a>`;
+}
+
+/* 逐一抓 SR（保持順序）；任一失敗→用該筆 fallback */
+Promise.all(SR_IDS.map(id=>
+  fetch(ENDPOINT+encodeURIComponent(id),{mode:'cors'})
+    .then(r=>r.ok?r.json():null)
+    .then(d=>(d&&d.ok&&d.item)?d.item:(FALLBACK[id]||null))
+    .catch(()=>FALLBACK[id]||null)
+)).then(items=>{
+  const grid=document.getElementById('srGrid');
+  grid.innerHTML=items.filter(Boolean).map(cardHTML).join('');
+  requestAnimationFrame(()=>grid.querySelectorAll('.srcard').forEach((c,i)=>setTimeout(()=>c.classList.add('in'),i*90)));
+  /* 回報高度給 Wix，讓嵌入框自動貼合（比照其他頁）*/
+  if(window.parent!==window){
+    const report=()=>{try{window.parent.postMessage({elabHeight:Math.ceil(document.body.scrollHeight)},'https://www.entrepreneurship-lab.com');}catch(e){}};
+    report();[200,600,1400].forEach(t=>setTimeout(report,t));
+    if(window.ResizeObserver){try{new ResizeObserver(report).observe(document.body);}catch(e){}}
+  }
+});
+</script>
+</body>
+</html>
