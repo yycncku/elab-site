@@ -201,6 +201,42 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
 .jchip--svc b{color:var(--gold)}
 .review__foot{max-width:1280px;margin:30px auto 0;padding:0 clamp(20px,5vw,64px);color:rgba(246,241,231,.55);font-size:13px;letter-spacing:.03em}
 
+/* ---------- Industry Engagement（聚光名錄）---------- */
+.industry{max-width:1280px;margin:0 auto;padding:clamp(64px,9vh,104px) clamp(20px,5vw,64px)}
+.industry__lead{color:var(--ink-soft);font-size:15px;max-width:620px;margin-top:-24px;line-height:1.8;margin-bottom:clamp(30px,5vh,48px)}
+.industry__lead.zh{line-height:1.9}
+.logowall{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:clamp(12px,1.4vw,18px)}
+.ltile{position:relative;display:flex;align-items:center;justify-content:center;padding:20px 22px;min-height:104px;
+  background:var(--paper-3);border:1px solid var(--line);border-radius:16px;
+  opacity:.55;filter:grayscale(1);
+  transition:opacity .45s ease,filter .55s ease,transform .45s cubic-bezier(.34,1.56,.64,1),box-shadow .5s ease,border-color .5s ease}
+.ltile img{width:100%;max-width:150px;height:64px;object-fit:contain;display:block}
+.ltile--hidden{opacity:0;transform:scale(.6)}
+/* 底部珊瑚小點（聚光時浮現，transition 驅動）*/
+.ltile::after{content:'';position:absolute;bottom:9px;left:50%;width:6px;height:6px;border-radius:50%;background:var(--coral);
+  transform:translateX(-50%) scale(0);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.ltile.spot{opacity:1;filter:grayscale(0);transform:translateY(-3px);box-shadow:0 14px 32px rgba(24,42,68,.12);border-color:rgba(176,138,46,.4)}
+.ltile.spot::after{transform:translateX(-50%) scale(1)}
+@media (hover:hover){
+  .ltile:hover{opacity:1;filter:grayscale(0);transform:translateY(-3px);box-shadow:0 12px 28px rgba(24,42,68,.1);border-color:rgba(176,138,46,.4)}
+}
+@media (max-width:640px){
+  .logowall{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+  .ltile{min-height:82px;padding:14px 16px}
+  .ltile img{height:52px}
+}
+@media (prefers-reduced-motion:reduce){
+  /* 只停「動」（彈入/聚光/位移），灰階靜置態保留；hover 彩色仍可用（hover 非動態）
+     D49d Alex 回饋：減少動態下不得全彩，灰階是視覺收斂關鍵 */
+  .ltile{transform:none!important;transition:opacity .3s ease,filter .3s ease}
+  .ltile--hidden{opacity:.55;transform:none!important}
+  .ltile.spot{opacity:.55;filter:grayscale(1);box-shadow:none;border-color:var(--line)}
+  .ltile::after{display:none}
+  @media (hover:hover){
+    .ltile:hover{opacity:1;filter:grayscale(0);box-shadow:none}
+  }
+}
+
 /* ---------- footer ---------- */
 .footer{background:var(--night);color:rgba(246,241,231,.55);padding:48px clamp(20px,5vw,64px);border-top:1px solid rgba(246,241,231,.08)}
 .footer__inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;font-size:13px;line-height:1.85}
@@ -402,6 +438,14 @@ body.hfull-open .honors__toggle .chev{transform:rotate(180deg)}
   <div class="mq-wrap"><div class="mq" id="mq2"></div></div>
 </section>
 
+<!-- ================= INDUSTRY ENGAGEMENT ================= -->
+<section class="industry" id="industry">
+  <p class="section-kicker reveal"><span class="en">Industry Engagement</span><span class="zh">專業服務</span></p>
+  <h2 class="h2 reveal"><span class="en">Beyond the campus.</span><span class="zh">產業連結</span></h2>
+  <p class="industry__lead reveal"><span class="en">Co-creating with government and industry — services, advisory, corporate training, and academia–industry collaboration.</span><span class="zh">政府與企業共創：服務、輔導、內訓、產學合作</span></p>
+  <div class="logowall" id="logowall" role="list" aria-label="Industry and government partners"></div>
+</section>
+
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
   <div class="footer__inner">
@@ -482,6 +526,17 @@ langBtn.addEventListener('click',()=>{
   setTimeout(()=>{if(!window.__useIO)check();mqMeasure();if(window.refillTL)window.refillTL();},30); // 語言切換後重算版位
 });
 
+/* 深連結：?lang=zh 直接中文、?lang=en 直接英文（照 grants.html 機制） */
+(function(){
+  const ql=new URLSearchParams(location.search).get('lang');
+  if(ql==='zh'||ql==='en'){
+    document.body.dataset.lang=ql;
+    document.documentElement.lang=ql==='zh'?'zh-Hant':'en';
+    langBtn.setAttribute('aria-pressed',ql==='zh');
+    setTimeout(()=>{if(!window.__useIO)check();mqMeasure();if(window.refillTL)window.refillTL();},60);
+  }
+})();
+
 /* ---------- 榮譽完整列表展開 ---------- */
 const hnToggle=document.getElementById('hnToggle'),honorsFull=document.getElementById('honorsFull');
 hnToggle.addEventListener('click',()=>{
@@ -559,6 +614,79 @@ if(useIO){
   revealEls.forEach(e=>io.observe(e));
   tnodes.forEach(n=>io.observe(n));
 }
+
+/* ---------- Industry Engagement：聚光名錄（IO 進場 + 輪替聚光）---------- */
+(function(){
+  const INDUSTRY=[
+    {en:"UMC",zh:"聯華電子",logo:"logos/umc.svg"},
+    {en:"Cathay Financial Holdings",zh:"國泰金控",logo:"logos/cathay.png"},
+    {en:"CTBC Financial Holding",zh:"中國信託金控",logo:"logos/ctbc.png"},
+    {en:"Gamania",zh:"Gamania 橘子集團",logo:"logos/gamania.svg"},
+    {en:"Standard Chem. & Pharm.",zh:"生達化學製藥",logo:"logos/standard.png"},
+    {en:"Ma Kuang Chinese Medicine",zh:"馬光中醫集團",logo:"logos/makuang.png"},
+    {en:"Global Views–Commonwealth Publishing · Harvard Business Review",zh:"遠見天下文化─哈佛商業評論",logo:"logos/hbr.svg"},
+    {en:"Institute for Information Industry",zh:"資策會",logo:"logos/iii.svg"},
+    {en:"Green Energy Technology Industrial Promotion Center",zh:"綠能科技產業推動中心",logo:"logos/getipc.png"},
+    {en:"Startup Terrace Kaohsiung",zh:"亞灣新創園",logo:"logos/terrace.png"},
+    {en:"American Institute in Taiwan",zh:"美國在台協會",logo:"logos/ait.svg"},
+    {en:"Japan-Taiwan Exchange Association",zh:"日本台灣交流協會",logo:"logos/koryu.png"},
+    {en:"Tainan City Government",zh:"台南市政府",logo:"logos/tainan.png"},
+    {en:"NCKU Hospital",zh:"成大附設醫院",logo:"logos/nckuh.png"},
+    {en:"Hult Prize",zh:"Hult Prize",logo:"logos/hult.png"}
+  ];
+  const wall=document.getElementById('logowall');
+  if(!wall)return;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const tiles=INDUSTRY.map(o=>{
+    const d=document.createElement('div');
+    d.className='ltile'+(reduce?'':' ltile--hidden');
+    d.setAttribute('role','listitem');
+    const img=document.createElement('img');
+    img.src=o.logo;img.loading='lazy';img.width=150;img.height=64;
+    img.setAttribute('data-en',o.en);img.setAttribute('data-zh',o.zh);
+    d.appendChild(img);wall.appendChild(d);
+    return d;
+  });
+  /* alt/title 依語言切換 */
+  function applyLang(){
+    const zh=document.body.dataset.lang==='zh';
+    tiles.forEach(t=>{const img=t.firstChild,n=img.getAttribute(zh?'data-zh':'data-en');img.alt=n;img.title=n;});
+  }
+  applyLang();
+  if(typeof langBtn!=='undefined'&&langBtn)langBtn.addEventListener('click',()=>setTimeout(applyLang,10));
+
+  /* 聚光輪替：每 ~4s 隨機一個，1.8s 後移除；同時僅一個；document.hidden 時暫停 */
+  let spotInt=null,current=null,started=false;
+  function spotOnce(){
+    if(document.hidden)return;
+    if(current){current.classList.remove('spot');current=null;}
+    const t=tiles[Math.floor(Math.random()*tiles.length)];
+    t.classList.add('spot');current=t;
+    setTimeout(()=>{if(current===t){t.classList.remove('spot');current=null;}},1800);
+  }
+  function startSpot(){if(started||reduce)return;started=true;spotInt=setInterval(spotOnce,4000);}
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden&&current){current.classList.remove('spot');current=null;}
+  });
+
+  /* 進場：隨機順序、交錯延遲彈入（一次性，IO 觸發後 unobserve）*/
+  let entered=reduce;
+  function enter(){
+    if(entered)return;entered=true;
+    const order=tiles.map((_,i)=>i);
+    for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const tmp=order[i];order[i]=order[j];order[j]=tmp;}
+    const step=1150/tiles.length; // 最後一格 <1.15s 起跳，+450ms transition → 總長 ≤1.6s
+    order.forEach((idx,k)=>setTimeout(()=>tiles[idx].classList.remove('ltile--hidden'),k*step));
+    setTimeout(startSpot,order.length*step+520);
+  }
+  if(reduce){startSpot();}
+  else if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{
+      es.forEach(en=>{if(en.isIntersecting){enter();io.disconnect();}});
+    },{threshold:.18,rootMargin:'0px 0px -6% 0px'});
+    io.observe(wall);
+  }else{enter();}
+})();
 </script>
 </body>
 </html>
