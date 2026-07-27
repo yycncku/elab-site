@@ -1101,12 +1101,12 @@ function flowRows(){
 /* 資料流：先用內建清單即刻渲染 → 嘗試抓 Wix 後端公開端點(/_functions/gallery)，
    成功則以 CMS 最新內容重繪。Alex 在 CMS「LabGallery」上傳照片即自動更新。 */
 const GALLERY_FALLBACK=[
-  {m:'56b4ef_ea6913b8d52249128eaae5ca56f7b407~mv2.png',cap:''},
-  {m:'56b4ef_428445387984433fbd7ba1b3c3b96df4~mv2.png',cap:''},
-  {m:'56b4ef_be03d8e842594c23b19654ea21be87a1~mv2.jpg',cap:''},
+  {m:'56b4ef_674e65101e134137b4cb4190ead7f73e~mv2.png',cap:''},
+  {m:'56b4ef_96ece461688341a09cc6d02d9a0e0cd1~mv2.png',cap:''},
+  {m:'56b4ef_6d30a74f8bb247ffb2de543f10b51563~mv2.png',cap:''},
+  {m:'56b4ef_6265c0cb05194a12b73a354e0bd346f6~mv2.jpeg',cap:''},
   {m:'56b4ef_d0ce00e792c4414d8e483904e77acbb2~mv2.jpg',cap:''},
   {m:'56b4ef_877f4bbd63334f77902a6d32aac2bd75~mv2.jpg',cap:''},
-  {m:'56b4ef_73855769b43249e1ae927eea54ff7f7e~mv2.jpg',cap:''},
 ];
 const GALLERY_ENDPOINT='https://www.entrepreneurship-lab.com/_functions/gallery';
 function renderGallery(items){
@@ -1189,6 +1189,8 @@ fetch(GALLERY_ENDPOINT,{mode:'cors'}).then(r=>r.ok?r.json():null).then(d=>{
 
 /* ============ recognition：2 最新 + 1 隨機往事（CMS LabNews 驅動）============ */
 const NEWS_FALLBACK=[
+ {t:'Dr. Raj Yeshwant appointed Assistant Professor at Tunghai University',ty:'News',d:'2026-08-01',b:'Congratulations to Dr. Raj Yeshwant on joining Tunghai University as Assistant Professor.'},
+ {t:'Congratulations, Batch 2026 — all defenses passed',ty:'News',d:'2026-07-27',b:"Dr. Una Chen successfully defended her doctoral dissertation, and Eugene, Sandy, Pearl and Stella completed their master's defenses. Congratulations to Batch 2026 on graduating!"},
  {t:'New lab website goes live',ty:'News',d:'2026-06-18',b:'People and alumni pages are now driven by our new CMS — updated in one click.'},
  {t:'Two new members join the lab',ty:'News',d:'2026-06-18',b:'Welcome Teju (India) and Jady (Vietnam) to the IMBA cohort.'},
  {t:"3 × Master's Thesis Awards",ty:'Award',d:'2024-07-01',b:'TSC Dissertation Competition 2024 — Novilia & One (Distinguished), Poupae (Outstanding, top of Business Strategy).'},
