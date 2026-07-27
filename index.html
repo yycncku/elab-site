@@ -1131,15 +1131,26 @@ fetch(GALLERY_ENDPOINT,{mode:'cors'}).then(r=>r.ok?r.json():null).then(d=>{
   const strip=document.getElementById('galleryStrip');
   const fill=document.getElementById('galleryFill');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const BASE=reduced?.35:.55;             // px/frame @60fps（RM 版調到可感知）
+  const coarse=matchMedia('(pointer: coarse)').matches;
+  const BASE=(reduced?.35:.55)*(coarse?.72:1); // px/frame @60fps（RM 版調到可感知；觸控裝置放慢增加主控感）
   let down=false,startX=0,startScroll=0,moved=false;
   let dir=1,cur=1,target=1;               // 漂移方向與速度係數
   let pos=null;                           // float 累加器：外部持有真實位置，免疫 scrollLeft 像素取整
-  /* hover 某張卡 → 暫停漂移（逐卡委派，因卡片會被 renderGallery 重繪）*/
-  strip.addEventListener('pointerover',e=>{if(e.target.closest('.gcard'))target=0;});
-  strip.addEventListener('pointerout', e=>{if(e.target.closest('.gcard'))target=1;});
-  strip.addEventListener('pointerleave',()=>target=1); // 安全網（touch 殘留）
+  /* 觸控＝原生捲動（D51 修「手機拖不動」）：舊版漂移引擎在 pointercancel 後
+     每幀把 scrollLeft 寫回自己的 pos，覆蓋手指捲動與動能滑行（桌機 wheel 有豁免、觸控沒有）。
+     修法：JS 拖曳只服務滑鼠/筆；觸控走原生捲動＋漂移冷卻（接觸即停、動能滑行展延、靜止 1.5s 後自當前位置重同步恢復）。 */
+  let touching=false,lastTouch=-1e9;
+  const COOL=1500;
+  const touchSeen=()=>{lastTouch=performance.now();pos=null;};
+  strip.addEventListener('touchstart',()=>{touching=true;touchSeen();},{passive:true});
+  strip.addEventListener('touchend',()=>{touching=false;touchSeen();},{passive:true});
+  strip.addEventListener('touchcancel',()=>{touching=false;touchSeen();},{passive:true});
+  /* hover 某張卡 → 暫停漂移（逐卡委派，因卡片會被 renderGallery 重繪；觸控豁免，冷卻已代勞）*/
+  strip.addEventListener('pointerover',e=>{if(e.pointerType!=='touch'&&e.target.closest('.gcard'))target=0;});
+  strip.addEventListener('pointerout', e=>{if(e.pointerType!=='touch'&&e.target.closest('.gcard'))target=1;});
+  strip.addEventListener('pointerleave',()=>target=1); // 安全網
   strip.addEventListener('pointerdown',e=>{
+    if(e.pointerType==='touch')return;    // 觸控交給原生捲動
     down=true;moved=false;startX=e.clientX;startScroll=strip.scrollLeft;
     strip.classList.add('dragging');strip.setPointerCapture(e.pointerId);
   });
@@ -1158,7 +1169,10 @@ fetch(GALLERY_ENDPOINT,{mode:'cors'}).then(r=>r.ok?r.json():null).then(d=>{
     const max=strip.scrollWidth-strip.clientWidth;
     fill.style.width=(max>0?(strip.scrollLeft/max)*100:0)+'%';
   }
-  strip.addEventListener('scroll',updBar,{passive:true});
+  strip.addEventListener('scroll',()=>{
+    if(touching||performance.now()-lastTouch<COOL)touchSeen(); // 動能滑行期間持續展延冷卻（冷卻中無自寫，scroll 必為原生）
+    updBar();
+  },{passive:true});
   addEventListener('resize',updBar);
   setTimeout(updBar,300);
   /* 離屏休眠（B1）：圖庫不在畫面內時完全停止 rAF、可見時喚醒（IO 頂層視窗計算，嵌入 iframe 有效）*/
@@ -1172,7 +1186,7 @@ fetch(GALLERY_ENDPOINT,{mode:'cors'}).then(r=>r.ok?r.json():null).then(d=>{
     if(!vis){parked=true;return;}                // 離屏 → 完全停止（IO 轉可見時喚醒）
     const dt=Math.min(now-last,50);last=now;
     cur+=(target-cur)*.06;
-    if(!down){
+    if(!down&&!touching&&now-lastTouch>=COOL){
       const max=strip.scrollWidth-strip.clientWidth;
       if(max>0){
         if(pos===null)pos=strip.scrollLeft;      // 自目前位置重取（初次 / 滾輪介入後）
