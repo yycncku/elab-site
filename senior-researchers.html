@@ -27,8 +27,9 @@ body{font-family:var(--font-tech);color:var(--ink);-webkit-font-smoothing:antial
 :focus-visible{outline:2.5px solid var(--coral);outline-offset:3px;border-radius:8px}
 
 .srwrap{max-width:1120px;margin:0 auto;padding:8px clamp(16px,4vw,40px) 24px}
-.srgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,28px)}
-@media (max-width:840px){.srgrid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+/* 自適應欄數：寬螢幕 4 欄、中等 3 欄、平板 2 欄、手機單欄（SR 人數會隨畢業季增加）*/
+.srgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(16px,2.4vw,28px)}
+@media (max-width:560px){.srgrid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
 
 .srcard{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
   background:var(--paper-3);border:1px solid var(--line);border-radius:20px;overflow:hidden;
@@ -64,7 +65,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const mediaId=s=>/^[\w./~-]+$/.test(String(s||''))?String(s):'';
 
 /* 目前的 Senior Researchers（依顯示順序）。新增/移除 SR＝改這行 → TARS 部署，Alex 零 Editor。*/
-const SR_IDS=['MEM-001','MEM-002','MEM-005'];
+const SR_IDS=['MEM-001','MEM-002','MEM-005','MEM-007'];
 const PROFILE_BASE='https://lab.entrepreneurship-lab.com/researcher.html?m=';
 const ENDPOINT='https://www.entrepreneurship-lab.com/_functions/researcher?m=';
 
@@ -72,7 +73,8 @@ const ENDPOINT='https://www.entrepreneurship-lab.com/_functions/researcher?m=';
 const FALLBACK={
  'MEM-001':{id:'MEM-001',name:'Dr. Wisuwat Wannamakok',position:'Assistant Professor & Head, Marine Product Technology Department, Faculty of Agro-Industry, Chiang Mai University',photo:'56b4ef_721b1dc826b34fe0a7125cfed5a1340c~mv2.jpg'},
  'MEM-002':{id:'MEM-002',name:'Dr. Devi Angrahini Anni Lembana',position:'Associate Professor, Faculty of Economics and Business, Atma Jaya Catholic University of Indonesia',photo:'56b4ef_51531025574b4f8a99f00b1f5a615b88~mv2.jpg'},
- 'MEM-005':{id:'MEM-005',name:'Dr. Raj Yeshwant',position:'Assistant Professor, Tunghai University, Taiwan',photo:'56b4ef_eccf789e425a4396bbf61148205ced98~mv2.jpg'}
+ 'MEM-005':{id:'MEM-005',name:'Dr. Raj Yeshwant',position:'Assistant Professor, Tunghai University, Taiwan',photo:'56b4ef_eccf789e425a4396bbf61148205ced98~mv2.jpg'},
+ 'MEM-007':{id:'MEM-007',name:'Akawut Jansom (MAN)',position:'Assistant Professor, Walailak University, Thailand',photo:'56b4ef_fba80b8af8824776961ccdc41ee96665~mv2.jpg'}
 };
 
 function cardHTML(it){
