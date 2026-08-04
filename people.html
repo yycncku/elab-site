@@ -73,7 +73,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .sect__n{font-size:12px;letter-spacing:.16em;color:var(--ink-soft);margin-left:auto;white-space:nowrap}
 
 /* ---------- 卡片（語彙同 senior-researchers.html）---------- */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:clamp(16px,2.2vw,26px)}
+/* align-items:start —— 展開某張卡時只有它變高，不會把整列一起撐開 */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:clamp(16px,2.2vw,26px);align-items:start}
 @media (max-width:560px){.grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}}
 .card{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
   background:var(--paper-3);border:1px solid var(--line);border-radius:20px;overflow:hidden;
@@ -93,6 +94,20 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .card__cta{margin-top:15px;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12.5px;letter-spacing:.04em;color:var(--coral)}
 .card__cta .arr{transition:transform .25s}
 @media (hover:hover){.card:hover .card__cta .arr{transform:translateX(4px)}}
+/* 就地展開（一般成員／校友）：點卡片原地看完整介紹，不跳頁 */
+.card--x{cursor:pointer}
+.card__full{display:none;margin-top:12px;padding-top:14px;border-top:1px solid var(--line)}
+.card__full p{font-size:14.5px;line-height:1.75;color:var(--ink-soft)}
+.card__full p+p{margin-top:.85em}
+.card__hl{margin-top:14px;padding:12px 14px;border:1px solid rgba(176,138,46,.4);border-left:3px solid var(--gold);border-radius:12px;background:rgba(176,138,46,.05)}
+.card__hl-k{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:7px}
+.card__hl-i{font-size:13.5px;line-height:1.6;color:var(--ink)}
+.card__hl-i+.card__hl-i{margin-top:5px}
+.card.open{border-color:rgba(228,87,46,.45);box-shadow:0 18px 40px rgba(24,42,68,.12)}
+.card.open .card__blurb{-webkit-line-clamp:unset;display:block}
+.card.open .card__full{display:block}
+.card.open .card__cta .arr{transform:rotate(180deg)}
+@media (hover:hover){.card.open:hover{transform:none}}   /* 展開後不再上浮，避免抖動 */
 .card__figure.noimg img{display:none}
 
 /* ---------- footer ---------- */
@@ -237,17 +252,35 @@ function cardHTML(it){
   const showPg=pg && pg!=='External' && rl.toUpperCase().indexOf(pg.toUpperCase())<0;
   const roleLine=[rl, showPg?pg:''].filter(Boolean).join(' · ');
   const tag=it.sr?'<span class="card__tag">Senior Researcher</span>':'';
-  const href=(it.showProfile===false)?'':(PROFILE+encodeURIComponent(it.id));
-  const cta=href?'<div class="card__cta">View profile <span class="arr">&#8594;</span></div>':'';
-  const inner=`<div class="card__figure${img?'':' noimg'}">${tag}${img?`<img src="${img}" alt="Portrait of ${esc(it.name)}" loading="lazy" decoding="async">`:''}</div>
-    <div class="card__body">
-      <div class="card__name">${esc(it.name)}</div>
-      ${roleLine?`<div class="card__role">${esc(roleLine)}</div>`:''}
-      ${it.blurb?`<div class="card__blurb">${esc(it.blurb)}</div>`:''}
-      ${cta}
-    </div>`;
-  return href?`<a class="card" href="${href}" aria-label="View profile of ${esc(it.name)}">${inner}</a>`
-             :`<div class="card">${inner}</div>`;
+  const figure=`<div class="card__figure${img?'':' noimg'}">${tag}${img?`<img src="${img}" alt="Portrait of ${esc(it.name)}" loading="lazy" decoding="async">`:''}</div>`;
+  const head=`<div class="card__name">${esc(it.name)}</div>
+      ${roleLine?`<div class="card__role">${esc(roleLine)}</div>`:''}`;
+
+  /* SR：維持連到個人頁（對外代表，獨立網址有實際價值）*/
+  if(it.sr && it.showProfile!==false){
+    return `<a class="card" href="${PROFILE+encodeURIComponent(it.id)}" aria-label="View profile of ${esc(it.name)}">
+      ${figure}
+      <div class="card__body">${head}
+        ${it.blurb?`<div class="card__blurb">${esc(it.blurb)}</div>`:''}
+        <div class="card__cta">View profile <span class="arr">&#8594;</span></div>
+      </div></a>`;
+  }
+
+  /* 一般成員／校友：點擊就地展開完整介紹（不跳頁、無獨立網址）*/
+  const paras=String(it.bio||'').split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);
+  const hl=String(it.highlights||'').split(/\s*[;·]\s*/).map(s=>s.trim()).filter(Boolean);
+  const hasMore=paras.length>0||hl.length>0;
+  const full=hasMore?`<div class="card__full">
+        ${paras.map(p=>`<p>${esc(p)}</p>`).join('')}
+        ${hl.length?`<div class="card__hl"><span class="card__hl-k">Highlights</span>${hl.map(h=>`<div class="card__hl-i">${esc(h)}</div>`).join('')}</div>`:''}
+      </div>`:'';
+  const toggle=hasMore?`<div class="card__cta">Read more <span class="arr">&#8595;</span></div>`:'';
+  return `<div class="card${hasMore?' card--x':''}"${hasMore?' role="button" tabindex="0" aria-expanded="false"':''}>
+      ${figure}
+      <div class="card__body">${head}
+        ${it.blurb?`<div class="card__blurb">${esc(it.blurb)}</div>`:''}
+        ${full}${toggle}
+      </div></div>`;
 }
 
 function render(list){
@@ -267,6 +300,31 @@ function render(list){
     document.querySelectorAll('.card').forEach((c,i)=>setTimeout(()=>c.classList.add('in'),Math.min(i,12)*55));
     wireReveals();
   });
+  wireExpanders();
+}
+
+/* 就地展開：點擊或鍵盤（Enter／空白）切換；同時只開一張，避免版面被撐得太亂 */
+function wireExpanders(){
+  document.querySelectorAll('.card--x').forEach(card=>{
+    if(card.dataset.wired)return;
+    card.dataset.wired='1';
+    const toggle=()=>{
+      const willOpen=!card.classList.contains('open');
+      if(willOpen)document.querySelectorAll('.card--x.open').forEach(o=>{
+        o.classList.remove('open');o.setAttribute('aria-expanded','false');
+        const c=o.querySelector('.card__cta');if(c)c.firstChild.textContent='Read more ';
+      });
+      card.classList.toggle('open',willOpen);
+      card.setAttribute('aria-expanded',willOpen);
+      const cta=card.querySelector('.card__cta');
+      if(cta)cta.firstChild.textContent=willOpen?'Show less ':'Read more ';
+      if(willOpen)card.scrollIntoView({block:'nearest',behavior:'smooth'});
+    };
+    card.addEventListener('click',toggle);
+    card.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}
+    });
+  });
 }
 
 render(FALLBACK);
@@ -275,6 +333,7 @@ fetch(ENDPOINT,{mode:'cors'}).then(r=>r.ok?r.json():null).then(d=>{
   if(!d||!d.ok||!Array.isArray(d.items))return;
   const live=d.items.filter(x=>x.status==='current').map(x=>({
     id:x.id,name:x.name,role:x.role,program:x.program,blurb:x.blurb,
+    bio:x.bio,highlights:x.highlights,          /* 就地展開需要這兩欄 */
     photo:x.photo,nationality:x.nationality,sr:x.role==='Senior Researcher',
     showProfile:x.showProfile
   }));
