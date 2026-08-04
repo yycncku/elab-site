@@ -104,8 +104,9 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .card__hl-i{font-size:13.5px;line-height:1.6;color:var(--ink)}
 .card__hl-i+.card__hl-i{margin-top:5px}
 .card.open{border-color:rgba(228,87,46,.45);box-shadow:0 18px 40px rgba(24,42,68,.12)}
-.card.open .card__blurb{-webkit-line-clamp:unset;display:block}
-.card.open .card__full{display:block}
+/* 展開＝取代：show bio（濃縮版）退場，只留原始 bio，避免同一件事講兩遍 */
+.card.open .card__blurb{display:none}
+.card.open .card__full{display:block;margin-top:10px;padding-top:0;border-top:0}  /* 位置接上 role 行，間距同原本的 blurb */
 .card.open .card__cta .arr{transform:rotate(180deg)}
 @media (hover:hover){.card.open:hover{transform:none}}   /* 展開後不再上浮，避免抖動 */
 .card__figure.noimg img{display:none}
