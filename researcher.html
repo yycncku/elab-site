@@ -279,7 +279,22 @@ wireReveals();
   function render(it){
     it=it||{};
     const name=it.name||'';
-    document.title=(name?name:'Senior Researcher')+' — E-LAB · NCKU';
+    document.title=(name?name:'Researcher')+' — E-LAB · NCKU';
+
+    /* 每位成員各自的 canonical / OG（否則 58 個網址共用一組 meta：
+       Google 只索引一頁、分享預覽全部顯示同一個標題）。
+       註：社群爬蟲多半不執行 JS，分享預覽仍可能取用 HTML 靜態值；
+       Google 會執行 JS，故索引與 canonical 以此為準。*/
+    const selfUrl='https://lab.entrepreneurship-lab.com/researcher.html?m='+encodeURIComponent(it.id||m);
+    const setMeta=(sel,attr,val)=>{const el=document.querySelector(sel);if(el)el.setAttribute(attr,val);};
+    setMeta('link[rel=canonical]','href',selfUrl);
+    setMeta('meta[property="og:url"]','content',selfUrl);
+    setMeta('meta[property="og:title"]','content',(name||'Researcher')+' — E-LAB · NCKU');
+    const desc=(it.position||'')||(String(it.bio||'').slice(0,150));
+    if(desc){
+      setMeta('meta[property="og:description"]','content',desc);
+      setMeta('meta[name="description"]','content',desc);
+    }
 
     /* 肖像：mediaId 白名單 → 組固定尺寸 URL */
     const fig=document.getElementById('rFigure'),img=document.getElementById('rPhoto');
