@@ -197,8 +197,8 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
     <ul class="nav__links">
       <li><a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a></li>
       <li><a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a></li>
-      <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a></li>
-      <li><a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a></li>
+      <li><a href="people.html"><span class="en">People</span><span class="zh">團隊</span></a></li>
+      <li><a href="alumni.html"><span class="en">Alumni</span><span class="zh">校友</span></a></li>
       <li><a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a></li>
       <li><a href="grants.html" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
       <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a></li>
@@ -213,8 +213,8 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a>
   <a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a>
-  <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a>
-  <a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a>
+  <a href="people.html"><span class="en">People</span><span class="zh">團隊</span></a>
+  <a href="alumni.html"><span class="en">Alumni</span><span class="zh">校友</span></a>
   <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a>
   <a href="grants.html" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
   <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a>
@@ -267,8 +267,8 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
     <div>
       <a href="index.html"><span class="en">Home</span><span class="zh">首頁</span></a> ·
       <a href="pi.html"><span class="en">Principal Investigator</span><span class="zh">主持人</span></a> ·
-      <a href="https://www.entrepreneurship-lab.com/people-update" target="_top"><span class="en">People</span><span class="zh">團隊</span></a> ·
-      <a href="https://www.entrepreneurship-lab.com/graduated" target="_top"><span class="en">Alumni</span><span class="zh">校友</span></a> ·
+      <a href="people.html"><span class="en">People</span><span class="zh">團隊</span></a> ·
+      <a href="alumni.html"><span class="en">Alumni</span><span class="zh">校友</span></a> ·
       <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a> ·
       <a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
       <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
@@ -296,7 +296,7 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
       document.body.appendChild(b);
     },1200);
   }
-  const MAP={'index.html':'https://www.entrepreneurship-lab.com/','publications.html':'https://www.entrepreneurship-lab.com/publications','pi.html':'https://www.entrepreneurship-lab.com/principal-investigator','grants.html':'https://www.entrepreneurship-lab.com/research','contact.html':'https://www.entrepreneurship-lab.com/contact'};
+  const MAP={'index.html':'https://www.entrepreneurship-lab.com/','publications.html':'https://www.entrepreneurship-lab.com/publications','pi.html':'https://www.entrepreneurship-lab.com/principal-investigator','grants.html':'https://www.entrepreneurship-lab.com/research','contact.html':'https://www.entrepreneurship-lab.com/contact','people.html':'https://lab.entrepreneurship-lab.com/people.html','alumni.html':'https://lab.entrepreneurship-lab.com/alumni.html'};
   document.querySelectorAll('a[href]').forEach(a=>{const b=(a.getAttribute('href')||'').split('#')[0].split('?')[0];if(MAP[b]){a.setAttribute('href',MAP[b]);a.setAttribute('target','_top');}});
   function report(){try{window.parent.postMessage({elabHeight:Math.ceil(document.documentElement.scrollHeight)},'https://www.entrepreneurship-lab.com');}catch(e){}}
   addEventListener('load',report);addEventListener('resize',report);

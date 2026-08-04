@@ -159,8 +159,8 @@ html.framed{background:var(--night)}
   <ul class="nav__links">
     <li><a href="index.html">Home</a></li>
     <li><a href="pi.html">Principal Investigator</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a></li>
+    <li><a href="people.html">People</a></li>
+    <li><a href="alumni.html">Alumni</a></li>
     <li><a href="publications.html">Publications</a></li>
     <li><a href="grants.html">Projects/Grants</a></li>
     <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a></li>
@@ -170,8 +170,8 @@ html.framed{background:var(--night)}
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
   <a href="pi.html">Principal Investigator</a>
-  <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a>
-  <a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a>
+  <a href="people.html">People</a>
+  <a href="alumni.html">Alumni</a>
   <a href="publications.html">Publications</a>
   <a href="grants.html">Projects/Grants</a>
   <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a>
@@ -324,8 +324,8 @@ html.framed{background:var(--night)}
     <div>
       <a href="index.html">Home</a> ·
       <a href="pi.html">Principal Investigator</a> ·
-      <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a> ·
-      <a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a> ·
+      <a href="people.html">People</a> ·
+      <a href="alumni.html">Alumni</a> ·
       <a href="publications.html">Publications</a> ·
       <a href="grants.html">Projects/Grants</a> ·
       <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a><br>
@@ -344,7 +344,7 @@ var T0 = Date.now();  // 載入時間戳（time-trap 用）
 (function(){
   if(window.top===window.self)return;
   document.documentElement.classList.add('framed');
-  var MAP={'index.html':'https://www.entrepreneurship-lab.com/','publications.html':'https://www.entrepreneurship-lab.com/publications','pi.html':'https://www.entrepreneurship-lab.com/principal-investigator','grants.html':'https://www.entrepreneurship-lab.com/research','contact.html':'https://www.entrepreneurship-lab.com/contact'};
+  var MAP={'index.html':'https://www.entrepreneurship-lab.com/','publications.html':'https://www.entrepreneurship-lab.com/publications','pi.html':'https://www.entrepreneurship-lab.com/principal-investigator','grants.html':'https://www.entrepreneurship-lab.com/research','contact.html':'https://www.entrepreneurship-lab.com/contact','people.html':'https://lab.entrepreneurship-lab.com/people.html','alumni.html':'https://lab.entrepreneurship-lab.com/alumni.html'};
   document.querySelectorAll('a[href]').forEach(function(a){var b=(a.getAttribute('href')||'').split('#')[0].split('?')[0];if(MAP[b]){a.setAttribute('href',MAP[b]);a.setAttribute('target','_top');}});
   function report(){try{window.parent.postMessage({elabHeight:Math.ceil(document.documentElement.scrollHeight)},'https://www.entrepreneurship-lab.com');}catch(e){}}
   addEventListener('load',report);addEventListener('resize',report);

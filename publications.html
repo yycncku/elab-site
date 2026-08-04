@@ -177,8 +177,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   <ul class="nav__links">
     <li><a href="index.html">Home</a></li>
     <li><a href="pi.html">Principal Investigator</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a></li>
+    <li><a href="people.html">People</a></li>
+    <li><a href="alumni.html">Alumni</a></li>
     <li><a href="publications.html" aria-current="page">Publications</a></li>
     <li><a href="grants.html">Projects/Grants</a></li>
     <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a></li>
@@ -188,8 +188,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
   <a href="pi.html">Principal Investigator</a>
-  <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a>
-  <a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a>
+  <a href="people.html">People</a>
+  <a href="alumni.html">Alumni</a>
   <a href="publications.html" aria-current="page">Publications</a>
   <a href="grants.html">Projects/Grants</a>
   <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a>
@@ -231,8 +231,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
     <div>
       <a href="index.html">Home</a> ·
       <a href="pi.html">Principal Investigator</a> ·
-      <a href="https://www.entrepreneurship-lab.com/people-update" target="_top">People</a> ·
-      <a href="https://www.entrepreneurship-lab.com/graduated" target="_top">Alumni</a> ·
+      <a href="people.html">People</a> ·
+      <a href="alumni.html">Alumni</a> ·
       <a href="publications.html">Publications</a> ·
       <a href="grants.html">Projects/Grants</a> ·
       <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a><br>
@@ -264,7 +264,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
              'publications.html':'https://www.entrepreneurship-lab.com/publications',
              'pi.html':'https://www.entrepreneurship-lab.com/principal-investigator',
              'grants.html':'https://www.entrepreneurship-lab.com/research',
-             'contact.html':'https://www.entrepreneurship-lab.com/contact'};
+             'contact.html':'https://www.entrepreneurship-lab.com/contact','people.html':'https://lab.entrepreneurship-lab.com/people.html','alumni.html':'https://lab.entrepreneurship-lab.com/alumni.html'};
   document.querySelectorAll('a[href]').forEach(a=>{
     const base=(a.getAttribute('href')||'').split('#')[0].split('?')[0];
     if(MAP[base]){a.setAttribute('href',MAP[base]);a.setAttribute('target','_top');}
