@@ -75,7 +75,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 
 /* ---------- 卡片（語彙同 senior-researchers.html）---------- */
 /* align-items:start —— 展開某張卡時只有它變高，不會把整列一起撐開 */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:clamp(16px,2.2vw,26px);align-items:start}
+/* auto-fill（非 auto-fit）：組內人數少時卡片維持原尺寸，不被撐滿整列 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:clamp(16px,2.2vw,26px);align-items:start}
 @media (max-width:560px){.grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}}
 .card{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
   background:var(--paper-3);border:1px solid var(--line);border-radius:20px;overflow:hidden;
