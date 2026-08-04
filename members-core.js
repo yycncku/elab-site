@@ -51,7 +51,9 @@
 
     var paras = String(it.bio || '').split(/\n\s*\n/).map(function (s) { return s.trim(); }).filter(Boolean);
     var hl = String(it.highlights || '').split(/\s*[;·]\s*/).map(function (s) { return s.trim(); }).filter(Boolean);
-    var hasMore = paras.length > 0 || hl.length > 0;
+    /* show_profile=false ＝「不公開此人詳細資料」：既不給個人頁連結，也不可就地展開
+       （否則等於換個方式把完整 bio 攤開，違反該欄位的原意）*/
+    var hasMore = it.showProfile !== false && (paras.length > 0 || hl.length > 0);
     var full = hasMore ? '<div class="card__full">' +
       paras.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
       (hl.length ? '<div class="card__hl"><span class="card__hl-k">Highlights</span>' +
@@ -117,24 +119,30 @@
      - render  : function(list) 由各頁決定版面（分區／分年份）
      先以 fallback 畫一次（頁面立即有內容），端點成功再以即時資料重畫。 */
   function mount(opts) {
+    /* endpoint 可覆寫：供本機以假資料做邊界情境測試（?mock=xxx.json）*/
+    var url = opts.endpoint || ENDPOINT;
+    var drew = false;
     var draw = function (list) {
+      drew = true;
       opts.render(list);
       wireExpanders();
       fadeIn();
     };
     if (opts.fallback && opts.fallback.length) draw(opts.fallback);
 
-    return fetch(ENDPOINT, { mode: 'cors' })
+    return fetch(url, { mode: 'cors' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
-        if (!d || !d.ok || !Array.isArray(d.items)) return false;
+        if (!d || !d.ok || !Array.isArray(d.items)) { if (!drew) draw([]); return false; }
         var live = d.items.filter(function (x) { return x.status === opts.status; }).map(normalize);
-        /* 至少 5 筆才採用，避免端點半殘時開天窗 */
-        if (live.length < 5) return false;
+        /* 端點成功回應即採用——不設「至少 N 筆」門檻：
+           實驗室縮編到 4 人、或某年只有少數校友時，門檻會讓頁面永遠停在舊資料。
+           唯一例外：live 為空但已有 fallback 畫面時保留 fallback，避免畫面突然清空。*/
+        if (live.length === 0 && opts.fallback && opts.fallback.length) return false;
         draw(live);
         return true;
       })
-      .catch(function () { return false; });
+      .catch(function () { if (!drew) draw([]); return false; });   /* 無 fallback 時仍要 render，讓頁面顯示空狀態而非全白 */
   }
 
   global.ELab = {

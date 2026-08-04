@@ -268,7 +268,10 @@ function render(list){
   wireReveals();
 }
 
-ELab.mount({status:'alumni', fallback:[], render:render});
+/* ⚠ ?mock= 僅限本機測試：線上放行等於讓任何人用外部 JSON 偽造成員名單 */
+const _isLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+const _mock=_isLocal?new URLSearchParams(location.search).get('mock'):null;
+ELab.mount({status:'alumni', fallback:[], render:render, endpoint:_mock||undefined});
 </script>
 </body>
 </html>

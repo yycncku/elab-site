@@ -244,6 +244,16 @@ const FALLBACK=[{"id":"MEM-001","name":"Dr. Wisuwat Wannamakok","role":"Senior R
 
 /* 版面：SR 一區、其餘現任一區（卡片本身由 ELab.cardHTML 產生）*/
 function render(list){
+  /* 空狀態：端點無資料且無備援時，給訊息＋連回 Wix 舊頁，避免全白畫面 */
+  if(!list.length){
+    document.getElementById('srSection').hidden=true;
+    document.getElementById('curGrid').innerHTML=
+      '<p class="phead__lead">Members are loading. If this persists, see the '+
+      '<a href="https://www.entrepreneurship-lab.com/people-update" target="_top" style="color:var(--coral)">people page</a>.</p>';
+    document.getElementById('curN').textContent='';
+    document.getElementById('pmeta').innerHTML='';
+    return;
+  }
   const sr=list.filter(x=>x.role==='Senior Researcher');
   const cur=list.filter(x=>x.role!=='Senior Researcher');
   const srSec=document.getElementById('srSection');
@@ -260,7 +270,11 @@ function render(list){
   wireReveals();
 }
 
-ELab.mount({status:'current', fallback:FALLBACK, render:render});
+/* ?mock=xxx.json 供本機邊界情境測試；線上無此參數即走正式端點 */
+/* ⚠ ?mock= 僅限本機測試：線上放行等於讓任何人用外部 JSON 偽造成員名單 */
+const _isLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+const _mock=_isLocal?new URLSearchParams(location.search).get('mock'):null;
+ELab.mount({status:'current', fallback:_mock?[]:FALLBACK, render:render, endpoint:_mock||undefined});
 </script>
 </body>
 </html>
