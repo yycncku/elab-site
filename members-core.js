@@ -94,12 +94,48 @@
     });
   }
 
-  /* ---------- 進場淡入 ---------- */
-  function fadeIn(root) {
+  /* ---------- 進場：捲動逐行顯現 ----------
+     同一列卡片在同一批 IO 事件進入視口 → 批內遞延即成「由左向右」；
+     下一列捲到才觸發 → 逐行出現。單欄（手機）時同批只有一張，自然逐張。
+     出現一次後 unobserve（回捲不重演，找資料的訪客不被動畫拖慢）。 */
+  var io = null;
+  var STAGGER_MS = 70, STAGGER_CAP = 8;
+  function showNow(c) {
+    /* 定格顯示：跳過進場過渡但不留殘設定，hover 過渡兩幀後恢復 */
+    c.style.transition = 'none';
+    c.classList.add('in');
     requestAnimationFrame(function () {
-      (root || document).querySelectorAll('.card:not(.in)').forEach(function (c, i) {
-        setTimeout(function () { c.classList.add('in'); }, Math.min(i, 12) * 55);
+      requestAnimationFrame(function () { c.style.transition = ''; });
+    });
+  }
+  function getIO() {
+    if (io) return io;
+    io = new IntersectionObserver(function (entries) {
+      var batch = entries.filter(function (en) { return en.isIntersecting; });
+      batch.forEach(function (en, i) {
+        io.unobserve(en.target);
+        var d = Math.min(i, STAGGER_CAP) * STAGGER_MS;
+        if (d) setTimeout(function () { en.target.classList.add('in'); }, d);
+        else en.target.classList.add('in');
       });
+    }, { threshold: 0.15, rootMargin: '0px 0px -4% 0px' });
+    return io;
+  }
+  /* fadeIn(root, {redraw:true}) ＝ 二段式渲染的第二畫（fallback→live）：
+     訪客已看過視口內的內容，該範圍定格顯示不重演，僅視口以下保留捲動觸發 */
+  function fadeIn(root, opts) {
+    var redraw = !!(opts && opts.redraw);
+    var cards = (root || document).querySelectorAll('.card:not(.in)');
+    var rm = global.matchMedia && global.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!('IntersectionObserver' in global) || rm) {
+      cards.forEach(showNow);
+      return;
+    }
+    if (redraw && io) io.disconnect();   /* 舊 render 的節點已被替換，觀察名單重建 */
+    var vh = global.innerHeight || 800;
+    cards.forEach(function (c) {
+      if (redraw && c.getBoundingClientRect().top < vh) showNow(c);
+      else getIO().observe(c);
     });
   }
 
@@ -123,10 +159,11 @@
     var url = opts.endpoint || ENDPOINT;
     var drew = false;
     var draw = function (list) {
+      var redraw = drew;           /* 第二次呼叫＝fallback→live 重畫 */
       drew = true;
       opts.render(list);
       wireExpanders();
-      fadeIn();
+      fadeIn(null, { redraw: redraw });
     };
     if (opts.fallback && opts.fallback.length) draw(opts.fallback);
 
