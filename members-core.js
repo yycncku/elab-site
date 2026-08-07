@@ -43,7 +43,7 @@
     var blurb = it.blurb ? '<div class="card__blurb">' + esc(it.blurb) + '</div>' : '';
 
     if (isSR && it.showProfile !== false) {
-      return '<a class="card" href="' + PROFILE + encodeURIComponent(it.id) +
+      return '<a class="card card--sr" href="' + PROFILE + encodeURIComponent(it.id) +
         '" aria-label="View profile of ' + esc(it.name) + '">' + figure +
         '<div class="card__body">' + head + blurb +
         '<div class="card__cta">View profile <span class="arr">&#8594;</span></div></div></a>';
@@ -61,7 +61,7 @@
       '</div>' : '';
     var toggle = hasMore ? '<div class="card__cta">Read more <span class="arr">&#8595;</span></div>' : '';
 
-    return '<div class="card' + (hasMore ? ' card--x' : '') + '"' +
+    return '<div class="card' + (hasMore ? ' card--x' : '') + (isSR ? ' card--sr' : '') + '"' +
       (hasMore ? ' role="button" tabindex="0" aria-expanded="false"' : '') + '>' +
       figure + '<div class="card__body">' + head + blurb + full + toggle + '</div></div>';
   }
@@ -165,7 +165,16 @@
       wireExpanders();
       fadeIn(null, { redraw: redraw });
     };
-    if (opts.fallback && opts.fallback.length) draw(opts.fallback);
+    if (opts.fallback && opts.fallback.length) {
+      /* 暫存畫面（fallback）不掃光：live 重畫會打斷掃到一半的動畫，
+         故 html.presweep 抑制之，待資料定案（成功或失敗）才解除、掃一次 */
+      document.documentElement.classList.add('presweep');
+      draw(opts.fallback);
+    }
+    var settle = function (ok) {
+      document.documentElement.classList.remove('presweep');
+      return ok;
+    };
 
     return fetch(url, { mode: 'cors' })
       .then(function (r) { return r.ok ? r.json() : null; })
@@ -179,7 +188,8 @@
         draw(live);
         return true;
       })
-      .catch(function () { if (!drew) draw([]); return false; });   /* 無 fallback 時仍要 render，讓頁面顯示空狀態而非全白 */
+      .catch(function () { if (!drew) draw([]); return false; })   /* 無 fallback 時仍要 render，讓頁面顯示空狀態而非全白 */
+      .then(settle);
   }
 
   global.ELab = {

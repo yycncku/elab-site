@@ -84,6 +84,15 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .card.in{opacity:1;transform:none}
 @media (hover:hover){.card:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(24,42,68,.14);border-color:rgba(228,87,46,.5)}}
 .card__figure{position:relative;width:100%;aspect-ratio:4/5;background:var(--ink);overflow:hidden}
+/* SR 金色掃光：進場亮起後自動掃一次（::after），hover 再掃（::before，放開即歸位不倒掃）。
+   z-index:1 → 光帶越過照片、從 SR 徽章（z2）下方通過 */
+.card--sr .card__figure::after,.card--sr .card__figure::before{content:'';position:absolute;top:0;left:-130%;width:70%;height:100%;z-index:1;
+  background:linear-gradient(100deg,transparent,rgba(255,215,130,.30) 45%,rgba(176,138,46,.20) 55%,transparent);
+  transform:skewX(-18deg);pointer-events:none}
+.card--sr.in .card__figure::after{animation:srsweep .85s ease .45s 1 both}
+html.presweep .card--sr .card__figure::after{animation:none!important} /* 暫存畫面不掃，等最終資料 */
+@media (hover:hover){.card--sr:hover .card__figure::before{left:130%;transition:left .7s ease}}
+@keyframes srsweep{from{left:-130%}to{left:130%}}
 .card__figure img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
 @media (hover:hover){.card:hover .card__figure img{transform:scale(1.04)}}
 .card__tag{position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
@@ -126,7 +135,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .reveal.in{opacity:1;transform:none}
 
 @media (max-width:820px){.nav__links{display:none}.nav__toggle{display:block}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}.reveal,.card{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal,.card{opacity:1;transform:none}}
 .framed .mobile-menu{position:fixed;top:0;left:0;right:0;bottom:auto;height:auto;min-height:0;justify-content:flex-start;gap:16px;padding:80px 24px 56px}
 </style>
 </head>
