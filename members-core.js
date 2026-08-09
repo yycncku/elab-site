@@ -19,16 +19,24 @@
   function mediaId(s) {
     return /^[\w./~-]+$/.test(String(s || '')) ? String(s) : '';
   }
-  function photoUrl(id) {
+  /* crop："x,y,w,h"（原圖像素座標）＝非破壞性裁切（遠照救近照）；
+     格式不符白名單即忽略、退回預設 fill，確保壞資料不會組出壞網址 */
+  function photoUrl(id, crop) {
     var pid = mediaId(id);
-    return pid ? 'https://static.wixstatic.com/media/' + pid + '/v1/fill/w_600,h_750,q_85/p.jpg' : '';
+    if (!pid) return '';
+    var m = /^(\d+),(\d+),(\d+),(\d+)$/.exec(String(crop || ''));
+    if (m) {
+      return 'https://static.wixstatic.com/media/' + pid +
+        '/v1/crop/x_' + m[1] + ',y_' + m[2] + ',w_' + m[3] + ',h_' + m[4] + ',q_85/p.jpg';
+    }
+    return 'https://static.wixstatic.com/media/' + pid + '/v1/fill/w_600,h_750,q_85/p.jpg';
   }
 
   /* ---------- 卡片 ----------
      SR：連個人頁（對外代表，獨立網址有價值）
      其他：就地展開完整 bio（不跳頁、無獨立網址）        */
   function cardHTML(it) {
-    var img = photoUrl(it.photo);
+    var img = photoUrl(it.photo, it.photoCrop);
     var rl = String(it.role || ''), pg = String(it.program || '');
     var showPg = pg && pg !== 'External' && rl.toUpperCase().indexOf(pg.toUpperCase()) < 0;
     var roleLine = [rl, showPg ? pg : ''].filter(Boolean).join(' · ');
@@ -153,7 +161,7 @@
       id: x.id, name: x.name, role: x.role, program: x.program, status: x.status,
       blurb: x.blurb, bio: x.bio, highlights: x.highlights, photo: x.photo,
       nationality: x.nationality, gradYear: x.gradYear, gradLabel: x.gradLabel,
-      order: x.order, showProfile: x.showProfile, email: x.email
+      order: x.order, showProfile: x.showProfile, email: x.email, photoCrop: x.photoCrop
     };
   }
 
