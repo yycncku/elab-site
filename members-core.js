@@ -34,12 +34,17 @@
     var roleLine = [rl, showPg ? pg : ''].filter(Boolean).join(' · ');
     var isSR = it.role === 'Senior Researcher';
 
+    var isLM = it.role === 'Lab Manager';
     var tag = isSR ? '<span class="card__tag">Senior Researcher</span>'
+                   : isLM ? '<span class="card__tag card__tag--lm">Lab Manager</span>'
                    : (it.gradLabel ? '<span class="card__tag card__tag--grad">' + esc(it.gradLabel) + '</span>' : '');
     var figure = '<div class="card__figure' + (img ? '' : ' noimg') + '">' + tag +
       (img ? '<img src="' + img + '" alt="Portrait of ' + esc(it.name) + '" loading="lazy" decoding="async">' : '') + '</div>';
     var head = '<div class="card__name">' + esc(it.name) + '</div>' +
       (roleLine ? '<div class="card__role">' + esc(roleLine) + '</div>' : '');
+    /* Lab Manager 為行政聯絡窗口：卡片顯示 email（mailto 可點；其他角色端點不回傳 email）*/
+    var mail = (isLM && it.email) ? '<a class="card__mail" href="mailto:' + esc(it.email) +
+      '" aria-label="Email ' + esc(it.name) + '">&#9993;&nbsp;' + esc(it.email) + '</a>' : '';
     var blurb = it.blurb ? '<div class="card__blurb">' + esc(it.blurb) + '</div>' : '';
 
     if (isSR && it.showProfile !== false) {
@@ -61,9 +66,9 @@
       '</div>' : '';
     var toggle = hasMore ? '<div class="card__cta">Read more <span class="arr">&#8595;</span></div>' : '';
 
-    return '<div class="card' + (hasMore ? ' card--x' : '') + (isSR ? ' card--sr' : '') + '"' +
+    return '<div class="card' + (hasMore ? ' card--x' : '') + (isSR ? ' card--sr' : '') + (isLM ? ' card--lm' : '') + '"' +
       (hasMore ? ' role="button" tabindex="0" aria-expanded="false"' : '') + '>' +
-      figure + '<div class="card__body">' + head + blurb + full + toggle + '</div></div>';
+      figure + '<div class="card__body">' + head + mail + blurb + full + toggle + '</div></div>';
   }
 
   /* ---------- 就地展開：點擊或鍵盤；同時只開一張 ---------- */
@@ -87,7 +92,10 @@
         setLabel(card, willOpen);
         if (willOpen) card.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
-      card.addEventListener('click', toggle);
+      card.addEventListener('click', function (e) {
+        if (e.target.closest && e.target.closest('a')) return;  /* 卡內連結（如 email）不觸發展開 */
+        toggle();
+      });
       card.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
       });
@@ -145,8 +153,27 @@
       id: x.id, name: x.name, role: x.role, program: x.program, status: x.status,
       blurb: x.blurb, bio: x.bio, highlights: x.highlights, photo: x.photo,
       nationality: x.nationality, gradYear: x.gradYear, gradLabel: x.gradLabel,
-      order: x.order, showProfile: x.showProfile
+      order: x.order, showProfile: x.showProfile, email: x.email
     };
+  }
+
+  /* ---------- 成員排序（Alex 2026-08-09 拍板的正式規則） ----------
+     Lab Manager 永遠第一 → 博士群（PhD Candidate、DBA Candidate、PhD Student
+     同屬一群，依資深程度）→ Master Students → 其他。
+     同群內以 CMS 的 order 表達資深程度（小＝資深，排前）。 */
+  var ROLE_RANK = {
+    'Lab Manager': 0,
+    'PhD Candidate': 1, 'DBA Candidate': 1, 'PhD Student': 1,
+    'Master Student': 2
+  };
+  function roleRank(role) {
+    return (role in ROLE_RANK) ? ROLE_RANK[role] : 3;
+  }
+  function sortMembers(list) {
+    return list.slice().sort(function (a, b) {
+      var r = roleRank(a.role) - roleRank(b.role);
+      return r !== 0 ? r : ((a.order || 999) - (b.order || 999));
+    });
   }
 
   /* mount({status, fallback, render})
@@ -195,6 +222,6 @@
   global.ELab = {
     esc: esc, mediaId: mediaId, photoUrl: photoUrl,
     cardHTML: cardHTML, wireExpanders: wireExpanders, fadeIn: fadeIn,
-    mount: mount, ENDPOINT: ENDPOINT, PROFILE: PROFILE
+    sortMembers: sortMembers, mount: mount, ENDPOINT: ENDPOINT, PROFILE: PROFILE
   };
 })(window);
