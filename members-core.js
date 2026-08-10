@@ -166,16 +166,17 @@
   }
 
   /* ---------- 成員排序（Alex 2026-08-09 拍板的正式規則） ----------
-     Lab Manager 永遠第一 → 博士群（PhD Candidate、DBA Candidate、PhD Student
-     同屬一群，依資深程度）→ Master Students → 其他。
+     Lab Manager 永遠第一 → Postdoc Researcher → 博士群（PhD Candidate、
+     DBA Candidate、PhD Student 同屬一群，依資深程度）→ Master Students → 其他。
      同群內以 CMS 的 order 表達資深程度（小＝資深，排前）。 */
   var ROLE_RANK = {
     'Lab Manager': 0,
-    'PhD Candidate': 1, 'DBA Candidate': 1, 'PhD Student': 1,
-    'Master Student': 2
+    'Postdoc Researcher': 1,
+    'PhD Candidate': 2, 'DBA Candidate': 2, 'PhD Student': 2,
+    'Master Student': 3
   };
   function roleRank(role) {
-    return (role in ROLE_RANK) ? ROLE_RANK[role] : 3;
+    return (role in ROLE_RANK) ? ROLE_RANK[role] : 4;
   }
   function sortMembers(list) {
     return list.slice().sort(function (a, b) {
