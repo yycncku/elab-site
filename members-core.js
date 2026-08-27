@@ -45,7 +45,8 @@
     var isLM = it.role === 'Lab Manager';
     var tag = isSR ? '<span class="card__tag">Senior Researcher</span>'
                    : isLM ? '<span class="card__tag card__tag--lm">Lab Manager</span>'
-                   : (it.gradLabel ? '<span class="card__tag card__tag--grad">' + esc(it.gradLabel) + '</span>' : '');
+                   /* Class of 金標僅校友身份顯示：回歸的校友（如 Lea）在 People 頁不掛 */
+                   : (it.status === 'alumni' && it.gradLabel ? '<span class="card__tag card__tag--grad">' + esc(it.gradLabel) + '</span>' : '');
     var figure = '<div class="card__figure' + (img ? '' : ' noimg') + '">' + tag +
       (img ? '<img src="' + img + '" alt="Portrait of ' + esc(it.name) + '" loading="lazy" decoding="async">' : '') + '</div>';
     var head = '<div class="card__name">' + esc(it.name) + '</div>' +
