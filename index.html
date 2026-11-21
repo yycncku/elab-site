@@ -116,9 +116,9 @@ section{scroll-margin-top:70px}
 .mobile-menu{
   position:fixed;inset:0;background:var(--paper);z-index:99;
   display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8vh;
-  opacity:0;pointer-events:none;transition:opacity .35s;
+  opacity:0;pointer-events:none;visibility:hidden;transition:opacity .35s,visibility 0s .35s
 }
-.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu.open{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .35s}
 .mobile-menu a{
   font-family:var(--font-display);font-size:clamp(28px,8vw,40px);font-weight:600;
   color:var(--ink);text-decoration:none;text-align:center;line-height:1.15;max-width:92%;
@@ -577,7 +577,7 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
     <li><a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a></li>
     <li><a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
   </ul>
-  <a class="nav__cta" href="https://www.entrepreneurship-lab.com/contact"><span class="en">Get in touch</span><span class="zh">聯絡我們</span></a>
+  <a class="nav__cta" href="contact.html"><span class="en">Get in touch</span><span class="zh">聯絡我們</span></a>
   <button class="langtoggle" id="langBtn" aria-label="Switch language" aria-pressed="false"><svg class="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg><span class="en">中文</span><span class="zh">EN</span></button>
   <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -590,7 +590,7 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
   <a href="alumni.html"><span class="en">Alumni</span><span class="zh">校友</span></a>
   <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a>
   <a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
-  <a href="https://www.entrepreneurship-lab.com/contact"><span class="en">Contact</span><span class="zh">聯絡</span></a>
+  <a href="contact.html"><span class="en">Contact</span><span class="zh">聯絡</span></a>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -759,7 +759,7 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
     <p class="cta__sub reveal"><span class="en">Whether you want to research venturing, build something new, or join a lab that feels like a crew — we'd love to hear from you.</span><span class="zh">無論你想研究創業、動手打造新東西，或加入一個像夥伴一樣的實驗室，我們都想認識你。</span></p>
     <div class="cta__actions reveal">
       <a class="btn btn--paper" href="people.html"><span class="en">Meet the people</span><span class="zh">認識我們</span></a>
-      <a class="btn btn--outline" href="https://www.entrepreneurship-lab.com/contact"><span class="en">Get in touch</span><span class="zh">來聊聊</span></a>
+      <a class="btn btn--outline" href="contact.html"><span class="en">Get in touch</span><span class="zh">來聊聊</span></a>
     </div>
   </div>
 </section>
@@ -783,8 +783,8 @@ body.loaded .hero__actions{opacity:1;transform:none;transition-delay:.52s}
       <a href="alumni.html"><span class="en">Alumni</span><span class="zh">校友</span></a> ·
       <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a> ·
       <a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
-      <a href="https://www.entrepreneurship-lab.com/contact"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
-      © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
+      <a href="contact.html"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
+      © <span class="js-yr">2026</span> E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
   </div>
 </footer>
@@ -1362,5 +1362,6 @@ function setLang(l){LANG=l;document.body.dataset.lang=l;document.documentElement
 langBtn.addEventListener('click',()=>setLang(LANG==='en'?'zh':'en'));
 const _ql=new URLSearchParams(location.search).get('lang'); if(_ql==='zh'||_ql==='en')setLang(_ql);
 </script>
+<script>/* 頁尾年份自動更新 */document.querySelectorAll('.js-yr').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
 </body>
 </html>

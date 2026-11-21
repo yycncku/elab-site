@@ -50,8 +50,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .nav__toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav__toggle.open span:nth-child(2){opacity:0}
 .nav__toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;transition:opacity .35s}
-.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+.mobile-menu.open{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .35s}
 .mobile-menu a{font-family:var(--font-display);font-size:clamp(26px,7vw,38px);font-weight:600;color:var(--ink);text-decoration:none;text-align:center;line-height:1.15;max-width:92%}
 .mobile-menu a:active,.mobile-menu a[aria-current]{color:var(--coral)}
 
@@ -187,7 +187,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
       <a href="publications.html">Publications</a> ·
       <a href="grants.html">Projects/Grants</a> ·
       <a href="contact.html">Contact</a><br>
-      © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
+      © <span class="js-yr">2026</span> E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
   </div>
 </footer>
@@ -274,5 +274,6 @@ const _isLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
 const _mock=_isLocal?new URLSearchParams(location.search).get('mock'):null;
 ELab.mount({status:'alumni', fallback:[], render:render, endpoint:_mock||undefined});
 </script>
+<script>/* 頁尾年份自動更新 */document.querySelectorAll('.js-yr').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
 </body>
 </html>

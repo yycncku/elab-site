@@ -237,7 +237,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
       <a href="publications.html">Publications</a> ·
       <a href="grants.html">Projects/Grants</a> ·
       <a href="contact.html">Contact</a><br>
-      © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
+      © <span class="js-yr">2026</span> E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
   </div>
 </footer>
@@ -414,5 +414,6 @@ if(pd && ['ent','cur','org','inn','cci'].includes(pd)){
 }
 render();
 </script>
+<script>/* 頁尾年份自動更新 */document.querySelectorAll('.js-yr').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
 </body>
 </html>

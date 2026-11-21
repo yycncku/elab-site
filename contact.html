@@ -53,8 +53,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .nav__toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav__toggle.open span:nth-child(2){opacity:0}
 .nav__toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;transition:opacity .35s}
-.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+.mobile-menu.open{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .35s}
 .mobile-menu a{font-family:var(--font-display);font-size:clamp(26px,7vw,38px);font-weight:600;color:var(--ink);text-decoration:none;text-align:center;line-height:1.15;max-width:92%}
 .mobile-menu a:active,.mobile-menu a[aria-current]{color:var(--coral)}
 
@@ -132,7 +132,7 @@ html.framed{background:var(--night)}
     <li><a href="alumni.html">Alumni</a></li>
     <li><a href="publications.html">Publications</a></li>
     <li><a href="grants.html">Projects/Grants</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top" aria-current="page">Contact</a></li>
+    <li><a href="contact.html" aria-current="page">Contact</a></li>
   </ul>
   <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
@@ -143,7 +143,7 @@ html.framed{background:var(--night)}
   <a href="alumni.html">Alumni</a>
   <a href="publications.html">Publications</a>
   <a href="grants.html">Projects/Grants</a>
-  <a href="https://www.entrepreneurship-lab.com/contact" target="_top" aria-current="page">Contact</a>
+  <a href="contact.html" aria-current="page">Contact</a>
 </div>
 
 <header class="chead">
@@ -197,8 +197,8 @@ html.framed{background:var(--night)}
       <a href="alumni.html">Alumni</a> ·
       <a href="publications.html">Publications</a> ·
       <a href="grants.html">Projects/Grants</a> ·
-      <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a><br>
-      © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
+      <a href="contact.html">Contact</a><br>
+      © <span class="js-yr">2026</span> E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
   </div>
 </footer>
@@ -266,5 +266,6 @@ wireReveals();
     }).catch(()=>{});
 })();
 </script>
+<script>/* 頁尾年份自動更新 */document.querySelectorAll('.js-yr').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
 </body>
 </html>

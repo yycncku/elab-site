@@ -72,8 +72,8 @@ body[data-lang="zh"] .nav__links a{text-transform:none;letter-spacing:.1em;font-
 .nav__toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav__toggle.open span:nth-child(2){opacity:0}
 .nav__toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;transition:opacity .35s}
-.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+.mobile-menu.open{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .35s}
 .mobile-menu a{font-family:var(--font-display);font-size:clamp(26px,7vw,38px);font-weight:600;color:var(--ink);text-decoration:none;text-align:center;line-height:1.15;max-width:92%}
 body[data-lang="zh"] .mobile-menu a{font-family:var(--font-zh)}
 .mobile-menu a:active,.mobile-menu a[aria-current]{color:var(--coral)}
@@ -201,7 +201,7 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
       <li><a href="alumni.html"><span class="en">Alumni</span><span class="zh">校友</span></a></li>
       <li><a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a></li>
       <li><a href="grants.html" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a></li>
-      <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a></li>
+      <li><a href="contact.html"><span class="en">Contact</span><span class="zh">聯絡</span></a></li>
     </ul>
     <button class="langtoggle" id="langBtn" aria-label="Switch language" aria-pressed="false">
       <svg class="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>
@@ -217,7 +217,7 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
   <a href="alumni.html"><span class="en">Alumni</span><span class="zh">校友</span></a>
   <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a>
   <a href="grants.html" aria-current="page"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a>
-  <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a>
+  <a href="contact.html"><span class="en">Contact</span><span class="zh">聯絡</span></a>
 </div>
 
 <header class="phead">
@@ -271,8 +271,8 @@ body[data-lang="zh"] .grant__title{line-height:1.5;max-width:46ch}
       <a href="alumni.html"><span class="en">Alumni</span><span class="zh">校友</span></a> ·
       <a href="publications.html"><span class="en">Publications</span><span class="zh">著作</span></a> ·
       <a href="grants.html"><span class="en">Projects/Grants</span><span class="zh">研究計畫</span></a> ·
-      <a href="https://www.entrepreneurship-lab.com/contact" target="_top"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
-      © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
+      <a href="contact.html"><span class="en">Contact</span><span class="zh">聯絡</span></a><br>
+      © <span class="js-yr">2026</span> E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
   </div>
 </footer>
@@ -527,5 +527,6 @@ const pt=qs.get('theme');
 if(pt&&THEMES[pt]){curTheme=pt;document.querySelectorAll('#themeChips .tchip').forEach(c=>{const on=c.dataset.t===pt;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on);});}
 render();
 </script>
+<script>/* 頁尾年份自動更新 */document.querySelectorAll('.js-yr').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
 </body>
 </html>
