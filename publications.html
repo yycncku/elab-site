@@ -56,8 +56,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .nav__toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav__toggle.open span:nth-child(2){opacity:0}
 .nav__toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;transition:opacity .35s}
-.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+.mobile-menu.open{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .35s}
 .mobile-menu a{font-family:var(--font-display);font-size:clamp(26px,7vw,38px);font-weight:600;color:var(--ink);text-decoration:none;text-align:center;line-height:1.15;max-width:92%}
 .mobile-menu a:active,.mobile-menu a[aria-current]{color:var(--coral)}
 
@@ -130,10 +130,11 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
 .pub__link{
   font-size:12.5px;letter-spacing:.06em;color:var(--coral);text-decoration:none;font-weight:500;
 }
+.pub__link,.pub__copy{padding:8px 4px;margin:-8px -4px}
 .pub__link:hover{text-decoration:underline}
 .pub__copy{
   font-size:12.5px;letter-spacing:.06em;color:var(--ink-soft);background:none;border:none;
-  cursor:pointer;font-family:var(--font-tech);font-weight:500;padding:0;
+  cursor:pointer;font-family:var(--font-tech);font-weight:500;
 }
 .pub__copy:hover{color:var(--ink)}
 .pub__copy.done{color:#2E7D46}
@@ -152,7 +153,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   .nav__links{display:none}
   .nav__toggle{display:block}
   .toolbar{top:57px}
-  .search{max-width:none;margin-left:0;order:3;width:100%}
+  .search{max-width:none;margin-left:0;order:3;width:100%;font-size:16px}
   .chips--scroll{flex-wrap:nowrap;overflow-x:auto} /* 手機單行可捲，桌機維持換行全顯示 */
   .pub__cite{padding-left:0;text-indent:0}
   .pub__meta{padding-left:0}
@@ -181,7 +182,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
     <li><a href="alumni.html">Alumni</a></li>
     <li><a href="publications.html" aria-current="page">Publications</a></li>
     <li><a href="grants.html">Projects/Grants</a></li>
-    <li><a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
   <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
@@ -192,7 +193,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   <a href="alumni.html">Alumni</a>
   <a href="publications.html" aria-current="page">Publications</a>
   <a href="grants.html">Projects/Grants</a>
-  <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a>
+  <a href="contact.html">Contact</a>
 </div>
 
 <header class="phead">
@@ -211,7 +212,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
       <button class="chip dchip" data-d="cci" aria-pressed="false">Creative Industries <small id="dcci"></small></button>
     </div>
     <input class="search" id="search" type="search" placeholder="Search author, title, journal…" aria-label="Search publications">
-    <span class="count" id="count"></span>
+    <span class="count" id="count" aria-live="polite"></span>
   </div>
 </div>
 
@@ -235,7 +236,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
       <a href="alumni.html">Alumni</a> ·
       <a href="publications.html">Publications</a> ·
       <a href="grants.html">Projects/Grants</a> ·
-      <a href="https://www.entrepreneurship-lab.com/contact" target="_top">Contact</a><br>
+      <a href="contact.html">Contact</a><br>
       © 2026 E-LAB — Entrepreneurship: The Lab, National Cheng Kung University
     </div>
   </div>
@@ -283,11 +284,22 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-tech);font-
   const t=document.getElementById('navToggle'),m=document.getElementById('mobileMenu');
   if(!t||!m)return;
   t.addEventListener('click',()=>{const o=m.classList.toggle('open');t.classList.toggle('open',o);t.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
-  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{m.classList.remove('open');t.classList.remove('open');t.setAttribute('aria-expanded','false');document.body.style.overflow='';}));
+  const close=()=>{m.classList.remove('open');t.classList.remove('open');t.setAttribute('aria-expanded','false');document.body.style.overflow='';};
+  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&m.classList.contains('open')){close();t.focus();}});
+})();
+/* 篩選列 sticky 位置跟著導覽列實高（手機漢堡列較高，寫死 57px 會被蓋住上緣）*/
+(function(){
+  const nav=document.querySelector('.nav'),tb=document.querySelector('.toolbar');
+  if(!nav||!tb)return;
+  const fit=()=>{const h=Math.round(nav.getBoundingClientRect().height);if(h>0)tb.style.top=(h-1)+'px';};
+  fit();addEventListener('resize',fit);addEventListener('load',fit);
 })();
 
-/* 逐字轉錄自現有 Publications 頁（2026-07-03）；未來改由 CMS Publications 集合供給 */
+/* 著作清單：CV 為唯一事實來源，由 scripts/cv_sync.py 維護（新論文插在最上方）。
+   渲染一律經 esc()；doi 僅接受 https://doi.org/ 開頭。*/
 const PUBS=[
+{y:2026,c:`Chang, Y.-Y., Chen, H.-Y., & Saeyun, N. (2026). How entrepreneurs' Buddhist identity influences entrepreneurial orientation and new product creativity. Asia Pacific Journal of Management.`,doi:'https://doi.org/10.1007/s10490-026-10208-8',d:['ent','cur'],tags:['SSCI']},
 {y:2026,c:`Chang, Y.-Y., & Raj, S. Y. (2026). Feasibility triggers intention? A longitudinal study of self-efficacy and expertise-embedded mechanisms in practice-based entrepreneurship education. The International Journal of Management Education, 24(2), 101377.`,doi:'https://doi.org/10.1016/j.ijme.2026.101377',d:['ent'],tags:['SSCI']},
 {y:2026,c:`Chen, H. Y., Chang, Y. Y.*, & Kao, C. P. (2026). Is Imagination Your Superpower? The Interactive Role of Curiosity and Imagination in Fostering Psychological Capital. Thinking Skills and Creativity. (*Corresponding author)`,doi:'https://doi.org/10.1016/j.tsc.2025.102021',d:['cur','org'],tags:['SSCI']},
 {y:2026,c:`Raj, S. Y., & Chang, Y.-Y.* (2026). Curious minds at work: How organizational support and motivation relate to employee creativity. The Learning Organization, 1-21. (*Corresponding author)`,doi:'https://doi.org/10.1108/TLO-05-2025-0123',d:['cur','org'],tags:['ESCI']},
@@ -334,6 +346,10 @@ const PUBS=[
 
 /* ---------- 渲染（依年分組）---------- */
 function tagClass(t){return t==='SSCI'?'tag--ssci':t==='TSSCI'?'tag--tssci':t==='ESCI'?'tag--esci':'tag--other';}
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const safeDoi=u=>/^https:\/\/doi\.org\/[^\s"'<>]+$/.test(String(u||''))?u:'';
+/* 搜尋範圍：引用全文＋索引標籤＋DOI（輸入 SSCI、期刊名、DOI 片段皆可）*/
+PUBS.forEach(p=>{p._hay=(p.c+' '+(p.tags||[]).join(' ')+' '+(p.doi||'')).toLowerCase();});
 let query='', curDomain='all';
 
 function render(){
@@ -341,7 +357,7 @@ function render(){
   const q=query.toLowerCase();
   const vis=PUBS.filter(p=>{
     const okD = curDomain==='all' || (p.d && p.d.includes(curDomain)); // 領域 ∩ 搜尋
-    const okQ = !q || p.c.toLowerCase().includes(q);
+    const okQ = !q || p._hay.includes(q);
     return okD && okQ;
   });
   const years=[...new Set(vis.map(p=>p.y))].sort((a,b)=>b-a);
@@ -349,12 +365,13 @@ function render(){
   years.forEach(y=>{
     const g=document.createElement('section');g.className='ygroup';
     const items=vis.filter(p=>p.y===y);
-    g.innerHTML=`<div class="ygroup__head"><span class="ygroup__year">${y}</span><span class="ygroup__rule"></span><span class="ygroup__n">${items.length} paper${items.length>1?'s':''}</span></div>`;
+    g.innerHTML=`<div class="ygroup__head"><h2 class="ygroup__year">${y}</h2><span class="ygroup__rule"></span><span class="ygroup__n">${items.length} paper${items.length>1?'s':''}</span></div>`;
     items.forEach(p=>{
       const d=document.createElement('article');d.className='pub';
-      const tags=p.tags.map(t=>`<span class="tag ${tagClass(t)}">${t}</span>`).join(' ');
-      const doi=p.doi?`<a class="pub__link" href="${p.doi}" target="_blank" rel="noopener">DOI ↗</a>`:'';
-      d.innerHTML=`<p class="pub__cite">${p.c}</p>
+      const tags=(p.tags||[]).map(t=>`<span class="tag ${tagClass(t)}">${esc(t)}</span>`).join(' ');
+      const href=safeDoi(p.doi);
+      const doi=href?`<a class="pub__link" href="${esc(href)}" target="_blank" rel="noopener" aria-label="DOI (opens in new tab)">DOI ↗</a>`:'';
+      d.innerHTML=`<p class="pub__cite">${esc(p.c)}</p>
         <div class="pub__meta">${tags}${doi}<button class="pub__copy" type="button">Copy citation</button></div>`;
       d.querySelector('.pub__copy').addEventListener('click',e=>{
         const btn=e.currentTarget;
